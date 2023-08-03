@@ -2,7 +2,7 @@ import sys
 
 from PySide6 import QtWidgets as qtw
 
-from gui.UI.form_main_window import Ui_main_window
+from gui.ui.form_main_window import Ui_main_window
 # binv = os.environ["BINV"]
 binv = "cana_1.0"
 

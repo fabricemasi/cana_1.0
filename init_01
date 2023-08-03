@@ -1,8 +1,11 @@
 #!/bin/bash
 
 # INIT 01 : Creation de la variable verbose
+#           Creation de la variable autorun
 
 verbose=0
+
+
 
 init() {
     if [[ $1 == "" ]];then
@@ -12,12 +15,35 @@ init() {
         export VERBOSE=$1
     fi
 
-    source "$BIN/init_02"
-    if [[ $VERBOSE == 0 ]];then
-        setprojet
-    fi
+    source "$BIN/init_02"   # ------------------------------------------------> init 02
 }
 
 
 
+if [[ `cat $BIN/data/autorun.sh` != "" ]]; then
+    export AUTORUN=1
+else
+    export AUTORUN=0
+fi
 
+
+
+# Si des donnees viennent de l'interface, on set le projet
+if [[ $AUTORUN == 1 ]]; then
+    init
+
+    job $TYPE $PROJET $FOLDER
+
+    source $BIN/data/autorun.sh
+
+    if [[ $SOFT != "" ]]; then
+        com="go"$SOFT
+        $com
+        l
+    fi
+
+    # On vide le fichier autorun
+    buffer=""
+    $buffer>$BIN/data/autorun.sh
+
+fi

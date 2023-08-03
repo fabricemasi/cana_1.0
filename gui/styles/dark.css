@@ -1,0 +1,476 @@
+/*font-family: "JetBrains Mono";*/
+/*font-family: "Inter";*/
+
+/* WIDGET */
+/* ================================================================================================================== */
+
+QWidget{
+    font-family: "JetBrains Mono";
+    font-size: 17px;
+    font-weight: 500;
+
+    color: rgb(200,200,200);
+
+    background-color: rgba(0,0,0,0);
+
+    border-style: none;
+}
+
+
+/*
+#widget_navigation{
+    background-color: rgb(250,50,50);
+}
+*/
+
+
+
+/* FRAMES */
+/* ================================================================================================================== */
+
+QFrame{
+
+}
+
+
+#frame_TYPE{
+    background-color: rgba(255,255,255,30);
+
+    border-style: solid;
+    border-right-width: 1px;
+    border-color: rgba(255,255,255,15);
+
+    margin: 0px;
+    padding: 0px;
+}
+#frame_PROJET{
+    background-color: rgb(30, 30, 30);
+
+    border-style: solid;
+    border-right-width: 1px;
+    border-color: rgba(255,255,255,15);
+
+    margin: 0px;
+    padding: 0px;
+}
+#frame_FOLDER{
+    background-color: rgb(30, 30, 30);
+
+    border-style: solid;
+    border-right-width: 1px;
+    border-color: rgba(255,255,255,15);
+
+    margin: 0px;
+    padding: 0px;
+}
+#frame_SOFT{
+    background-color: rgb(30, 30, 30);
+
+    border-style: solid;
+    border-right-width: 1px;
+    border-color: rgba(255,255,255,15);
+
+    margin: 0px;
+    padding: 0px;
+}
+
+
+
+
+
+#frame_TYPE_status{
+    background-color: rgba(0,0,0,50);
+
+    border-style: solid;
+    border-top-width: 1px;
+    border-color: rgba(255,255,255,15);
+}
+#frame_PROJET_status{
+    background-color: rgba(0,0,0,50);
+
+    border-style: solid;
+    border-top-width: 1px;
+    border-color: rgba(255,255,255,15);
+}
+#frame_FOLDER_status{
+    background-color: rgba(0,0,0,50);
+
+    border-style: solid;
+    border-top-width: 1px;
+    border-color: rgba(255,255,255,15);
+}
+#frame_SOFT_status{
+    background-color: rgba(0,0,0,50);
+
+    border-style: solid;
+    border-top-width: 1px;
+    border-color: rgba(255,255,255,15);
+}
+
+
+
+/* TREEWIDGET */
+/* ================================================================================================================== */
+
+QTreeWidget{
+
+}
+
+QTreeWidget::item:unfselected {
+    border-radius=5px;
+
+    height: 28px;
+    
+    padding-left: 0px;
+}
+QTreeWidget::item:selected:active {
+    background-color: rgb(6, 69, 136);
+
+    border-radius:4px;
+}
+QTreeWidget::item:selected:!active {
+    background-color: rgb(6, 69, 136);
+
+    border-radius:4px;
+}
+QTreeView::item:hover {
+    background-color: rgba(255, 255, 255, 10);
+
+    border-radius:4px;
+}
+QTreeView::branch {
+    background-color: rgb(30,30,30);
+}
+
+
+/*
+QTreeWidget::item:selected:active {
+    background-color: #264766;
+    border-radius:0px;
+    color: rgb(250,0,0);
+}
+QTreeWidget::item:selected:!active {
+    background-color: #264766;
+
+}
+QTreeView::item:hover {
+    background-color: rgb(45,45,45);
+    border-radius:0px;
+    border-top-color: rgb(30,30,30);
+}
+*/
+
+
+/* Header : */
+/* ================================================================================================================== */
+
+/*QHeaderView::section {
+    background-color: rgba(100,0,0,0);
+    border-style: none;
+}
+*/
+
+
+
+
+
+
+/* LABELS : */
+/* ================================================================================================================== */
+
+
+#label_TYPE_liste{
+    font-size: 15px;
+    font-weight: 600;
+
+    color: rgba(255, 255, 255, 50);
+
+    margin-bottom: 0px;
+    margin-left: 17px;
+}
+#label_PROJET_liste{
+    font-size: 15px;
+    font-weight: 600;
+
+    color: rgba(255, 255, 255, 50);
+
+    margin-bottom: 0px;
+    margin-left: 17px;
+}
+#label_FOLDER_liste{
+    font-size: 15px;
+    font-weight: 600;
+
+    color: rgba(255, 255, 255, 50);
+
+    margin-bottom: 0px;
+    margin-left: 17px;
+}
+#label_SOFT_liste{
+    font-size: 15px;
+    font-weight: 600;
+
+    color: rgba(255, 255, 255, 50);
+
+    margin-bottom: 0px;
+    margin-left: 17px;
+}
+
+
+
+
+/*
+#label_TYPE_status{
+    font-weight: 500;
+    margin-bottom: 10px;
+    font-size: 15px;
+    margin-top: 9px;
+    background-color: rgba(255,0,0,0);
+}
+#label_PROJET_status{
+    font-weight: 550;
+    margin-bottom: 10px;
+    font-size: 15px;
+    margin-top: 9px;
+    background-color: rgba(255,0,0,0);
+}
+#label_FOLDER_status{
+    font-weight: 550;
+    margin-bottom: 10px;
+    font-size: 15px;
+    margin-top: 9px;
+    background-color: rgba(255,0,0,0);
+}
+#label_SOFT_status{
+    font-weight: 550;
+    margin-bottom: 10px;
+    font-size: 15px;
+    margin-top: 9px;
+    background-color: rgba(255,0,0,0);
+}
+
+
+#pushButton_exit{
+    background-color: rgba(255,0,0,0);
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+QLabel{
+
+}
+
+QPushButton{
+
+}
+
+QLabel{
+
+}
+
+
+
+
+
+
+
+
+
+
+/*
+#treeWidget_TYPE::item:selected:active {
+    background-color: rgb(25,75,235);
+
+    border-radius: 6px;
+
+
+
+}
+
+QTreeView::branch {
+    background: rgb(50,50,50);
+}
+
+/*
+#treeWidget_TYPE::item:pressed {
+    background-color: rgb(250,75,235);
+}
+#treeWidget_TYPE::branch {
+    background-color: rgb(50,50,50);
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+QTreeView {
+    show-decoration-selected: 1;
+    border:None
+}
+
+QTreeView::item {
+     border: 1px solid #d9d9d9;
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+QTreeView::item:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e7effd, stop: 1 #cbdaf1);
+    border: 1px solid #bfcde4;
+}
+
+QTreeView::item:selected {
+    border: 1px solid #567dbc;
+}
+
+QTreeView::item:selected:active{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6ea1f1, stop: 1 #567dbc);
+}
+
+QTreeView::item:selected:!active {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6b9be8, stop: 1 #577fbf);
+}
+*/
+
+/*
+QScrollBar:vertical {
+           border: 2px solid grey;
+           background: #32CC99;
+           width: 15px;
+           margin: 22px 0px 22px 0px;
+       }
+       QScrollBar::handle:vertical {
+           border: 2px solid red;
+           background: #ffffff;
+           min-height: 20px;
+       }
+       QScrollBar::add-line:vertical {
+           border: 2px solid grey;
+           background: #32CC99;
+           height: 20px;
+           subcontrol-position: bottom;
+           subcontrol-origin: margin;
+       }
+       QScrollBar::sub-line:vertical {
+           border: 2px solid grey;
+           background: #32CC99;
+           height: 20px;
+           subcontrol-position: top;
+           subcontrol-origin: margin;
+       }
+       QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+           border: 2px solid grey;
+           width: 3px;
+           height: 3px;
+           background: white;
+       }
+       QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+           background: none;
+       }
+*/
+
+
+
+/*
+QHeaderView::section {
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 #616161, stop: 0.5 #505050,
+                                      stop: 0.6 #434343, stop:1 #656565);
+    color: white;
+    padding-left: 4px;
+    border: 10px solid #6c6c6c;
+}
+
+QHeaderView::section:checked
+{
+    background-color: red;
+}
+*/
+/* style the sort indicator */
+/*
+QHeaderView::down-arrow {
+    image: url(down_arrow.png);
+}
+
+QHeaderView::up-arrow {
+    image: url(up_arrow.png);
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+QListView {
+     show-decoration-selected: 1; /* make the selection span the entire width of the view
+ }*/
+/*
+ QListWidget::item:alternate {
+     background: rgb(255,0,0);
+ }
+ QListView {
+     alternate-background-color: yellow;
+ }
+*/
+/*
+ QListView::item:selected {
+     border: 1px solid #000000;
+ }*/
+/*
+ QListView::item:selected:!active {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 rgb(255,0,0), stop: 1 #8588B2);
+ }*/
+/*
+ QListView::item:selected:active {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 rgb(255,0,0), stop: 1 #888dd9);
+ }*/
+/*
+ QListView::item:hover {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+ }*/
+
+
+
+    /*font-family: "JetBrains Mono";*/
+    /*background-color: rgb(50,50,250);*/

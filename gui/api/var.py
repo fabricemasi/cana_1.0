@@ -16,7 +16,15 @@ class Type:
         return ret
 
     def setcurrent(self, type_name):
+        ROOT_CHANTIERS = os.environ["ROOT_CHANTIERS"]
+
         os.environ["TYPE"] = type_name
+        os.environ["ROOT_TYPE"] = ROOT_CHANTIERS+"/"+type_name
+
+    def root(self):
+        ROOT_CHANTIER = os.environ["ROOT_TYPE"]
+        if ROOT_CHANTIER != "":
+            return ROOT_CHANTIER
 
 
 class Projet:

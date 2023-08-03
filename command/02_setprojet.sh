@@ -111,8 +111,11 @@ setprojet ()
 
 
 
-        go=$ROOT_PROJET
-        lst     "${NEUTRE}${COLOR0}TYPE....... ${COLOR3}$TYPE${COLOR0} \n PROJET..... ${COLOR3}$PROJET"   "Liste des repertoires pour le projet ${COLOR3}$PROJET${COLOR0} :"   $ROOT_PROJET   1   ${COLOR4}${GRAS}"Vous devez setter un sous-repertoire (folder) : 'setfolder' ou 's'"
+
+        if [[ $AUTORUN == 0 ]]; then
+            cd $ROOT_PROJET
+            lst     "${NEUTRE}${COLOR0}TYPE....... ${COLOR3}$TYPE${COLOR0} \n PROJET..... ${COLOR3}$PROJET"   "Liste des repertoires pour le projet ${COLOR3}$PROJET${COLOR0} :"   $ROOT_PROJET   1   ${COLOR4}${GRAS}"Vous devez setter un sous-repertoire (folder) : 'setfolder' ou 's'"
+        fi
 
         # Lance la commande setfolder si il n'y a qu'un seul folder
         nb_folder=`ls -l | grep ^d |wc -l`
@@ -125,11 +128,11 @@ setprojet ()
         export PROJET=""
         export ROOT_PROJET=""
 
-        go=$ROOT_TYPE
+        cd $ROOT_TYPE
 		lst     "TYPE   = ${COLOR4}$TYPE${COLOR0}"   "Liste de projets de type $TYPE :"   $ROOT_TYPE   1   ${COLOR4}${GRAS}"Vous devez setter un projet : 'setprojet' ou 'p'"
     fi
 
-    cd $go
+
     ps1
 
 

@@ -3,7 +3,7 @@
 
 
 alias test="python $BIN/gui/main.py"
-alias gui="python $BIN/gui/main.py"
+alias gui="python $BIN/gui/main.py; exit"
 alias pr="i;jll;gob;cl;elp"
 
 

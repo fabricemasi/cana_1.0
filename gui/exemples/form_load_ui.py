@@ -8,7 +8,7 @@ from PySide6.QtUiTools import QUiLoader
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)
 
-    ui_file_name = "../UI/form_main_window.ui"
+    ui_file_name = "../ui/form_main_window.ui"
     ui_file = qtc.QFile(ui_file_name)
 
     loader = QUiLoader()

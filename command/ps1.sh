@@ -33,6 +33,16 @@ ps1 ()
     else
       PS1="\n${cl7}\u@\h $cl1[${cl1}${TYPE}${cl1}]-[${cl8}${PROJET}${cl1}]-[${cl8}${FOLDER}${cl1}]${cl1} ${cl1}${SOFT}${cl1} ${cl4}\n\w ${cl1}> ${NEUTRE}"
     fi
+
+
+    # BACKGROUND
+
+    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT != "" ]]; then
+        echo -ne '\e]11;#283D3D\a'
+        echo -ne '\e]11;#000000\a'
+    else
+	    echo -ne '\e]11;#282828\a'
+    fi
 }
 
 

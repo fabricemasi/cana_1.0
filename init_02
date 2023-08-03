@@ -87,7 +87,7 @@ if [[ $VERBOSE -ge 0 ]]; then echo -e ${color1}" |"$BINV"                  |${NE
 if [[ $VERBOSE -ge 0 ]]; then echo -e ${color1}" |_________________________|${NEUTRE}"; fi
 if [[ $VERBOSE -ge 0 ]]; then echo -e ${color1}" |                         |${NEUTRE}"; fi
 
-if [[ $VERBOSE -ge 2 ]]; then echo -e ${color1}" |INIT_02                  |${NEUTRE}"; fi; source $BIN"/init_03"
+if [[ $VERBOSE -ge 2 ]]; then echo -e ${color1}" |INIT_02                  |${NEUTRE}"; fi; source $BIN"/init_03"  # ------------------------------------------------> init 03
 
 # ALIASES
 if [[ $VERBOSE -ge 2 ]]; then echo -e ${color1}" |ALIASES                  |${NEUTRE}"; fi

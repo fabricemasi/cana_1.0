@@ -99,8 +99,11 @@ settype ()
         export TYPE=$type
         export ROOT_TYPE=$ROOT_CHANTIERS/$TYPE
 
-        cd $ROOT_TYPE
-        lst     "TYPE   = ${JAUNE}$type"   "Liste de projets de type $type :"   $ROOT_CHANTIERS/$TYPE   1   ${COLOR4}${GRAS}"Vous devez setter un projet : 'setprojet' ou 'p'"
+
+        if [[ $AUTORUN == 0 ]]; then
+            cd $ROOT_TYPE
+            lst     "TYPE   = ${JAUNE}$type"   "Liste de projets de type $type :"   $ROOT_CHANTIERS/$TYPE   1   ${COLOR4}${GRAS}"Vous devez setter un projet : 'setprojet' ou 'p'"
+        fi
 
         # Lance la commande setprojet si il n'y a qu'un seul folder
         nb_folder=`ls -l | grep ^d |wc -l`
