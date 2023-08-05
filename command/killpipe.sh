@@ -2,13 +2,17 @@
 
 killpipe ()
 {
-	TYPE=""
-	PROJET=""
-	FOLDER=""
-	SOFT=""
+	export TYPE=""
+	export PROJET=""
+	export FOLDER=""
+	export SOFT=""
 
+    export ROOT_TYPE=""
+	export ROOT_PROJET=""
+	export ROOT_FOLDER=""
+	export ROOT_SOFT=""
 
 	cd ~
-	reset
+#	reset
 	ps1
 }

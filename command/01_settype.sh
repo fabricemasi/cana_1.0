@@ -5,16 +5,10 @@
 #  - ROOT_TYPE
 
 
-
-
-
-
-
-
 # ======================================================================================================================
 # Afficher informations si $VERBOSE>1
 if [[ $VERBOSE>0 ]]; then
-    debug "|   01_settype.sh" "i"
+    debug "01_settype.sh" "i"
 fi
 # ======================================================================================================================
 
@@ -44,7 +38,7 @@ settype ()
 
         # si le type n'existe pas :
         if ! [[ -e $path ]]; then
-        	echo -e ${GRIS2} ""
+        	echo -e ${COLOR4}${GRAS} ""
             read -p "Le type $1 n'existe pas. Voulez vous le creer ? (o,n) " reponse
 			echo -e ${NEUTRE} ""
 
@@ -131,6 +125,6 @@ settype ()
 # ======================================================================================================================
 # Afficher informations si $VERBOSE>1
 if [[ $VERBOSE>0 ]]; then
-    debug "|  01_settype.sh" "o"
+    debug "01_settype.sh" "o"
 fi
 # ======================================================================================================================

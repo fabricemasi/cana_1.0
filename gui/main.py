@@ -4,7 +4,11 @@ import time
 # import psutil
 
 from PySide6.QtWidgets import QApplication, QTreeWidgetItem, QPushButton, QWidget, QHeaderView, QSizePolicy
-from PySide6.QtCore import Qt, QSize
+from PySide6.QtCore import Qt, QSize, QFile
+
+from PySide6 import QtCore as qtc
+
+
 from PySide6.QtGui import QIcon
 from pathlib import Path
 
@@ -13,6 +17,8 @@ from ui.main_window import Ui_Form as Form
 
 from api.var import Type, Projet, Folder, Soft
 from api.tools import pause
+
+from PySide6.QtUiTools import QUiLoader
 
 import sys
 
@@ -160,30 +166,30 @@ class MainWindow(QWidget, Form):
         reinit()
 
     def job_terminal(self):
-        if TYPE.current() != "" and PROJET.current() != "" and FOLDER.current():
-            buffer = "#!/bin/bash\n"
-            buffer += "export TYPE='" + TYPE.current()+"'\n"
-            buffer += "export PROJET='" + PROJET.current()+"'\n"
-            buffer += "export FOLDER='" + FOLDER.current() + "'\n"
-            buffer += "export SOFT='" + SOFT.current() + "'\n"
+        # if TYPE.current() != "" and PROJET.current() != "" and FOLDER.current():
+        buffer = "#!/bin/bash\n"
+        buffer += "export TYPE='" + TYPE.current() + "'\n"
+        buffer += "export PROJET='" + PROJET.current() + "'\n"
+        buffer += "export FOLDER='" + FOLDER.current() + "'\n"
+        buffer += "export SOFT='" + SOFT.current() + "'\n"
 
-            BIN_ROOT = os.environ["BIN"]
-            file = BIN_ROOT+"/data/autorun.sh"
-            file = open(file, 'w')
-            file.write(str(buffer))
-            file.close()
+        BIN_ROOT = os.environ["BIN"]
+        file = BIN_ROOT + "/data/autorun.sh"
+        file = open(file, 'w')
+        file.write(str(buffer))
+        file.close()
 
-            # On recupere le numero de process du terminal d'origine
-            parent_pid = os.getppid()
+        # On recupere le numero de process du terminal d'origine
+        parent_pid = os.getppid()
 
-            # On ouvre un nouveau terminal
-            subprocess.run(["gnome-terminal"])
+        # On ouvre un nouveau terminal
+        subprocess.run(["gnome-terminal"])
 
-            # On kill l'ancien terminal
-            os.system(f"kill {parent_pid}")
+        # On kill l'ancien terminal
+        os.system(f"kill {parent_pid}")
 
-            # On ferme l'interface
-            os._exit(0)
+        # On ferme l'interface
+        os._exit(0)
 
     def exit_program(self):  # Clique sur la liste des types
         exit()
@@ -326,3 +332,4 @@ if __name__ == "__main__":
 
     # On démarre la boucle de gestion des événements.
     sys.exit(app.exec())
+

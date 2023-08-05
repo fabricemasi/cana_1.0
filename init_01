@@ -28,22 +28,64 @@ fi
 
 
 
-# Si des donnees viennent de l'interface, on set le projet
+# AUTORUN: Si des donnees viennent de l'interface, on set le projet
 if [[ $AUTORUN == 1 ]]; then
     init
+    killpipe
 
-    job $TYPE $PROJET $FOLDER
 
     source $BIN/data/autorun.sh
 
-    if [[ $SOFT != "" ]]; then
+
+
+
+    if [[ $TYPE != "" ]] && [[ $PROJET == "" ]] && [[ $FOLDER == "" ]] && [[ $SOFT == "" ]]; then
+        settype $TYPE
+        source $BIN/data/autorun.sh
+    fi
+    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER == "" ]] && [[ $SOFT == "" ]]; then
+        settype $TYPE
+        source $BIN/data/autorun.sh
+        setprojet $PROJET
+        source $BIN/data/autorun.sh
+    fi
+    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT == "" ]]; then
+        settype $TYPE
+        source $BIN/data/autorun.sh
+        setprojet $PROJET
+        source $BIN/data/autorun.sh
+        setfolder $FOLDER
+    fi
+    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT != "" ]]; then
+        settype $TYPE
+        source $BIN/data/autorun.sh
+        setprojet $PROJET
+        source $BIN/data/autorun.sh
+        setfolder $FOLDER
+        source $BIN/data/autorun.sh
         com="go"$SOFT
         $com
         l
+        echo ""
+        source $BIN/data/autorun.sh
+
     fi
 
+#    if [[ $FOLDER == "" ]]; then
+#        job $TYPE $PROJET
+#    fi
+#
+#    job $TYPE $PROJET $FOLDER
+
+#    if [[ $SOFT != "" ]]; then
+#        com="go"$SOFT
+#        $com
+#        l
+#        echo ""
+#    fi
+
     # On vide le fichier autorun
-    buffer=""
-    $buffer>$BIN/data/autorun.sh
+#    buffer=""
+#    $buffer>$BIN/data/autorun.sh
 
 fi

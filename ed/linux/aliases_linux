@@ -2,9 +2,9 @@
 #!/bin/bash
 
 
-alias test="python $BIN/gui/main.py"
-alias gui="python $BIN/gui/main.py; exit"
-alias pr="i;jll;gob;cl;elp"
+
+
+alias ii="ui main_window; python '$BIN/gui/main.py'; exit"
 
 
 #alias gedit="/mnt/c/'Program Files'/'Sublime Text'/sublime_text.exe"
@@ -15,7 +15,7 @@ alias sublime="/usr/bin/subl"
 alias sub=sublime
 
 
-alias i="init"
+alias i="export AUTORUN=0; init"
 alias i0="init 0"
 alias i1="init 1"
 alias i2="init 2"

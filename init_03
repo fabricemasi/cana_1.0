@@ -36,7 +36,6 @@ if ! [[ -e "$root_chantiers" ]]; then
     echo " Le chemin vers le dossier $root_chantiers ne peut pas être atteint. Aucune variable générée."
 else
     if [[ $AUTORUN == 0 ]]; then
-
         export TYPE="3d"
         export PROJET=""
         export FOLDER=""
@@ -55,23 +54,10 @@ else
         export ROOT_FOLDER=""
         export ROOT_SOFT=""
 
-
-        if [[ $VERBOSE -ge 0 ]]; then
-            echo -e ${color1}" |verbose : $VERBOSE              |"
-        fi
-        if [[ $VERBOSE -ge 1 ]]; then
-            echo -e ${color1}" |  BIN                    |   "$BIN
-            echo -e ${color1}" |  ROOT_PIPE              |   "$ROOT_PIPE
-            echo -e ${color1}" |  ROOT_CHANTIERS         |   "$ROOT_CHANTIERS${NEUTRE}
-            echo -e ${color1}" |  ROOT_ARCHIVES          |   "$ROOT_ARCHIVES${NEUTRE}
-        fi
     elif [[ $AUTORUN == 1 ]]; then
         source $BIN/data/autorun.sh
 
-
-
         export ROOT_SOFT=""
-
 
         export ROOT_PIPE="$root_pipe"
         export ROOT_CHANTIERS="$root_chantiers"
@@ -86,15 +72,15 @@ else
         export ROOT_SOFT=""
     fi
 
-    if [[ $VERBOSE -ge 0 ]]; then
-        echo -e ${color1}" |verbose : $VERBOSE              |"
+    if [[ $VERBOSE -ge 1 ]]; then
+        echo -e ${color1}"verbose : $VERBOSE"
     fi
     if [[ $VERBOSE -ge 1 ]]; then
-        echo -e ${color1}" |  BIN                    |   "$BIN
-        echo -e ${color1}" |  ROOT_PIPE              |   "$ROOT_PIPE
-        echo -e ${color1}" |  ROOT_CHANTIERS         |   "$ROOT_CHANTIERS${NEUTRE}
-        echo -e ${color1}" |  ROOT_ARCHIVES          |   "$ROOT_ARCHIVES${NEUTRE}
+        echo -e ${color1}"BIN            = "$BIN
+        echo -e ${color1}"ROOT_PIPE      = "$ROOT_PIPE
+        echo -e ${color1}"ROOT_CHANTIERS = "$ROOT_CHANTIERS${NEUTRE}
+        echo -e ${color1}"ROOT_ARCHIVES  = "$ROOT_ARCHIVES${NEUTRE}
     fi
 
 fi
-
+    source $BIN/data/autorun.sh

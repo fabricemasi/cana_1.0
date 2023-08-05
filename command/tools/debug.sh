@@ -11,11 +11,11 @@ debug()
     sl=0
 
     if [[ $2 == "i" ]]; then
-        inout="IN"
+        inout="IN ---->"
         couleur=${color2}
         sl=$3
     elif [[ $2 == "o" ]]; then
-        inout="OUT"
+        inout="OUT <---"
         couleur=${color2}
     else
         inout=$2

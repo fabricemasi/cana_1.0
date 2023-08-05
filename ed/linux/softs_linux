@@ -4,11 +4,7 @@
 export LISTE_SOFTS=""
 export LISTE_SOFTS_A_INSTALL=""
 
-
 # SOFTS :
-
-
-
 
 #=======================================================================================================================
 #=======================================================================================================================
@@ -30,15 +26,13 @@ goblender ()
     extension="blend"
     export ROOT_SOFT=$path
 
-
-	  cd "$BIN/python_tools/"
+	cd "$BIN/python_tools/"
     python3 presse_papier.py $path
     cd -;
 
     go $path $extension
 
     cl
-
 }
 
 blender ()
@@ -63,12 +57,10 @@ blender ()
     $lien
 }
 
-
 alias ble=blender
 alias bl=blender
 
 alias gob="goblender"
-
 
 export BLENDER_VERSION="$version"
 export LISTE_SOFTS+="\nBLENDER $BLENDER_VERSION [blender-ble-bl][goblender-gob]"
@@ -97,7 +89,6 @@ ref(){
 	  xnview $path
 
 }
-
 
 img(){
     lien="/mnt/c/'Program Files'/Adobe/'Adobe Bridge 2022'/Bridge.exe"
@@ -157,9 +148,6 @@ version="19.5.493"
 export HOUDINI_VERSION="$version"
 
 lien="/soft/houdini/$HOUDINI_VERSION/bin/houdinifx"
-
-
-
 
 gohoudini ()
 {
@@ -294,11 +282,8 @@ version="2.0.8"
 export DJV_VERSION=$version
 lien="/soft/djv/$DJV_VERSION/bin/djv"
 
-
 alias djv="$lien &"
 alias rv="$lien &"
-
-
 
 export LISTE_SOFTS+="\nDJV $DJV_VERSION [djv-rv]"
 #=======================================================================================================================
@@ -337,36 +322,4 @@ alias un="$lien"
 alias gounr="gounreal"
 alias goun="gounreal"
 
-
-
 export LISTE_SOFTS+="\nUNREAL $UNREAL_VERSION [unreal-unr-un][gounreal-gounr-goun]"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

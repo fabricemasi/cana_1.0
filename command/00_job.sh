@@ -3,7 +3,7 @@
 # ======================================================================================================================
 # Afficher informations si $VERBOSE>1
 if [[ $VERBOSE>0 ]]; then
-    debug "|   00_job.sh" "i"
+    debug "00_job.sh" "i"
 fi
 # ======================================================================================================================
 
@@ -132,21 +132,21 @@ job ()
         fi
 
         pyt split_path.py $2
-        if [[ $n == 1 ]] && [[ $RETURN1 == 1 ]]; then
+        if [[ $n == 1 ]] && [[ $RETURN_NB == 1 ]]; then
             n=2
             arg2=$RETURN1
-        elif [[ $n == 1 ]] && [[ $RETURN1 == 2 ]]; then
+        elif [[ $n == 1 ]] && [[ $RETURN_NB == 2 ]]; then
             n=3
             arg2=$RETURN1
             arg3=$RETURN2
-        elif [[ $n == 1 ]] && [[ $RETURN1 > 2 ]]; then
+        elif [[ $n == 1 ]] && [[ $RETURN_NB > 2 ]]; then
             msg="Erreur, trop d'arguments en retour (err job_003)"
-        elif [[ $n == 2 ]] && [[ $RETURN1 == 1 ]]; then
+        elif [[ $n == 2 ]] && [[ $RETURN_NB == 1 ]]; then
             n=3
             arg3=$RETURN1
-        elif [[ $n == 2 ]] && [[ $RETURN1 > 1 ]]; then
+        elif [[ $n == 2 ]] && [[ $RETURN_NB > 1 ]]; then
             msg="Erreur, trop d'arguments en retour (err job_004)"
-        elif [[ $n == 3 ]] && [[ $RETURN1 > 0 ]]; then
+        elif [[ $n == 3 ]] && [[ $RETURN_NB > 0 ]]; then
             msg="Erreur, trop d'arguments en retour (err job_005)"
         fi
     elif [[ $# == 3 ]]; then
@@ -216,7 +216,7 @@ job ()
             if [[ $n == 0 ]]; then
                 setfolder
             elif [[ $n == 1 ]]; then
-                0 $arg1
+                setfolder $arg1
             fi
         elif [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]]; then
             if [[ $n == 0 ]]; then
@@ -248,6 +248,6 @@ a ()
 # ======================================================================================================================
 # Afficher informations si $VERBOSE>1
 if [[ $VERBOSE>0 ]]; then
-    debug "|  00_job.sh" "o"
+    debug "00_job.sh" "o"
 fi
 # ======================================================================================================================
