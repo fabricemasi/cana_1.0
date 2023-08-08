@@ -7,9 +7,12 @@
 #   - ROOT_PIPE
 #   - ROOT_CHANTIERS
 #   - ROOT_ARCHIVES
+#
+#   - TYPE
+#   - ROOT_TYPE
 # ============================
 
-root_temp="$HOME/Temp"
+root_temp="${HOME}/Temp"
 
 root_pipe="/home/fabrice/OneDrive/Documents/_Documents/PIPELINE"
 root_chantiers="$root_pipe/chantiers"
@@ -17,12 +20,12 @@ root_chantiers="$root_pipe/chantiers"
 # Chemins pour : ROOT_PIPE :
 
 if [[ $SYSTEM == "linux" ]]; then
-    root_pipe="/media/partage/PIPELINE/PIPELINE"
+    root_pipe="/media/partage/PIPELINE/pipe/PIPELINE"
 elif [[ $SYSTEM == "windows" ]]; then
-    root_pipe="/mnt/p/PIPELINE"
-    root_pipe_w="P:\PIPELINE"
+    root_pipe="/mnt/p/pipe/PIPELINE"
+    root_pipe_w="P:\pipe\PIPELINE"
 elif [[ $SYSTEM == "mac" ]]; then
-    root_pipe="/Volumes/Pipeline/PIPELINE"
+    root_pipe="/Volumes/Pipeline/pipe/PIPELINE"
 fi
 
 # Chemin de 'ROOT_PROJET' et 'ROOT_ARCHIVES' :
@@ -30,7 +33,9 @@ fi
 root_chantiers="$root_pipe/chantiers"
 root_archives="$root_pipe/archives"
 
-# Resultat :
+
+# Résultat :
+# ========================================================
 
 if ! [[ -e "$root_chantiers" ]]; then
     echo " Le chemin vers le dossier $root_chantiers ne peut pas être atteint. Aucune variable générée."
@@ -55,7 +60,7 @@ else
         export ROOT_SOFT=""
 
     elif [[ $AUTORUN == 1 ]]; then
-        source $BIN/data/autorun.sh
+        source "$BIN/data/autorun.sh"
 
         export ROOT_SOFT=""
 
@@ -73,14 +78,15 @@ else
     fi
 
     if [[ $VERBOSE -ge 1 ]]; then
-        echo -e ${color1}"verbose : $VERBOSE"
+        echo "verbose : $VERBOSE"
     fi
     if [[ $VERBOSE -ge 1 ]]; then
-        echo -e ${color1}"BIN            = "$BIN
-        echo -e ${color1}"ROOT_PIPE      = "$ROOT_PIPE
-        echo -e ${color1}"ROOT_CHANTIERS = "$ROOT_CHANTIERS${NEUTRE}
-        echo -e ${color1}"ROOT_ARCHIVES  = "$ROOT_ARCHIVES${NEUTRE}
+        echo "BIN            = $BIN"
+        echo "ROOT_PIPE      = $ROOT_PIPE"
+        echo "ROOT_CHANTIERS = $ROOT_CHANTIERS${NEUTRE}"
+        echo "ROOT_ARCHIVES  = $ROOT_ARCHIVES${NEUTRE}"
     fi
 
 fi
-    source $BIN/data/autorun.sh
+
+source "$BIN/data/autorun.sh"

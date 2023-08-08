@@ -1,5 +1,7 @@
 #! /bin/bash
 
+debug "${BASH_SOURCE[0]}" in
+
 ps1 ()
 {
 	if [[ $TYPE == "" ]] && [[ $PROJET == "" ]] && [[ $FOLDER == "" ]] && [[ $SOFT == "" ]]; then
@@ -38,10 +40,19 @@ ps1 ()
     # BACKGROUND
 
     if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT != "" ]]; then
-        echo -ne '\e]11;#283D3D\a'
-        echo -ne '\e]11;#000000\a'
+        if [[ $SYSTEM == "mac" ]]; then
+            printf '\e]11;#283D3D\a'
+            printf '\e]11;#000000\a'
+        else
+            echo -ne '\e]11;#283D3D\a'
+            echo -ne '\e]11;#000000\a'
+        fi
     else
-	    echo -ne '\e]11;#282828\a'
+        if [[ $SYSTEM == "mac" ]]; then
+	        printf '\e]11;#202020\a'
+	    else
+	        echo -ne '\e]11;#282828\a'
+	    fi
     fi
 }
 
@@ -59,3 +70,6 @@ ps1 ()
 #    else
 #      PS1="\n${cl7}\u@\h $cl1[${cl2}${PROJ}${cl1}]-[${cl2}${TYPE}${cl1}]-[${cl8}${NAME}${cl1}]-[${cl3}${DISC}${cl1}]-[${cl5}${SOFT}${cl1}] ${cl4}\n\w ${cl1}> ${NEUTRE}"
 #    fi
+
+
+debug "${BASH_SOURCE[0]}" out

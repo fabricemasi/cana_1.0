@@ -21,33 +21,32 @@ export COLOR5=$color5
 export COLOR6=$color6
 
 
-
-
-
-
 autoload ()
 {
     path=$1
-    liste=`ls $1`
+    liste=$(ls "$1")
     filtre="epOLD.sh" # liste des fichiers a ne pas loader
 
     for i in $liste ; do
         if [[ -f "$1/$i" ]]; then # Ne traite que les fichiers
+
             load=1
+            test=$i
+
             for f in $filtre ; do
-                if [[ $i == $f ]]; then
+                if [[ $i == "$f" ]]; then
                     load=0
                 fi
             done
             if [[ $load == 1 ]]; then
-                source $path/$i
+                source "$path/$i"
                 txt=${i} #::-3}
-                if [[ $VERBOSE -ge 2 ]]; then affichetxt $txt 2; fi
+                if [[ $VERBOSE -ge 2 ]]; then affichetxt "$txt" 2; fi
 
-                test=`cat $path/$i`
+                test=$(cat "$path/$i")
                 for l in $test ; do
                     if [[ $l == "()" ]]; then
-                        if [[ $VERBOSE -ge 3 ]]; then affichetxt $tt 4; fi
+                        if [[ $VERBOSE -ge 3 ]]; then affichetxt "$tt" 4; fi
                     fi
                     tt=$l
                 done
@@ -69,49 +68,43 @@ affichetxt ()
     fi
 
     chaine=""
-    for (( j = 0; j < $nb ; ++j )); do
+    for (( j = 0; j < "$nb" ; ++j )); do
         if [[ ${1:j:1} != "" ]]; then
             chaine=$chaine${1:j:1}
         else
             chaine=$chaine" "
         fi
     done
-    echo -e $col "$prefixe$chaine${NEUTRE}"
+    echo -e "$col" "$prefixe$chaine${NEUTRE}"
 }
 
 
 
-if [[ $VERBOSE -ge 1 ]]; then echo -e ${color1}"$BINV${NEUTRE}"; fi
+if [[ $VERBOSE -ge 1 ]]; then echo -e "${color1}$BINV${NEUTRE}"; fi
 
-if [[ $VERBOSE -ge 2 ]]; then echo -e ${color1}"INIT_02${NEUTRE}"; fi; source $BIN"/init_03"  # ------------------------------------------------> init 03
+if [[ $VERBOSE -ge 2 ]]; then echo -e "${color1}INIT_02${NEUTRE}"; fi; source "$BIN/init_03"  # ------------------------------------------------> init 03
 
 # ALIASES
-if [[ $VERBOSE -ge 2 ]]; then echo -e ${color1}"ALIASES${NEUTRE}"; fi
+if [[ $VERBOSE -ge 2 ]]; then echo -e "${color1}ALIASES${NEUTRE}"; fi
 if [[ $VERBOSE -ge 0 ]]; then
     autoload "$BIN/ed"
 fi
 
 # TOOLS
-if [[ $VERBOSE -ge 2 ]]; then echo -e ${color1}"TOOLS${NEUTRE}"; fi
+if [[ $VERBOSE -ge 2 ]]; then echo -e "${color1}TOOLS${NEUTRE}"; fi
 if [[ $VERBOSE -ge 0 ]]; then
     autoload "$BIN/command/tools"
 fi
 
 # COMMANDS
-if [[ $VERBOSE -ge 2 ]]; then echo -e ${color1}"COMMANDS${NEUTRE}"; fi
+if [[ $VERBOSE -ge 2 ]]; then echo -e "${color1}COMMANDS${NEUTRE}"; fi
 if [[ $VERBOSE -ge 0 ]]; then
     autoload "$BIN/command"
-fi
-
-# EP
-if [[ $VERBOSE -ge 2 ]]; then echo -e ${color1}"EP${NEUTRE}"; fi
-if [[ $VERBOSE -ge 0 ]]; then
-    autoload "$BIN/ep"
 fi
 
 
 # ON AFFICHE UN MESSAGE A L'ECRAN :
 if [[ $AUTORUN == 0 ]]; then
-    echo -e ${color3}${GRAS}"$BINV... loaded"${NEUTRE}
+    echo -e "${color3}${GRAS}$BINV... loaded${NEUTRE}"
 fi
 

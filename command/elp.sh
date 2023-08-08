@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+debug "${BASH_SOURCE[0]}" in
+
 elp ()
 {
     echo -e ""$ROUGE
@@ -51,3 +53,5 @@ elp ()
     echo -e "${BLANC}${GRAS}LOGICIELS :${STANDARD}"
     echo -e "${CYAN} $LISTE_SOFTS"
 }
+
+debug "${BASH_SOURCE[0]}" out

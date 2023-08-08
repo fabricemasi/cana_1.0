@@ -83,7 +83,7 @@ class MainWindow(QWidget, Form):
         # actNew = QAction(QIcon("icons/new.png"), "&New", self)
         # actNew.setStatusTip("Tip a afficher concernant cette action.")
         # actNew.setShortcut("Ctrl+N")
-        # actNew.triggered.connect(self.test)   # On appelle la methode qui sera declenchee par l'action
+        # actNew.triggered.connect(self.tyty)   # On appelle la methode qui sera declenchee par l'action
 
         # BARRE DE MENU :
         # ==============================================================================================================

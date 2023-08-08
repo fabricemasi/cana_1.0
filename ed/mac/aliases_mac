@@ -3,6 +3,59 @@
 
 
 
+# NAVIGATION
+# =========================================================
+
+alias tuto="clear; cd /Volumes/Pipeline/ref/_TUTOS/HOUDINI/; ls -la"
+
+
+
+# SYSTEM
+# =========================================================
+
+alias nn="open ."
+
+
+
+# PIPE
+# =========================================================
+
+alias t="run type"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # system=$OSTYPE
@@ -92,8 +145,8 @@ alias gitp="git push -u origin master"
 
 # PIPELINE
 
-alias jh="job -h"
-alias jhh="job -ha"
+# alias jh="job -h"
+# alias jhh="job -ha"
 alias s="setprojet"
 alias ss="settype"
 alias sss="setname"
@@ -125,7 +178,7 @@ alias eds="source $BIN/ed/mac/aliases_mac;source $BIN/ed/mac/softs_mac"
 
 
 
-alias brc="$EDITOR 'users/fabrice/.bash_profile'"
+alias brc="$EDITOR '/users/fabrice/.bash_profile'"
 
 
 
@@ -282,7 +335,7 @@ alias goproj="cd $ROOT_PROJET; tre 1"
 #
 ### SE DEPLACER :
 #
-#alias test="cd $BIN/prog/_training/Test/"
+#alias tyty="cd $BIN/prog/_training/Test/"
 #
 #
 ##alias gocache="cd $CACHE"

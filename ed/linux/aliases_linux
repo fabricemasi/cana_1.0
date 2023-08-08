@@ -2,6 +2,65 @@
 #!/bin/bash
 
 
+# SET
+# ----------------------------------------------------------------
+
+alias t="run type"
+alias p="run projet"
+alias f="run folder"
+
+alias rt="type_remove"
+
+alias z="python $BIN/python/test.py"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 alias ii="ui main_window; python '$BIN/gui/main.py'; exit"
@@ -31,7 +90,7 @@ alias i3="init 3"
 alias ~='cd ~'
 
 
-alias tst="pyt test.py"
+alias tst="pyt python_tools/test.py"
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -129,16 +188,8 @@ alias ...........="cd ../../../../../../../../../.."
 # PIPELINE
 # ----------------------------------------------------------------------------------------------------------------------
 
-alias s="job"
-
-alias s1="settype"
-alias s2="setprojet"
-alias s3="setfolder"
 
 
-alias t="settype"
-alias p="setprojet"
-alias f="setfolder"
 
 
 
@@ -257,7 +308,7 @@ alias shut="sudo shutdown -h now"
 #
 ### SE DEPLACER :
 #
-#alias test="cd $BIN/prog/_training/Test/"
+#alias tyty="cd $BIN/prog/_training/Test/"
 #
 #
 ##alias gocache="cd $CACHE"

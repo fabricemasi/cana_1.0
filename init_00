@@ -1,6 +1,11 @@
 #!/bin/bash
 
 # CHARGEMENT DE TOUS LES SCRIPTS DIVERS
+# pyt             : lancer un script Python et recuperer  jusqu'a 5 returns.
+# remove_returns  : cleaner les returns.
+# ui              : transforme une interface .ui en .py.
+
+
 
 pyt () {
 # LANCE LE SCRIPT PYTHON SPECIFIE
@@ -9,58 +14,64 @@ pyt () {
 # pyt1 "split_path.py" "hotrod/main"
 #
 # ARGUMENTS :
-# $1 doit etre le nom du fichier pyhton
+# $1 doit être le nom du fichier python
 # $2 l'argument que l'on veut passer dans le script (obligatoire)
 
-    # ================================================
+
     # On commence par vider les fichiers data return :
-    # ================================================
-    echo "" > $BIN/data/return_nb.txt
-    echo "" > $BIN/data/return1.txt
-    echo "" > $BIN/data/return2.txt
-    echo "" > $BIN/data/return3.txt
-    echo "" > $BIN/data/return4.txt
-    echo "" > $BIN/data/return5.txt
+    # ===========================================================
+    echo "" > "$BIN/data/return_nb.txt"
+    echo "" > "$BIN/data/return1.txt"
+    echo "" > "$BIN/data/return2.txt"
+    echo "" > "$BIN/data/return3.txt"
+    echo "" > "$BIN/data/return4.txt"
+    echo "" > "$BIN/data/return5.txt"
 
 
-
-    # =======================
     # Main :
-    # =======================
+    # ===========================================================
 
     file=$1
     arg=$2
 
-    cd "$BIN/python_tools/"
-    python3 $file $arg
-    cd -;
+    python3 "$file" "$arg"
 
 
-
-    # =======================
     # GENERATION DES RETURN :
-    # =======================
+    # ===========================================================
 
-    return_nb=$(cat $BIN/data/return_nb.txt)
-    return1=""
-    return2=""
-    return3=""
-    return4=""
-    return5=""
+    return_nb=$(cat "$BIN/data/return_nb.txt")
 
-    export RETURN_NB=$return_nb
-    export RETURN1=$(cat $BIN/data/return1.txt)
-    export RETURN2=$(cat $BIN/data/return2.txt)
-    export RETURN3=$(cat $BIN/data/return3.txt)
-    export RETURN4=$(cat $BIN/data/return4.txt)
-    export RETURN5=$(cat $BIN/data/return5.txt)
+    RETURN_NB=$return_nb
+    RETURN1=$(cat "$BIN/data/return1.txt")
+    RETURN2=$(cat "$BIN/data/return2.txt")
+    RETURN3=$(cat "$BIN/data/return3.txt")
+    RETURN4=$(cat "$BIN/data/return4.txt")
+    RETURN5=$(cat "$BIN/data/return5.txt")
+
+    export RETURN1
+    export RETURN2
+    export RETURN3
+    export RETURN4
+    export RETURN5
+    export RETURN_NB
+}
+
+
+remove_returns (){
+    unset RETURN_NB
+    unset RETURN1
+    unset RETURN2
+    unset RETURN3
+    unset RETURN4
+    unset RETURN5
 }
 
 
 ui () {
-# Transforme le fichier .ui specifie ($1) au format .py
-
-    pyside6-uic $BIN/gui/ui/$1.ui -o $BIN/gui/ui/$1.py
+# Transforme le fichier .ui specifié ($1) au format .py
+    pyside6-uic "$BIN"/gui/ui/"$1".ui -o "$BIN"/gui/ui/"$1".py
 }
+
 
 source "$BIN/init_01"   # ------------------------------------------------> init 01

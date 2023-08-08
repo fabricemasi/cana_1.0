@@ -1,5 +1,7 @@
 #! /bin/bash
 
+debug "${BASH_SOURCE[0]}" in
+
 go ()		# 2 arg : $path, $extension
 {
     path=$path									    # path du repertoire de travail
@@ -44,3 +46,5 @@ go ()		# 2 arg : $path, $extension
 
     fi
 }
+
+debug "${BASH_SOURCE[0]}" out

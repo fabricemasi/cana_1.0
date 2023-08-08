@@ -264,7 +264,7 @@ alias shut="sudo shutdown -h now"
 #
 ### SE DEPLACER :
 #
-#alias test="cd $BIN/prog/_training/Test/"
+#alias tyty="cd $BIN/prog/_training/Test/"
 #
 #
 ##alias gocache="cd $CACHE"

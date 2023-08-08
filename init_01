@@ -1,10 +1,7 @@
 #!/bin/bash
 
-# INIT 01 : Creation de la variable verbose
-#           Creation de la variable autorun
-
-verbose=0
-
+# INIT 01 : Creation de la variable VERBOSE
+#           Creation de la variable AUTORUN
 
 
 init() {
@@ -19,73 +16,52 @@ init() {
 }
 
 
-
-if [[ `cat $BIN/data/autorun.sh` != "" ]]; then
+if [[ $(cat "$BIN/data/autorun.sh") != "" ]]; then
     export AUTORUN=1
 else
     export AUTORUN=0
 fi
 
 
-
 # AUTORUN: Si des donnees viennent de l'interface, on set le projet
-if [[ $AUTORUN == 1 ]]; then
-    init
-    killpipe
-
-
-    source $BIN/data/autorun.sh
-
-
-
-
-    if [[ $TYPE != "" ]] && [[ $PROJET == "" ]] && [[ $FOLDER == "" ]] && [[ $SOFT == "" ]]; then
-        settype $TYPE
-        source $BIN/data/autorun.sh
-    fi
-    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER == "" ]] && [[ $SOFT == "" ]]; then
-        settype $TYPE
-        source $BIN/data/autorun.sh
-        setprojet $PROJET
-        source $BIN/data/autorun.sh
-    fi
-    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT == "" ]]; then
-        settype $TYPE
-        source $BIN/data/autorun.sh
-        setprojet $PROJET
-        source $BIN/data/autorun.sh
-        setfolder $FOLDER
-    fi
-    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT != "" ]]; then
-        settype $TYPE
-        source $BIN/data/autorun.sh
-        setprojet $PROJET
-        source $BIN/data/autorun.sh
-        setfolder $FOLDER
-        source $BIN/data/autorun.sh
-        com="go"$SOFT
-        $com
-        l
-        echo ""
-        source $BIN/data/autorun.sh
-
-    fi
-
-#    if [[ $FOLDER == "" ]]; then
-#        job $TYPE $PROJET
+#if [[ $AUTORUN == 1 ]]; then
+#    init "$@"
+#    killpipe
+#
+#    source "$BIN/data/autorun.sh"
+#
+#    if [[ $TYPE != "" ]] && [[ $PROJET == "" ]] && [[ $FOLDER == "" ]] && [[ $SOFT == "" ]]; then
+#        settype "$TYPE"
+#        source "$BIN/data/autorun.sh"
 #    fi
 #
-#    job $TYPE $PROJET $FOLDER
-
-#    if [[ $SOFT != "" ]]; then
+#    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER == "" ]] && [[ $SOFT == "" ]]; then
+#        settype "$TYPE"
+#        source "$BIN/data/autorun.sh"
+#        setprojet "$PROJET"
+#        source "$BIN/data/autorun.sh"
+#    fi
+#
+#    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT == "" ]]; then
+#        settype "$TYPE"
+#        source "$BIN/data/autorun.sh"
+#        setprojet "$PROJET"
+#        source "$BIN/data/autorun.sh"
+#        setfolder "$FOLDER"
+#    fi
+#
+#    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT != "" ]]; then
+#        settype "$TYPE"
+#        source "$BIN/data/autorun.sh"
+#        setprojet "$PROJET"
+#        source "$BIN/data/autorun.sh"
+#        setfolder "$FOLDER"
+#        source "$BIN/data/autorun.sh"
 #        com="go"$SOFT
 #        $com
 #        l
 #        echo ""
-#    fi
-
-    # On vide le fichier autorun
-#    buffer=""
-#    $buffer>$BIN/data/autorun.sh
-
-fi
+#        source "$BIN/data/autorun.sh"
+##    fi
+#
+#fi
