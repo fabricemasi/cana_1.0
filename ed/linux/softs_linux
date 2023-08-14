@@ -22,7 +22,7 @@ lien="/soft/blender/$BLENDER_VERSION/blender"
 goblender ()
 {
     export SOFT="BLENDER"
-    path="$ROOT_PIPE/chantiers/$TYPE/$PROJET/$FOLDER/02_work/blender"
+    path="$ROOT_PIPE/chantier/$TYPE/$PROJ/$FOLD/02_work/blender"
     extension="blend"
     export ROOT_SOFT=$path
 
@@ -76,7 +76,7 @@ version="1.4.5"
 export XNVIEW=$version
 
 ref(){
-    path=$ROOT_PIPE/chantiers/$TYPE/$PROJET/$FOLDER/01_ref/reference/
+    path=$ROOT_PIPE/chantier/$TYPE/$PROJ/$FOLD/01_ref/reference/
     extension=""
 
     cd "$BIN/python_tools/"
@@ -113,7 +113,7 @@ export LISTE_SOFTS+="\nXNVIEW $XNVIEW [bd-ref-bib-img][]"
 #godavinci ()
 #{
 #	export SOFT="DAVINCI"
-#	path="$ROOT_PIPE/projets/$TYPE/$NAME/02_work/davinci"
+#	path="$ROOT_PIPE/projs/$TYPE/$NAME/02_work/davinci"
 #    extension="unknow"
 #
 #	cd "$BIN/python/"
@@ -152,7 +152,7 @@ lien="/soft/houdini/$HOUDINI_VERSION/bin/houdinifx"
 gohoudini ()
 {
     export SOFT="HOUDINI"
-    path="$ROOT_PIPE/chantiers/$TYPE/$PROJET/$FOLDER/02_work/houdini"
+    path="$ROOT_PIPE/chantier/$TYPE/$PROJ/$FOLD/02_work/houdini"
     extension="hip"
     export ROOT_SOFT=$path
 
@@ -214,7 +214,7 @@ lien='/opt/gaffer-$GAFFER_VERSION-linux/bin/gaffer'
 gogaffer ()
 {
 	export SOFT="GAFFER"
-	path="$ROOT_PIPE/chantiers/$TYPE/$PROJET/$FOLDER/02_work/gaffer"
+	path="$ROOT_PIPE/chantier/$TYPE/$PROJ/$FOLD/02_work/gaffer"
     extension="gfr"
     export ROOT_SOFT=$path
 
@@ -249,7 +249,7 @@ lien="/usr/bin/PureRef"
 gopureref ()
 {
 	export SOFT="PUREREF"
-	path="$ROOT_PIPE/chantiers/$TYPE/$PROJET/$FOLDER/01_ref/pureref"
+	path="$ROOT_PIPE/chantier/$TYPE/$PROJ/$FOLD/01_ref/pureref"
 	extension="pur"
 	export ROOT_SOFT=$path
 
@@ -302,7 +302,7 @@ lien='/soft/unreal/5.2.1/Engine/Binaries/Linux/UnrealEditor'
 gounreal ()
 {
 	export SOFT="UNREAL"
-	path="$ROOT_PIPE/chantiers/$TYPE/$PROJET/$FOLDER/02_work/unreal"
+	path="$ROOT_PIPE/chantier/$TYPE/$PROJ/$FOLD/02_work/unreal"
     extension=""
     export ROOT_SOFT=$path
 

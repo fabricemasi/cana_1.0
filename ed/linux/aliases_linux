@@ -6,8 +6,10 @@
 # ----------------------------------------------------------------
 
 alias t="run type"
-alias p="run projet"
-alias f="run folder"
+alias p="run proj"
+alias f="run fold"
+
+alias r="run"
 
 alias rt="type_remove"
 
@@ -90,7 +92,7 @@ alias i3="init 3"
 alias ~='cd ~'
 
 
-alias tst="pyt python_tools/test.py"
+
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -202,11 +204,11 @@ alias gosoft="cd $ROOT_DISC; tre 1"
 alias godisc="godiscipline; tre 1"
 #alias goname="cd $ROOT_TYPE; tre 1"
 #alias gotype="cd $ROOT_PROJ; tre 1"
-alias goproj="cd $ROOT_PROJET; tre 1"
+alias goproj="cd $ROOT_PROJ; tre 1"
 
 ref ()
 {
-    path="$ROOT_PIPE/projets/$TYPE/$NAME/01_ref"
+    path="$ROOT_PIPE/projs/$TYPE/$NAME/01_ref"
     cd $path
     cd -; cl
 }
@@ -284,9 +286,9 @@ alias shut="sudo shutdown -h now"
 #alias kp="killpipe"
 #alias jl="jll"
 #
-#alias s="setprojet"
-#alias sp="setprojet"
-#alias s1="setprojet"
+#alias s="setproj"
+#alias sp="setproj"
+#alias s1="setproj"
 #
 #alias jj="setshot"
 #alias ss="setshot"

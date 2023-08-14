@@ -21,7 +21,11 @@ alias nn="open ."
 # =========================================================
 
 alias t="run type"
+alias p="run proj"
+alias f="run fold"
+alias s="run soft"
 
+alias r="run"
 
 
 
@@ -147,7 +151,7 @@ alias gitp="git push -u origin master"
 
 # alias jh="job -h"
 # alias jhh="job -ha"
-alias s="setprojet"
+alias s="setproj"
 alias ss="settype"
 alias sss="setname"
 alias ssss="setdiscipline"
@@ -251,7 +255,7 @@ alias gosoft="cd $ROOT_DISC; tre 1"
 alias godisc="godiscipline; tre 1"
 #alias goname="cd $ROOT_TYPE; tre 1"
 #alias gotype="cd $ROOT_PROJ; tre 1"
-alias goproj="cd $ROOT_PROJET; tre 1"
+alias goproj="cd $ROOT_PROJ; tre 1"
 # ----------------------------------------------------------------------------------------------------------------------
 # A TESTER
 # ----------------------------------------------------------------------------------------------------------------------
@@ -311,9 +315,9 @@ alias goproj="cd $ROOT_PROJET; tre 1"
 #alias kp="killpipe"
 #alias jl="jll"
 #
-#alias s="setprojet"
-#alias sp="setprojet"
-#alias s1="setprojet"
+#alias s="setproj"
+#alias sp="setproj"
+#alias s1="setproj"
 #
 #alias jj="setshot"
 #alias ss="setshot"

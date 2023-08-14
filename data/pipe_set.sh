@@ -1,4 +1,4 @@
 #!/bin/bash
 export TYPE='3d'
-export PROJET='salvage'
-export FOLDER='main'
+export PROJ='salvage'
+export FOLD='main'

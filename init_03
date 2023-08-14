@@ -5,88 +5,136 @@
 #
 # Variables :
 #   - ROOT_PIPE
-#   - ROOT_CHANTIERS
+#   - ROOT_CHANTIER
 #   - ROOT_ARCHIVES
 #
 #   - TYPE
 #   - ROOT_TYPE
 # ============================
 
-root_temp="${HOME}/Temp"
+#root_pipe="/home/fabrice/OneDrive/Documents/_Documents/PIPELINE"
 
-root_pipe="/home/fabrice/OneDrive/Documents/_Documents/PIPELINE"
-root_chantiers="$root_pipe/chantiers"
 
-# Chemins pour : ROOT_PIPE :
 
+# root_pipe :
+# fold_pipe :
+# path_pipe :
+
+fold_pipe="PIPELINE"
 if [[ $SYSTEM == "linux" ]]; then
-    root_pipe="/media/partage/PIPELINE/pipe/PIPELINE"
+    root_pipe="/media/partage/PIPELINE/pipe/"
+    path_pipe=${root_pipe}${fold_pipe}"/"
+
 elif [[ $SYSTEM == "windows" ]]; then
-    root_pipe="/mnt/p/pipe/PIPELINE"
-    root_pipe_w="P:\pipe\PIPELINE"
+    root_pipe="/mnt/p/pipe/"
+    path_pipe=${root_pipe}${fold_pipe}"/"
+
+    root_pipe_w="P:\\pipe\\"
+    path_pipe_w=${root_pipe_w}${fold_pipe}"\\"
+
 elif [[ $SYSTEM == "mac" ]]; then
-    root_pipe="/Volumes/Pipeline/pipe/PIPELINE"
+    root_pipe="/Volumes/Pipeline/pipe/"
+    path_pipe=${root_pipe}${fold_pipe}"/"
 fi
 
-# Chemin de 'ROOT_PROJET' et 'ROOT_ARCHIVES' :
+# root_chantier :
+# fold_chantier :
+# path_chantier :
 
-root_chantiers="$root_pipe/chantiers"
-root_archives="$root_pipe/archives"
+root_chantier=${path_pipe}
+fold_chantier="chantier"
+path_chantier=${root_chantier}${fold_chantier}
+
+
+# root_archives :
+# fold_archives :
+# path_archives :
+
+root_archives=${path_pipe}
+fold_archives="archives"
+path_archives=${root_archives}${fold_archives}
+
+
+if [[ -e "${path_pipe}" ]]; then
+    if [[ $AUTORUN == 0 ]]; then
+
+        export ROOT_PIPE=${root_pipe}
+        export FOLD_PIPE=${fold_pipe}
+        export PATH_PIPE=${path_pipe}
+        export ROOT_CHANTIER=${root_chantier}
+        export FOLD_CHANTIER=${fold_chantier}
+        export PATH_CHANTIER=${path_chantier}
+        export ROOT_ARCHIVES=${root_archives}
+        export FOLD_ARCHIVES=${fold_archives}
+        export PATH_ARCHIVES=${path_archives}
+
+    elif [[ $AUTORUN == 1 ]]; then
+        pass
+    fi
+else
+    echo " Le chemin vers le dossier $path_chantier ne peut pas être atteint. Aucune variable générée."
+fi
+
+
+
+
 
 
 # Résultat :
 # ========================================================
 
-if ! [[ -e "$root_chantiers" ]]; then
-    echo " Le chemin vers le dossier $root_chantiers ne peut pas être atteint. Aucune variable générée."
-else
-    if [[ $AUTORUN == 0 ]]; then
-        export TYPE="3d"
-        export PROJET=""
-        export FOLDER=""
-        export SOFT=""
-
-
-        export ROOT_PIPE="$root_pipe"
-        export ROOT_CHANTIERS="$root_chantiers"
-        export ROOT_ARCHIVES="$root_archives"
-        if [[ $SYSTEM == "windows" ]]; then # (Pour Windows)
-            export ROOT_PIPE_W="$root_pipe_w"
-        fi
-
-        export ROOT_TYPE="$ROOT_CHANTIERS/$TYPE"
-        export ROOT_PROJET=""
-        export ROOT_FOLDER=""
-        export ROOT_SOFT=""
-
-    elif [[ $AUTORUN == 1 ]]; then
-        source "$BIN/data/autorun.sh"
-
-        export ROOT_SOFT=""
-
-        export ROOT_PIPE="$root_pipe"
-        export ROOT_CHANTIERS="$root_chantiers"
-        export ROOT_ARCHIVES="$root_archives"
-        if [[ $SYSTEM == "windows" ]]; then # (Pour Windows)
-            export ROOT_PIPE_W="$root_pipe_w"
-        fi
-
-        export ROOT_TYPE="$ROOT_CHANTIERS/$TYPE"
-        export ROOT_PROJET="$ROOT_TYPE/$PROJET"
-        export ROOT_FOLDER="$ROOT_PROJET/$FOLDER"
-        export ROOT_SOFT=""
-    fi
-
-    if [[ $VERBOSE -ge 1 ]]; then
-        echo "verbose : $VERBOSE"
-    fi
-    if [[ $VERBOSE -ge 1 ]]; then
-        echo "BIN            = $BIN"
-        echo "ROOT_PIPE      = $ROOT_PIPE"
-        echo "ROOT_CHANTIERS = $ROOT_CHANTIERS${NEUTRE}"
-        echo "ROOT_ARCHIVES  = $ROOT_ARCHIVES${NEUTRE}"
-    fi
-
-fi
+#if ! [[ -e "$path_chantier" ]]; then
+#    echo " Le chemin vers le dossier $path_chantier ne peut pas être atteint. Aucune variable générée."
+#else
+#    if [[ $AUTORUN == 0 ]]; then
+##        export TYPE="3d"
+#        export TYPE=""
+#        export PROJ=""
+#        export FOLD=""
+#        export SOFT=""
+#
+#
+#        export ROOT_PIPE="$root_pipe"
+#        export ROOT_CHANTIER="$root_chantier"
+#        export ROOT_ARCHIVES="$root_archives"
+#        if [[ $SYSTEM == "windows" ]]; then # (Pour Windows)
+#            export ROOT_PIPE_W="$root_pipe_w"
+#        fi
+#
+##        export ROOT_TYPE="$ROOT_CHANTIER/$TYPE"
+#        export ROOT_TYPE=""
+#        export ROOT_PROJ=""
+#        export ROOT_FOLD=""
+#        export ROOT_SOFT=""
+#
+#    elif [[ $AUTORUN == 1 ]]; then
+#        source "$BIN/data/autorun.sh"
+#
+#        export ROOT_SOFT=""
+#
+#        export ROOT_PIPE="$root_pipe"
+#        export ROOT_CHANTIER="$root_chantier"
+#        export ROOT_ARCHIVES="$root_archives"
+#        if [[ $SYSTEM == "windows" ]]; then # (Pour Windows)
+#            export ROOT_PIPE_W="$root_pipe_w"
+#        fi
+#
+#        export ROOT_TYPE="$ROOT_CHANTIER/$TYPE"
+#        export ROOT_PROJ="$ROOT_TYPE/$PROJ"
+#        export ROOT_FOLD="$ROOT_PROJ/$FOLD"
+#        export ROOT_SOFT=""
+#    fi
+#
+#    if [[ $VERBOSE -ge 1 ]]; then
+#        echo "verbose : $VERBOSE"
+#    fi
+#    if [[ $VERBOSE -ge 1 ]]; then
+#        echo "BIN            = $BIN"
+#        echo "ROOT_PIPE      = $ROOT_PIPE"
+#        echo "ROOT_CHANTIER = $ROOT_CHANTIER${NEUTRE}"
+#        echo "ROOT_ARCHIVES  = $ROOT_ARCHIVES${NEUTRE}"
+#    fi
+#
+#fi
 
 source "$BIN/data/autorun.sh"

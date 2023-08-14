@@ -32,7 +32,7 @@ fi
 gohoudini ()
 {
 	export SOFT="HOUDINI"
-	path="$ROOT_PIPE/projets/$TYPE/$NAME/02_work/houdini"
+	path="$ROOT_PIPE/projs/$TYPE/$NAME/02_work/houdini"
     extension="hip"
     export ROOT_SOFT=$path
 
@@ -70,7 +70,7 @@ lien="/Applications/Blender/"$version"/Blender.app/Contents/MacOS/Blender"
 goblender ()
 {
     export SOFT="BLENDER"
-    path="$ROOT_PIPE/projets/$TYPE/$NAME/02_work/blender"
+    path="$ROOT_PIPE/projs/$TYPE/$NAME/02_work/blender"
 	extension="blend"
 	export ROOT_SOFT=$path
 

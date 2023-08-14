@@ -6,13 +6,13 @@ killpipe ()
 {
 	if [[ $# == 0 ]]; then
 	    unset TYPE
-        unset PROJET
-        unset FOLDER
+        unset PROJ
+        unset FOLD
         unset SOFT
 
         unset ROOT_TYPE
-        unset ROOT_PROJET
-        unset ROOT_FOLDER
+        unset ROOT_PROJ
+        unset ROOT_FOLD
         unset ROOT_SOFT
 
         cd ~
@@ -23,20 +23,20 @@ killpipe ()
 
 
 	    if [[ $arg == "type" ]]; then
-            unset PROJET
-            unset FOLDER
+            unset PROJ
+            unset FOLD
             unset SOFT
 
-            unset ROOT_PROJET
-            unset ROOT_FOLDER
+            unset ROOT_PROJ
+            unset ROOT_FOLD
             unset ROOT_SOFT
-        elif [[ $arg == "projet" ]]; then
-            unset FOLDER
+        elif [[ $arg == "proj" ]]; then
+            unset FOLD
             unset SOFT
 
-            unset ROOT_FOLDER
+            unset ROOT_FOLD
             unset ROOT_SOFT
-        elif [[ $arg == "folder" ]]; then
+        elif [[ $arg == "fold" ]]; then
             unset SOFT
 
             unset ROOT_SOFT

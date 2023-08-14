@@ -34,8 +34,7 @@ pyt () {
     file=$1
     arg=$2
 
-    python3 "$file" "$arg"
-
+    python "$BIN/python/$file" "$arg"
 
     # GENERATION DES RETURN :
     # ===========================================================

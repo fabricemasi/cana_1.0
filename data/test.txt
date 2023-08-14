@@ -7,7 +7,7 @@ godiscipline.sh
 goname.sh
 goobj.sh
 goplayblast.sh
-goprojet.sh
+goproj.sh
 gopublish.sh
 goref.sh
 gorender.sh
@@ -18,5 +18,5 @@ job.sh
 killpipe.sh
 setdiscipline.sh
 setname.sh
-setprojet.sh
+setproj.sh
 settype.sh

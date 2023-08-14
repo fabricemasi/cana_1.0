@@ -42,10 +42,10 @@ class MainWindowForm(QMainWindow):
         self.listView_TYPE = QListWidget(self.type_frame)
         # self.ui_listWidget1.setGeometry(5, 5, 200, 400)
 
-        self.listView_PROJET = QListWidget(self.type_frame)
+        self.listView_PROJ = QListWidget(self.type_frame)
         # self.ui_listWidget2.setGeometry(210, 5, 200, 400)
 
-        self.listView_FOLDER = QListWidget(self.type_frame)
+        self.listView_FOLD = QListWidget(self.type_frame)
         # self.ui_listWidget3.setGeometry(415, 5, 200, 400)
 
         self.listView_SOFT = QListWidget(self.type_frame)
@@ -59,8 +59,8 @@ class MainWindowForm(QMainWindow):
 
 
         self.type_frame.addWidget(self.listView_TYPE, 0, 0)
-        self.type_frame.addWidget(self.listView_PROJET, 0, 1)
-        self.type_frame.addWidget(self.listView_FOLDER, 0, 2)
+        self.type_frame.addWidget(self.listView_PROJ, 0, 1)
+        self.type_frame.addWidget(self.listView_FOLD, 0, 2)
         self.type_frame.addWidget(self.listView_SOFT, 0, 3)
 
         # self.ui_lineEdit_type = QLineEdit(widget)

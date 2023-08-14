@@ -15,7 +15,7 @@ from pathlib import Path
 # from form_main_window import MainWindowForm as Form
 from ui.main_window import Ui_Form as Form
 
-from api.var import Type, Projet, Folder, Soft
+from api.var import Type, Proj, Fold, Soft
 from api.tools import pause
 
 from PySide6.QtUiTools import QUiLoader
@@ -44,31 +44,31 @@ class MainWindow(QWidget, Form):
 
         # WIDGET NAVIGATION : Largeur des colonnes a l'interieur des treeWidget
         self.treeWidget_TYPE.setColumnWidth(0, 220)
-        self.treeWidget_PROJET.setColumnWidth(0, 220)
-        self.treeWidget_FOLDER.setColumnWidth(0, 220)
+        self.treeWidget_PROJ.setColumnWidth(0, 220)
+        self.treeWidget_FOLD.setColumnWidth(0, 220)
         self.treeWidget_SOFT.setColumnWidth(0, 220)
 
         # WIDGET NAVIGATION : On masque le header des treeWidget
         self.treeWidget_TYPE.setHeaderHidden(1)
-        self.treeWidget_PROJET.setHeaderHidden(1)
-        self.treeWidget_FOLDER.setHeaderHidden(1)
+        self.treeWidget_PROJ.setHeaderHidden(1)
+        self.treeWidget_FOLD.setHeaderHidden(1)
         self.treeWidget_SOFT.setHeaderHidden(1)
 
         self.pushButton_exit.setIconSize(QSize(35, 35))
 
-        # WIDGET NAVIGATION : Icones folder
+        # WIDGET NAVIGATION : Icones fold
         BIN_ROOT = os.environ["BIN"]
-        icon_folder = QIcon()
+        icon_fold = QIcon()
         icon_size = 20
 
-        icon_folder.addFile(BIN_ROOT + "/gui/icones/folder2.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton_TYPE_explorer.setIcon(icon_folder)
+        icon_fold.addFile(BIN_ROOT + "/gui/icones/fold2.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton_TYPE_explorer.setIcon(icon_fold)
         self.pushButton_TYPE_explorer.setIconSize(QSize(icon_size, icon_size))
-        self.pushButton_PROJET_explorer.setIcon(icon_folder)
-        self.pushButton_PROJET_explorer.setIconSize(QSize(icon_size, icon_size))
-        self.pushButton_FOLDER_explorer.setIcon(icon_folder)
-        self.pushButton_FOLDER_explorer.setIconSize(QSize(icon_size, icon_size))
-        self.pushButton_SOFT_explorer.setIcon(icon_folder)
+        self.pushButton_PROJ_explorer.setIcon(icon_fold)
+        self.pushButton_PROJ_explorer.setIconSize(QSize(icon_size, icon_size))
+        self.pushButton_FOLD_explorer.setIcon(icon_fold)
+        self.pushButton_FOLD_explorer.setIconSize(QSize(icon_size, icon_size))
+        self.pushButton_SOFT_explorer.setIcon(icon_fold)
         self.pushButton_SOFT_explorer.setIconSize(QSize(icon_size, icon_size))
 
         # WIDGET BUTTONS : Icone job
@@ -116,8 +116,8 @@ class MainWindow(QWidget, Form):
         # CONNECTIONS :
         # ==============================================================================================================
         self.treeWidget_TYPE.clicked.connect(self.clic_list_TYPE)
-        self.treeWidget_PROJET.clicked.connect(self.clic_list_PROJET)
-        self.treeWidget_FOLDER.clicked.connect(self.clic_list_FOLDER)
+        self.treeWidget_PROJ.clicked.connect(self.clic_list_PROJ)
+        self.treeWidget_FOLD.clicked.connect(self.clic_list_FOLD)
         self.treeWidget_SOFT.clicked.connect(self.clic_list_SOFT)
 
         self.pushButton_exit.clicked.connect(self.exit_program)
@@ -133,27 +133,27 @@ class MainWindow(QWidget, Form):
         selected_type = self.treeWidget_TYPE.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
         TYPE.setcurrent(selected_type)
-        PROJET.setcurrent("")
-        FOLDER.setcurrent("")
+        PROJ.setcurrent("")
+        FOLD.setcurrent("")
         SOFT.setcurrent("")
 
         # os.system("settype")
 
         reinit()
 
-    def clic_list_PROJET(self):  # Clique sur la liste des types
-        selected_projet = self.treeWidget_PROJET.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
+    def clic_list_PROJ(self):  # Clique sur la liste des types
+        selected_proj = self.treeWidget_PROJ.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        PROJET.setcurrent(selected_projet)
-        FOLDER.setcurrent("")
+        PROJ.setcurrent(selected_proj)
+        FOLD.setcurrent("")
         SOFT.setcurrent("")
 
         reinit()
 
-    def clic_list_FOLDER(self):  # Clique sur la liste des types
-        selected_folder = self.treeWidget_FOLDER.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
+    def clic_list_FOLD(self):  # Clique sur la liste des types
+        selected_fold = self.treeWidget_FOLD.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        FOLDER.setcurrent(selected_folder)
+        FOLD.setcurrent(selected_fold)
         SOFT.setcurrent("")
 
         reinit()
@@ -166,11 +166,11 @@ class MainWindow(QWidget, Form):
         reinit()
 
     def job_terminal(self):
-        # if TYPE.current() != "" and PROJET.current() != "" and FOLDER.current():
+        # if TYPE.current() != "" and PROJ.current() != "" and FOLD.current():
         buffer = "#!/bin/bash\n"
         buffer += "export TYPE='" + TYPE.current() + "'\n"
-        buffer += "export PROJET='" + PROJET.current() + "'\n"
-        buffer += "export FOLDER='" + FOLDER.current() + "'\n"
+        buffer += "export PROJ='" + PROJ.current() + "'\n"
+        buffer += "export FOLD='" + FOLD.current() + "'\n"
         buffer += "export SOFT='" + SOFT.current() + "'\n"
 
         BIN_ROOT = os.environ["BIN"]
@@ -207,40 +207,40 @@ class MainWindow(QWidget, Form):
 # ======================================================================================================================
 
 def reinit():
-    doing_type = doing_projet = doing_folder = doing_soft = 0
+    doing_type = doing_proj = doing_fold = doing_soft = 0
 
-    if TYPE.current() != "" and PROJET.current() == "" and FOLDER.current() == "" and SOFT.current() == "":
+    if TYPE.current() != "" and PROJ.current() == "" and FOLD.current() == "" and SOFT.current() == "":
         doing_type = 1
 
-        window.treeWidget_PROJET.clear()
-        window.treeWidget_FOLDER.clear()
+        window.treeWidget_PROJ.clear()
+        window.treeWidget_FOLD.clear()
         window.treeWidget_SOFT.clear()
 
-    elif TYPE.current() != "" and PROJET.current() != "" and FOLDER.current() == "" and SOFT.current() == "":
+    elif TYPE.current() != "" and PROJ.current() != "" and FOLD.current() == "" and SOFT.current() == "":
         doing_type = 1
-        doing_projet = 1
+        doing_proj = 1
 
-        window.treeWidget_FOLDER.clear()
+        window.treeWidget_FOLD.clear()
         window.treeWidget_SOFT.clear()
 
-    elif TYPE.current() != "" and PROJET.current() != "" and FOLDER.current() != "" and SOFT.current() == "":
+    elif TYPE.current() != "" and PROJ.current() != "" and FOLD.current() != "" and SOFT.current() == "":
         doing_type = 1
-        doing_projet = 1
-        doing_folder = 1
+        doing_proj = 1
+        doing_fold = 1
 
         window.treeWidget_SOFT.clear()
 
-    elif TYPE.current() != "" and PROJET.current() != "" and FOLDER.current() != "" and SOFT.current() != "":
+    elif TYPE.current() != "" and PROJ.current() != "" and FOLD.current() != "" and SOFT.current() != "":
         doing_type = 1
-        doing_projet = 1
-        doing_folder = 1
+        doing_proj = 1
+        doing_fold = 1
         doing_soft = 1
 
     # TRAITEMENT :
 
     # Type :
     if doing_type == 1:
-        os.environ["ROOT_TYPE"] = os.environ["ROOT_CHANTIERS"] + "/" + TYPE.current()
+        os.environ["ROOT_TYPE"] = os.environ["ROOT_CHANTIER"] + "/" + TYPE.current()
 
         window.treeWidget_TYPE.setHeaderLabels(['Type'])
 
@@ -249,37 +249,37 @@ def reinit():
         window.treeWidget_TYPE.setCurrentItem(item_type)
 
         # On rempli la liste suivante :
-        fill_list(window.treeWidget_PROJET, PROJET.liste())
+        fill_list(window.treeWidget_PROJ, PROJ.liste())
 
-    # Projet :
-    if doing_projet == 1:
-        os.environ["ROOT_PROJET"] = os.environ["ROOT_TYPE"] + "/" + PROJET.current()
+    # Proj :
+    if doing_proj == 1:
+        os.environ["ROOT_PROJ"] = os.environ["ROOT_TYPE"] + "/" + PROJ.current()
 
-        window.treeWidget_PROJET.setHeaderLabels(['Projet'])
+        window.treeWidget_PROJ.setHeaderLabels(['Proj'])
 
         # On positionne le focus :
-        item_projet = window.treeWidget_PROJET.findItems(PROJET.current(), Qt.MatchFixedString)[0]
-        window.treeWidget_PROJET.setCurrentItem(item_projet)
+        item_proj = window.treeWidget_PROJ.findItems(PROJ.current(), Qt.MatchFixedString)[0]
+        window.treeWidget_PROJ.setCurrentItem(item_proj)
 
         # On rempli la liste suivante :
-        fill_list(window.treeWidget_FOLDER, FOLDER.liste())
+        fill_list(window.treeWidget_FOLD, FOLD.liste())
 
-    # Folder :
-    if doing_folder == 1:
-        os.environ["ROOT_FOLDER"] = os.environ["ROOT_PROJET"] + "/" + FOLDER.current()
+    # Fold :
+    if doing_fold == 1:
+        os.environ["ROOT_FOLD"] = os.environ["ROOT_PROJ"] + "/" + FOLD.current()
 
-        window.treeWidget_FOLDER.setHeaderLabels(['Folder'])
+        window.treeWidget_FOLD.setHeaderLabels(['Fold'])
 
         # On positionne le focus :
-        item_folder = window.treeWidget_FOLDER.findItems(FOLDER.current(), Qt.MatchFixedString)[0]
-        window.treeWidget_FOLDER.setCurrentItem(item_folder)
+        item_fold = window.treeWidget_FOLD.findItems(FOLD.current(), Qt.MatchFixedString)[0]
+        window.treeWidget_FOLD.setCurrentItem(item_fold)
 
         # On rempli la liste suivante :
         fill_list(window.treeWidget_SOFT, SOFT.liste())
 
-    # Folder :
+    # Fold :
     if doing_soft == 1:
-        os.environ["ROOT_SOFT"] = os.environ["ROOT_FOLDER"] + "/" + SOFT.current()
+        os.environ["ROOT_SOFT"] = os.environ["ROOT_FOLD"] + "/" + SOFT.current()
 
         window.treeWidget_SOFT.setHeaderLabels(['Soft'])
 
@@ -314,8 +314,8 @@ if __name__ == "__main__":
     window = MainWindow()
 
     TYPE = Type()
-    PROJET = Projet()
-    FOLDER = Folder()
+    PROJ = Proj()
+    FOLD = Fold()
     SOFT = Soft()
 
     # CORPS DU PRG

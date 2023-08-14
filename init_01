@@ -23,39 +23,39 @@ else
 fi
 
 
-# AUTORUN: Si des donnees viennent de l'interface, on set le projet
+# AUTORUN: Si des donnees viennent de l'interface, on set le proj
 #if [[ $AUTORUN == 1 ]]; then
 #    init "$@"
 #    killpipe
 #
 #    source "$BIN/data/autorun.sh"
 #
-#    if [[ $TYPE != "" ]] && [[ $PROJET == "" ]] && [[ $FOLDER == "" ]] && [[ $SOFT == "" ]]; then
+#    if [[ $TYPE != "" ]] && [[ $PROJ == "" ]] && [[ $FOLD == "" ]] && [[ $SOFT == "" ]]; then
 #        settype "$TYPE"
 #        source "$BIN/data/autorun.sh"
 #    fi
 #
-#    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER == "" ]] && [[ $SOFT == "" ]]; then
+#    if [[ $TYPE != "" ]] && [[ $PROJ != "" ]] && [[ $FOLD == "" ]] && [[ $SOFT == "" ]]; then
 #        settype "$TYPE"
 #        source "$BIN/data/autorun.sh"
-#        setprojet "$PROJET"
+#        setproj "$PROJ"
 #        source "$BIN/data/autorun.sh"
 #    fi
 #
-#    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT == "" ]]; then
+#    if [[ $TYPE != "" ]] && [[ $PROJ != "" ]] && [[ $FOLD != "" ]] && [[ $SOFT == "" ]]; then
 #        settype "$TYPE"
 #        source "$BIN/data/autorun.sh"
-#        setprojet "$PROJET"
+#        setproj "$PROJ"
 #        source "$BIN/data/autorun.sh"
-#        setfolder "$FOLDER"
+#        setfold "$FOLD"
 #    fi
 #
-#    if [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]] && [[ $SOFT != "" ]]; then
+#    if [[ $TYPE != "" ]] && [[ $PROJ != "" ]] && [[ $FOLD != "" ]] && [[ $SOFT != "" ]]; then
 #        settype "$TYPE"
 #        source "$BIN/data/autorun.sh"
-#        setprojet "$PROJET"
+#        setproj "$PROJ"
 #        source "$BIN/data/autorun.sh"
-#        setfolder "$FOLDER"
+#        setfold "$FOLD"
 #        source "$BIN/data/autorun.sh"
 #        com="go"$SOFT
 #        $com

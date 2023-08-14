@@ -154,13 +154,13 @@ alias ...........="cd ../../../../../../../../../.."
 alias s="job"
 
 alias s1="settype"
-alias s2="setprojet"
-alias s3="setfolder"
+alias s2="setproj"
+alias s3="setfold"
 
 
 alias t="settype"
-alias p="setprojet"
-alias f="setfolder"
+alias p="setproj"
+alias f="setfold"
 
 
 
@@ -180,7 +180,7 @@ alias gosoft="cd $ROOT_DISC; tre 1"
 alias godisc="godiscipline; tre 1"
 #alias goname="cd $ROOT_TYPE; tre 1"
 #alias gotype="cd $ROOT_PROJ; tre 1"
-alias goproj="cd $ROOT_PROJET; tre 1"
+alias goproj="cd $ROOT_PROJ; tre 1"
 # ----------------------------------------------------------------------------------------------------------------------
 # A TESTER
 # ----------------------------------------------------------------------------------------------------------------------
@@ -240,9 +240,9 @@ alias shut="sudo shutdown -h now"
 #alias kp="killpipe"
 #alias jl="jll"
 #
-#alias s="setprojet"
-#alias sp="setprojet"
-#alias s1="setprojet"
+#alias s="setproj"
+#alias sp="setproj"
+#alias s1="setproj"
 #
 #alias jj="setshot"
 #alias ss="setshot"

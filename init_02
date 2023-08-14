@@ -105,6 +105,6 @@ fi
 
 # ON AFFICHE UN MESSAGE A L'ECRAN :
 if [[ $AUTORUN == 0 ]]; then
-    echo -e "${color3}${GRAS}$BINV... loaded${NEUTRE}"
+    echo -e "${color3}$BINV... loaded${NEUTRE}"
 fi
 

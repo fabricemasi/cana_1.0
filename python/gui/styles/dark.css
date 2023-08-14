@@ -46,7 +46,7 @@ QFrame{
     margin: 0px;
     padding: 0px;
 }
-#frame_PROJET{
+#frame_PROJ{
     background-color: rgb(30, 30, 30);
 
     border-style: solid;
@@ -56,7 +56,7 @@ QFrame{
     margin: 0px;
     padding: 0px;
 }
-#frame_FOLDER{
+#frame_FOLD{
     background-color: rgb(30, 30, 30);
 
     border-style: solid;
@@ -88,14 +88,14 @@ QFrame{
     border-top-width: 1px;
     border-color: rgb(15, 15, 15);
 }
-#frame_PROJET_status{
+#frame_PROJ_status{
     background-color: rgb(50, 50, 50);
 
     border-style: solid;
     border-top-width: 1px;
     border-color: rgb(15, 15, 15);
 }
-#frame_FOLDER_status{
+#frame_FOLD_status{
     background-color: rgb(50, 50, 50);
 
     border-style: solid;
@@ -160,7 +160,7 @@ QTreeView::branch {
     margin-bottom: 0px;
     margin-left: 17px;
 }
-#label_PROJET_liste{
+#label_PROJ_liste{
     font-size: 15px;
     font-weight: 600;
 
@@ -169,7 +169,7 @@ QTreeView::branch {
     margin-bottom: 0px;
     margin-left: 17px;
 }
-#label_FOLDER_liste{
+#label_FOLD_liste{
     font-size: 15px;
     font-weight: 600;
 

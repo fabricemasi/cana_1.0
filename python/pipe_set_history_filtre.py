@@ -11,7 +11,7 @@ bin = os.environ['BIN']
 fm_library=bin+"/library"
 sys.path.append(fm_library)
 
-from python.api.colo import couleur
+from python.api.AFAC import couleur
 from file import *
 
 

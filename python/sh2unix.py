@@ -9,7 +9,7 @@ omit=['.git', '.idea']
 apply=['.sh']
 files_to_change = []
 
-for root, folders, files in os.walk(path):
+for root, folds, files in os.walk(path):
     for i in omit:
         if i in root:
             condition=False

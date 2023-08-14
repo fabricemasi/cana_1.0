@@ -12,14 +12,14 @@ job_old ()
         elif [[ $# == 3 ]]; then
             echo "#!/bin/bash" > $BIN/data/pipe_set.sh
             echo "export TYPE='"$1"'" >> $BIN/data/pipe_set.sh
-            echo "export PROJET='"$2"'" >> $BIN/data/pipe_set.sh
-            echo "export FOLDER='"$3"'" >> $BIN/data/pipe_set.sh
+            echo "export PROJ='"$2"'" >> $BIN/data/pipe_set.sh
+            echo "export FOLD='"$3"'" >> $BIN/data/pipe_set.sh
 
             jll
         fi
-    elif [[ $PROJET == "" ]]; then
+    elif [[ $PROJ == "" ]]; then
         if [[ $# == 0 ]]; then
-            setprojet
+            setproj
         elif [[ $# == 1 ]]; then
             # SPLIT DE LA CHAINE DE CHARACTERES
             pyt1 "split_path.py" $1
@@ -28,25 +28,25 @@ job_old ()
             return2=`RETURN2`
 
             if [[ $return_nb == 1 ]]; then
-                setprojet $1
+                setproj $1
             elif [[ $return_nb == 2 ]]; then
-                setprojet $return1
-                setfolder $return2
+                setproj $return1
+                setfold $return2
             fi
         elif [[ S# == 2 ]]; then
-            setprojet $1
-            setfolder $2
+            setproj $1
+            setfold $2
         elif [[ $# == 3 ]]; then
             echo "#!/bin/bash" > $BIN/data/pipe_set.sh
             echo "export TYPE='"$1"'" >> $BIN/data/pipe_set.sh
-            echo "export PROJET='"$2"'" >> $BIN/data/pipe_set.sh
-            echo "export FOLDER='"$3"'" >> $BIN/data/pipe_set.sh
+            echo "export PROJ='"$2"'" >> $BIN/data/pipe_set.sh
+            echo "export FOLD='"$3"'" >> $BIN/data/pipe_set.sh
 
             jll
         elif [[ S# > 3 ]]; then
             echo -e ${COLOR4}${GRAS}"Erreur, trop d'arguments.(err job_02)"${NEUTRE}
         fi
-    elif [[ $PROJET != "" ]]; then
+    elif [[ $PROJ != "" ]]; then
         if [[ $# == 1 ]]; then
             # SPLIT DE LA CHAINE DE CHARACTERES
             pyt1 "split_path.py" $1
@@ -55,23 +55,23 @@ job_old ()
             return2=`RETURN2`
 
             if [[ $return_nb == 1 ]]; then
-                setprojet $1
+                setproj $1
             elif [[ $return_nb == 2 ]]; then
-                setprojet $return1
-                setfolder $return2
+                setproj $return1
+                setfold $return2
             fi
         fi
-    elif [[ $PROJET != "" ]] && [[ $FOLDER == "" ]]; then
+    elif [[ $PROJ != "" ]] && [[ $FOLD == "" ]]; then
         if [[ $# == 0 ]]; then
-            setfolder
+            setfold
         elif [[ $# == 1 ]]; then
-            setfolder $1
+            setfold $1
         elif [[ S# > 2 ]]; then
             echo -e ${COLOR4}${GRAS}"Erreur, trop d'arguments.(err job_03)"${NEUTRE}
         fi
-    elif [[ $PROJET != "" ]] && [[ $FOLDER != "" ]]; then
+    elif [[ $PROJ != "" ]] && [[ $FOLD != "" ]]; then
         if [[ $# == 0 ]]; then
-            setfolder $FOLDER
+            setfold $FOLD
         fi
     fi
 
@@ -145,8 +145,8 @@ job ()
         fi
     elif [[ $# == 3 ]]; then
         TYPE=""
-	    PROJET=""
-	    FOLDER=""
+	    PROJ=""
+	    FOLD=""
 	    SOFT=""
 
         if [[ $n > 1 ]]; then
@@ -184,39 +184,39 @@ job ()
 
 
     if [[ $msg == "" ]]; then
-        if [[ $TYPE == "" ]] && [[ $PROJET == "" ]] && [[ $FOLDER == "" ]]; then
+        if [[ $TYPE == "" ]] && [[ $PROJ == "" ]] && [[ $FOLD == "" ]]; then
             if [[ $n == 0 ]]; then
                 settype
             elif [[ $n == 1 ]]; then
                 settype $arg1
             elif [[ $n == 2 ]]; then
                 settype $arg1
-                setprojet $arg2
+                setproj $arg2
             elif [[ $n == 3 ]]; then
                 settype $arg1
-                setprojet $arg2
-                setfolder $arg3
+                setproj $arg2
+                setfold $arg3
             fi
-        elif [[ $TYPE != "" ]] && [[ $PROJET == "" ]] && [[ $FOLDER == "" ]]; then
+        elif [[ $TYPE != "" ]] && [[ $PROJ == "" ]] && [[ $FOLD == "" ]]; then
             if [[ $n == 0 ]]; then
-                setprojet
+                setproj
             elif [[ $n == 1 ]]; then
-                setprojet $arg1
+                setproj $arg1
             elif [[ $n == 2 ]]; then
-                setprojet $arg1
-                setfolder $arg2
+                setproj $arg1
+                setfold $arg2
             fi
-        elif [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER == "" ]]; then
+        elif [[ $TYPE != "" ]] && [[ $PROJ != "" ]] && [[ $FOLD == "" ]]; then
             if [[ $n == 0 ]]; then
-                setfolder
+                setfold
             elif [[ $n == 1 ]]; then
-                setfolder $arg1
+                setfold $arg1
             fi
-        elif [[ $TYPE != "" ]] && [[ $PROJET != "" ]] && [[ $FOLDER != "" ]]; then
+        elif [[ $TYPE != "" ]] && [[ $PROJ != "" ]] && [[ $FOLD != "" ]]; then
             if [[ $n == 0 ]]; then
-                setfolder $FOLDER
+                setfold $FOLD
             elif [[ $n == 1 ]]; then
-                setfolder $arg1
+                setfold $arg1
             fi
         fi
     else

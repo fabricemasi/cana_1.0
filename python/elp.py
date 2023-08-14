@@ -1,17 +1,35 @@
-#!/usr/bin/env bash
+# coding: utf-8
+# !/usr/bin/python
+import os
 
-debug "${BASH_SOURCE[0]}" in
+print(f"""
+VARIABLES:
+AUTORUN = {os.environ["AUTORUN"]}
+VERBOSE = {os.environ["VERBOSE"]}
+ROOT_PIPE = {os.environ["ROOT_PIPE"]}
+FOLD_PIPE = {os.environ["FOLD_PIPE"]}
+PATH_PIPE = {os.environ["PATH_PIPE"]}
+ROOT_CHANTIER = {os.environ["ROOT_CHANTIER"]}
+FOLD_CHANTIER = {os.environ["FOLD_CHANTIER"]}
+PATH_CHANTIER = {os.environ["PATH_CHANTIER"]}
+ROOT_ARCHIVES = {os.environ["ROOT_ARCHIVES"]}
+FOLD_ARCHIVES = {os.environ["FOLD_ARCHIVES"]}
+PATH_ARCHIVES = {os.environ["PATH_ARCHIVES"]}
 
-elp () {
-    pyt 'elp.py'
 
 
 
-}
 
 
-#elp ()
-#{
+
+
+
+""")
+
+
+
+
+
 #    echo -e ""$ROUGE
 #    echo -e "===================="
 #    echo -e "HELP $BINV"
@@ -60,7 +78,3 @@ elp () {
 #    echo -e ""
 #    echo -e "${BLANC}${GRAS}LOGICIELS :${STANDARD}"
 #    echo -e "${CYAN} $LISTE_SOFTS"
-#
-#}
-
-debug "${BASH_SOURCE[0]}" out

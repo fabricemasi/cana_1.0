@@ -1,1 +1,1 @@
-/mnt/PIPELINE/projets/mercury/asset/glass/modeling/blender/scenes
+/mnt/PIPELINE/projs/mercury/asset/glass/modeling/blender/scenes

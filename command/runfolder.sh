@@ -3,12 +3,12 @@
 debug "${BASH_SOURCE[0]}" in
 
 
-setfolder ()
+setfold ()
 {
-    export FOLDER=""
+    export FOLD=""
 	export SOFT=""
 
-	export ROOT_FOLDER=""
+	export ROOT_FOLD=""
 	export ROOT_SOFT=""
 
 	condition=0
@@ -17,13 +17,13 @@ setfolder ()
 	#  0 argument :
 	#----------------------------------------------------------------------------
 	if [[ $# == 0 ]]; then
-	    if [[ $TYPE == "" ]] && [[ $PROJET == "" ]]; then
-	        msg="${COLOR4}${GRAS}Aucun type ni projet n'a encore ete sette. Utilisez les commandes 'settype' et 'setprojet'."
+	    if [[ $TYPE == "" ]] && [[ $PROJ == "" ]]; then
+	        msg="${COLOR4}${GRAS}Aucun type ni proj n'a encore ete sette. Utilisez les commandes 'settype' et 'setproj'."
 	        condition=2
-	    elif [[ $TYPE != "" ]] && [[ $PROJET == "" ]]; then
-	        msg="${COLOR4}${GRAS}Aucun projet n'a ete sette. Utilisez la commande 'setprojet'."
+	    elif [[ $TYPE != "" ]] && [[ $PROJ == "" ]]; then
+	        msg="${COLOR4}${GRAS}Aucun proj n'a ete sette. Utilisez la commande 'setproj'."
 	        condition=2
-	    elif [[ $TYPE != "" ]] && [[ $PROJET != "" ]]; then
+	    elif [[ $TYPE != "" ]] && [[ $PROJ != "" ]]; then
 	        condition=1
 	    fi
 	fi
@@ -32,9 +32,9 @@ setfolder ()
 	#----------------------------------------------------------------------------
 	if [[ $# == 1 ]]; then
 
-		path=$ROOT_PROJET/$1
+		path=$ROOT_PROJ/$1
 
-		# si le projet n'existe pas :
+		# si le proj n'existe pas :
 		if ! [[ -e $path ]]; then
 			echo -e ${COLOR4} ""
 			read -p "Le sous-repertoire $1 n'existe pas. Voulez vous le créer ? (o,n) " reponse
@@ -55,7 +55,7 @@ setfolder ()
                 condition=1
 
 			else
-				msg="Erreur de saisie, commande annulee. (setfolder_1)."
+				msg="Erreur de saisie, commande annulee. (setfold_1)."
 				condition=1
 
 			fi
@@ -68,7 +68,7 @@ setfolder ()
 	#  trop d'argument :
 	#----------------------------------------------------------------------------
 	if [[ $# > 1 ]]; then
-	    msg "Erreur de saisie (trop d'arguments), commande annulee. (setfolder_2)."
+	    msg "Erreur de saisie (trop d'arguments), commande annulee. (setfold_2)."
 	    condition=1
 
 	fi
@@ -89,28 +89,28 @@ setfolder ()
     clear
 
 	if [[ $condition == 0 ]]; then
-		folder=$1
-		if [[ ${folder: -1} == "/" ]]; then
-			 	folder=${folder:: -1}
+		fold=$1
+		if [[ ${fold: -1} == "/" ]]; then
+			 	fold=${fold:: -1}
 		fi
 
 
 
-		export FOLDER=$folder
-		export ROOT_FOLDER=$ROOT_PROJET/$folder
+		export FOLD=$fold
+		export ROOT_FOLD=$ROOT_PROJ/$fold
 
 
 
-#        export REF=$ROOT_PIPE/projets/$TYPE/$NAME/01_ref
-#		 export WORK=$ROOT_PIPE/projets/$TYPE/$NAME/02_work
-#        export TEMP=$ROOT_PIPE/projets/$TYPE/$NAME/03_temp
-#        export PUBLISH=$ROOT_PIPE/projets/$TYPE/$NAME/04_publish
-#        export FINAL=$ROOT_PIPE/projets/$TYPE/$NAME/05_final
+#        export REF=$ROOT_PIPE/projs/$TYPE/$NAME/01_ref
+#		 export WORK=$ROOT_PIPE/projs/$TYPE/$NAME/02_work
+#        export TEMP=$ROOT_PIPE/projs/$TYPE/$NAME/03_temp
+#        export PUBLISH=$ROOT_PIPE/projs/$TYPE/$NAME/04_publish
+#        export FINAL=$ROOT_PIPE/projs/$TYPE/$NAME/05_final
 #
 #        if [[ $SYSTEM == "windows" ]]; then
 #            echo "Systeme detecte : WINDOWS"
 #            echo "  -> Correction de la variable d'environnement 'PUBLISH'"
-#            publish_w=""$ROOT_PIPE_W"\\projets\\"$TYPE"\\"$NAME"\\04_publish"
+#            publish_w=""$ROOT_PIPE_W"\\projs\\"$TYPE"\\"$NAME"\\04_publish"
 #            /mnt/c/Windows/System32/reg.exe add "HKCU\Environment" /v PUBLISH /t REG_SZ /d $publish_w /f
 #        fi
 #
@@ -119,32 +119,32 @@ setfolder ()
 
         echo "#!/bin/bash" > $BIN/data/pipe_set.sh
         echo "export TYPE='"$TYPE"'" >> $BIN/data/pipe_set.sh
-        echo "export PROJET='"$PROJET"'" >> $BIN/data/pipe_set.sh
-        echo "export FOLDER='"$FOLDER"'" >> $BIN/data/pipe_set.sh
+        echo "export PROJ='"$PROJ"'" >> $BIN/data/pipe_set.sh
+        echo "export FOLD='"$FOLD"'" >> $BIN/data/pipe_set.sh
 
         dt=`date +%F"--"%T`
 
-        echo $dt-----job $TYPE $PROJET $FOLDER >> $BIN/data/pipe_set_history.txt
+        echo $dt-----job $TYPE $PROJ $FOLD >> $BIN/data/pipe_set_history.txt
         echo -e ${BLEU}${GRAS}
         echo -e "Enregistrement des donnees de set OK."
         echo -e ${NEUTRE}
-        lst     "${NEUTRE}${COLOR0}TYPE....... ${COLOR3}$TYPE${COLOR0} \n PROJET..... ${COLOR3}$PROJET${COLOR0} \n FOLDER..... ${COLOR3}$FOLDER"   "Liste des espaces de travail pour le projet ${COLOR3}$PROJET${COLOR0}${GRAS} / ${COLOR3}$FOLDER${COLOR0}${GRAS} :"   $ROOT_FOLDER/02_work   1   ${COLOR4}${GRAS}"Vous devez setter un software"
+        lst     "${NEUTRE}${COLOR0}TYPE....... ${COLOR3}$TYPE${COLOR0} \n PROJ..... ${COLOR3}$PROJ${COLOR0} \n FOLD..... ${COLOR3}$FOLD"   "Liste des espaces de travail pour le proj ${COLOR3}$PROJ${COLOR0}${GRAS} / ${COLOR3}$FOLD${COLOR0}${GRAS} :"   $ROOT_FOLD/02_work   1   ${COLOR4}${GRAS}"Vous devez setter un software"
 
-        cd $ROOT_FOLDER
+        cd $ROOT_FOLD
 
         ps1
 
 	elif [[ $condition == 1 ]]; then
-        cd $ROOT_PROJET
+        cd $ROOT_PROJ
         cl
-        lst     "${NEUTRE}${COLOR0}TYPE....... ${COLOR3}$TYPE${COLOR0} \n PROJET..... ${COLOR3}$PROJET"   "Liste des repertoires pour le projet ${COLOR3}$PROJET${COLOR0} :"   $ROOT_PROJET   1   ${COLOR4}${GRAS}"Vous devez setter un sous-repertoire (folder) : 'setfolder' ou 's3'"
+        lst     "${NEUTRE}${COLOR0}TYPE....... ${COLOR3}$TYPE${COLOR0} \n PROJ..... ${COLOR3}$PROJ"   "Liste des repertoires pour le proj ${COLOR3}$PROJ${COLOR0} :"   $ROOT_PROJ   1   ${COLOR4}${GRAS}"Vous devez setter un sous-repertoire (fold) : 'setfold' ou 's3'"
 
         echo ""
         echo $msg
 
 		ps1
 	elif [[ $condition == 2 ]]; then
-        cd $ROOT_PROJET
+        cd $ROOT_PROJ
 
         echo ""
         echo -e ${COLOR6}${GRAS}$msg${NEUTRE}

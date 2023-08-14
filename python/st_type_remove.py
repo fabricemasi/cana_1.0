@@ -4,7 +4,7 @@ import os
 import sys
 
 from api.fonctions import *
-from api.colo import couleur
+from api.AFAC import couleur
 from api.color import color
 
 from api.api import *
@@ -13,7 +13,7 @@ ROUGE = os.environ["ROUGE"]
 
 args = sys.argv[1]
 
-RC = os.environ['ROOT_CHANTIERS']
+RC = os.environ['ROOT_CHANTIER']
 cl = color()
 
 
@@ -30,7 +30,7 @@ for arg in args:
             arguments.append(a)
 
 
-# On cree la liste des types de projet :
+# On cree la liste des types de proj :
 liste_types = os.listdir(RC)
 
 
@@ -42,10 +42,10 @@ nb = arguments.__len__()
 # ===============================================================
 if nb == 0:
     # On affiche la liste :
-    affiche_liste("Liste des types de projet", liste_types, 30, "", 0, 1)
+    affiche_liste("Liste des types de proj", liste_types, 30, "", 0, 1)
 
     # Saisie 1 :
-    print(cl.JAUNE() + "\nQuel type de projet vous voulez supprimer?\n" + cl.NEUTRE())
+    print(cl.JAUNE() + "\nQuel type de proj vous voulez supprimer?\n" + cl.NEUTRE())
 
     reponse = raw_input()
     print("")

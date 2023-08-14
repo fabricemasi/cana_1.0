@@ -1,7 +1,11 @@
+# coding: utf-8
+# !/usr/bin/python
+
 import shutil
 
-from . import colo
-from past.builtins import raw_input
+from .color import *
+from .tools import *
+# from .var import Step
 
 import os
 
@@ -23,7 +27,7 @@ def affiche_liste(titre, lignes, largeur=50, prefixe="", prefixe_only_1st_lign=1
     tableau = []
     decalage_liste = 1
 
-    # Rafraichissement de l'acran ou non :
+    # Rafraichissement de l'ecran ou non :
     # ========================================================
 
     if clear :
@@ -87,7 +91,7 @@ def affiche_liste(titre, lignes, largeur=50, prefixe="", prefixe_only_1st_lign=1
             espacement_gauche = decalage_liste
             espacement_droit = largeur - len(l) - len(prefixe) - espacement_gauche
 
-            ligne = "├"
+            ligne = "│"
             for i in range(1, espacement_gauche + 1):
                 ligne = ligne + " "
             ligne = ligne + prefixe + l
@@ -98,7 +102,7 @@ def affiche_liste(titre, lignes, largeur=50, prefixe="", prefixe_only_1st_lign=1
             espacement_gauche = decalage_liste + len(prefixe)
             espacement_droit = largeur - len(l) - espacement_gauche
 
-            ligne = "├"
+            ligne = "│"
             for i in range(1, espacement_gauche + 1):
                 ligne = ligne + " "
             ligne = ligne + l
@@ -133,3 +137,77 @@ def verif_existence(path, saisie):
     else:
         return 0
 
+
+def determine_step(typ, prj, fld, sft):
+
+    STEP = ""
+
+    if typ.current() == "":
+        STEP = "type"
+
+    elif prj.current() == "":
+        STEP = "proj"
+
+    elif fld.current() == "":
+        STEP = "fold"
+
+    elif sft.current() == "":
+        STEP = "soft"
+
+    return STEP
+
+
+def create_folder(path, folder):
+    cl = color.color()
+    exist = verif_existence(path, folder)
+
+    if exist == 1:
+        STEP = tp
+        ROOT_STEP = path + "/" + tp
+
+    elif exist == 0:
+        print(cl.JAUNE() + "\nLe repertoire " + cl.BLINK() + folder + cl.NEUTRE() +
+              cl.JAUNE() + " n'existe pas, voulez-vous le creer?\n" + cl.NEUTRE())
+        reponse = raw_input()
+
+        if reponse == "o" or reponse == "y":
+            os.mkdir(path + "/" + folder, mode=0o755)
+            STEP = folder
+            ROOT_STEP = path + "/" + folder
+        else:
+            STEP = ""
+            ROOT_STEP = ""
+
+    return STEP, ROOT_STEP
+
+
+def var(typ, prj, fld, sft):
+
+    cl = color()
+    neu = cl.NEUTRE()
+    gra = cl.GRAS()
+    gri = cl.GRIS2()
+    ble = cl.BLEU()
+
+    nb = 13
+
+    print(f"{gri}=========================================================================={neu}")
+    print(f"{gra}{gri}{'typ.current()':<{nb}}{gri} = {neu}{ble}{str(typ.current())}{neu}")
+    print(f"{gra}{gri}{'typ.root()':<{nb}}{gri} = {neu}{ble}{str(typ.root())}")
+    print(f"{gra}{gri}{'typ.path()':<{nb}}{gri} = {neu}{ble}{str(typ.path())}")
+    print(f"{gri}--------------------------------------------------------------------------{neu}")
+    print(f"{gra}{gri}{'prj.current()':<{nb}}{gri} = {neu}{ble}{str(prj.current())}{neu}")
+    print(f"{gra}{gri}{'prj.root()':<{nb}}{gri} = {neu}{ble}{str(prj.root())}{neu}")
+    print(f"{gra}{gri}{'prj.path()':<{nb}}{gri} = {neu}{ble}{str(prj.path())}{neu}")
+    print(f"{gri}--------------------------------------------------------------------------{neu}")
+    print(f"{gra}{gri}{'fld.current()':<{nb}}{gri} = {neu}{ble}{str(fld.current())}{neu}")
+    print(f"{gra}{gri}{'fld.root()':<{nb}}{gri} = {neu}{ble}{str(fld.root())}{neu}")
+    print(f"{gra}{gri}{'fld.path()':<{nb}}{gri} = {neu}{ble}{str(fld.path())}{neu}")
+    print(f"{gri}--------------------------------------------------------------------------{neu}")
+    print(f"{gra}{gri}{'sft.current()':<{nb}}{gri} = {neu}{ble}{str(sft.current())}{neu}")
+    print(f"{gra}{gri}{'sft.root()':<{nb}}{gri} = {neu}{ble}{str(sft.root())}{neu}")
+    print(f"{gra}{gri}{'sft.path()':<{nb}}{gri} = {neu}{ble}{str(sft.path())}{neu}")
+    print(f"{gri}=========================================================================={neu}")
+    pause()
+
+# print(f"{gra}{gri}{cle:<{tabulation}} : {neu}{ble}{valeur}{neu}")
