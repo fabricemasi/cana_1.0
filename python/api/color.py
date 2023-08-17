@@ -36,7 +36,7 @@ class color:
     def BLINK(self):
         return "\033[5m"
 
-    def reverse(self):
+    def REVERSE(self):
         return "\033[7m"
 
     def CANCELED(self):

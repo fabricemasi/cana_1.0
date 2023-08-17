@@ -14,148 +14,65 @@
 debug "${BASH_SOURCE[0]}" in
 
 
-# $1 - $2 = les deux arguments sont switchables :
-# - nom du repertoire a selectionner
-# - valeurs suivantes : (-t, -p, -f, -s, type, proj, fold, soft)
 run () {
+    pyt "run.py" $1,$2,$3,$4,$5
 
-    format_variables
-
-    pyt "run.py" "$1","$2"
-
-    export NAME=$RETURN1
-    export STEP=$RETURN2
-    export ROOT_STEP=$RETURN3
-    export PATH_STEP=$RETURN4
-
-    fill_steps $NAME $STEP $ROOT_STEP $PATH_STEP
-
+    fill_var_env
+    determine_path_to_go
+    cd $path_to_go
     remove_returns
     ps1
 }
 
-fill_steps () {
-    if [[ $2 == "type" ]]; then
-        export TYPE=$1
-        export ROOT_TYPE=$3
-        export PATH_TYPE=$4
-    elif [[ $2 == "proj" ]]; then
-        export PROJ=$1
-        export ROOT_PROJ=$3
-        export PATH_PROJ=$4
-    elif [[ $2 == "fold" ]]; then
-        export FOLD=$1
-        export ROOT_FOLD=$3
-        export PATH_FOLD=$4
-    elif [[ $2 == "soft" ]]; then
-        export SOFT=$1
-        export ROOT_SOFT=$3
-        export PATH_SOFT=$4
-    fi
+
+fill_var_env ()
+{
+    declare -a names=(${RETURN1})
+    declare -a roots=(${RETURN2})
+    declare -a paths=(${RETURN3})
+
+    export TYPE=${names[0]}
+    export ROOT_TYPE=${roots[0]}
+    export PATH_TYPE=${paths[0]}
+
+    export PROJ=${names[1]}
+    export ROOT_PROJ=${roots[1]}
+    export PATH_PROJ=${paths[1]}
+
+    export FOLD=${names[2]}
+    export ROOT_FOLD=${roots[2]}
+    export PATH_FOLD=${paths[2]}
+
+    export SOFT=${names[3]}
+    export ROOT_SOFT=${roots[3]}
+    export PATH_SOFT=${paths[3]}
 }
 
-format_variables () {
-    if [[ $TYPE == "" ]]; then
-        export TYPE=""
+
+determine_path_to_go ()
+{
+    declare -a names=(${RETURN1})
+
+    if [[ ${names[0]} == "" ]] && [[ ${names[1]} == "" ]] && [[ ${names[2]} == "" ]] && [[ ${names[3]} == "" ]]; then
+        path=$PATH_CHANTIER
     fi
-    if [[ $ROOT_TYPE == "" ]]; then
-        export ROOT_TYPE=""
+    if [[ ${names[0]} != "" ]] && [[ ${names[1]} == "" ]] && [[ ${names[2]} == "" ]] && [[ ${names[3]} == "" ]]; then
+        path=$PATH_TYPE
     fi
-    if [[ $PATH_TYPE == "" ]]; then
-        export PATH_TYPE=""
+    if [[ ${names[0]} != "" ]] && [[ ${names[1]} != "" ]] && [[ ${names[2]} == "" ]] && [[ ${names[3]} == "" ]]; then
+        path=$PATH_PROJ
+    fi
+    if [[ ${names[0]} != "" ]] && [[ ${names[1]} != "" ]] && [[ ${names[2]} != "" ]] && [[ ${names[3]} == "" ]]; then
+        path=$PATH_FOLD
+    fi
+    if [[ ${names[0]} != "" ]] && [[ ${names[1]} != "" ]] && [[ ${names[2]} != "" ]] && [[ ${names[3]} != "" ]]; then
+        path=$PATH_SOFT
     fi
 
+    path_to_go=$path
 
-
-    if [[ $PROJ == "" ]]; then
-        export PROJ=""
-    fi
-    if [[ $ROOT_PROJ == "" ]]; then
-        export ROOT_PROJ=""
-    fi
-    if [[ $PATH_PROJ == "" ]]; then
-        export PATH_PROJ=""
-    fi
-
-
-
-    if [[ $FOLD == "" ]]; then
-        export FOLD=""
-    fi
-    if [[ $ROOT_FOLD == "" ]]; then
-        export ROOT_FOLD=""
-    fi
-    if [[ $PATH_FOLD == "" ]]; then
-        export PATH_FOLD=""
-    fi
-
-
-
-    if [[ $SOFT == "" ]]; then
-        export SOFT=""
-    fi
-    if [[ $ROOT_SOFT == "" ]]; then
-        export ROOT_SOFT=""
-    fi
-    if [[ $PATH_SOFT == "" ]]; then
-        export PATH_SOFT=""
-    fi
 }
+
 
 
 debug "${BASH_SOURCE[0]}" out
-
-
-
-
-#    input="$1"
-#    arg=$(echo "$input" | tr '[:upper:]' '[:lower:]')
-#
-#    if [[ $arg == "type" ]]; then
-#        pyt "$BIN/python/run.py" "$1","$2","$3"
-#
-#        # On desactive toutes les variables sauf type
-#        killpipe "type"
-#        export TYPE=$RETURN1
-#        export ROOT_TYPE=$RETURN2
-#
-#        if [[ $AUTORUN == 0 ]]; then
-#            cd "$ROOT_TYPE" || return
-#        fi
-#	fi
-#
-#    if [[ $arg == "proj" ]]; then
-#        if [[ $TYPE != "" ]]; then
-#            pyt "$BIN/python/run.py" "$1","$2","$3"
-#
-#            # On desactive toutes les variables sauf type
-#            killpipe "proj"
-#            export PROJ=$RETURN1
-#            export ROOT_PROJ=$RETURN2
-#
-#            if [[ $AUTORUN == 0 ]]; then
-#                cd "$ROOT_PROJ" || return
-#            fi
-#        else
-#            echo -e "$JAUNE"
-#            echo "Erreur, vous devez setter un type de proj avant cette etape."
-#        fi
-#	fi
-#
-#	if [[ $arg == "fold" ]]; then
-#        if [[ $TYPE != "" ]] && [[ $PROJ != "" ]]; then
-#            pyt "$BIN/python/run.py" "$1","$2","$3"
-#
-#            # On desactive toutes les variables sauf type
-#            killpipe "fold"
-#            export FOLD=$RETURN1
-#            export ROOT_FOLD=$RETURN2
-#
-#            if [[ $AUTORUN == 0 ]]; then
-#                cd "$ROOT_FOLD" || return
-#            fi
-#        else
-#            echo -e "$JAUNE"
-#            echo "Erreur, vous devez setter un type de proj et un proj avant cette etape."
-#        fi
-#	fi

@@ -1,9 +1,10 @@
 # coding: utf-8
 # !/usr/bin/python
-
+import os
 import sys
 import pdb
 
+from api.constants import *
 from api.color import color
 from api.fonctions import *
 from api.var import *
@@ -13,356 +14,287 @@ from api.tools import *
 from numpy.core.defchararray import lower
 
 
-# Commande run :
-#
-# retourne les variabless STEP et ROOT_STEP
-# ======================================================
-
-
-# FONCTIONS :
-# ======================================================
-
-
-def determine_path_repertoires(step, typ, prj, fld, sft):
-    # Permet de renvoyer l'adresse selon la step (TYPE, PROJ ...)
-
-    ret = ""
-    if lower(step) == "type":
-        # r = os.environ['ROOT_TYPE']
-        ret = typ.root()
-
-    elif lower(step) == "proj":
-        # r = os.environ['ROOT_PROJ']
-        ret = prj.root()
-
-    elif lower(step) == "fold":
-        # r = os.environ['ROOT_FOLD']
-        ret = fld.root()
-
-    elif lower(step) == "soft":
-        # r = os.environ['ROOT_FOLD'] + "/02_work/"
-        ret = sft.root()
-
-    return ret
-
-
-def analyse_arguments(arg1, arg2):
-    """
-    Remet les arguments dans l'ordre.
-    Les arguments sont interchangeable, cad peut importe l'ordre dans lequel on les renseignes.
-    Cette fonction les remets dans le bon ordre.\n
-    :param arg1: saisie du repertoire dans lequel on veut se setter (dependant de step)
-    :param arg2: valeur parmis : "-t","-p","-f","-s","type","proj","fold","soft"
-    :return: saisie_step, saisie_name
-    """
-    liste = ("-t", "-p", "-f", "-s", "type", "proj", "fold", "soft")
-
-    saisie_step = ""
-    saisie_name = ""
-
-    if arg1 == "" and arg2 == "":
-        saisie_step = ""
-        saisie_name = ""
-
-    elif arg1 != "" and arg2 == "":
-        if arg1 in liste:
-            saisie_step = arg1
-            saisie_name = ""
-        elif arg1 not in liste:
-            saisie_step = ""
-            saisie_name = arg1
-
-    elif arg1 != "" and arg2 != "":
-        if arg1 in liste:
-            saisie_step = arg1
-            saisie_name = arg2
-        if arg2 in liste:
-            saisie_step = arg2
-            saisie_name = arg1
-        if arg1 in liste and arg2 in liste:
-            saisie_step = "erreur"
-            saisie_name = "erreur"
-        if arg1 not in liste and arg2 not in liste:
-            saisie_step = "erreur"
-            saisie_name = "erreur"
-
-    return saisie_step, saisie_name
-
-
-def analyse_saisie_step(saisie_step, typ, prj, fld, sft):
-    """
-    Analyse toutes les variables de set (typ, prj...), et les remplis si besoin.
-    :param saisie_step: le step qui a été renseigné lors de l'appel de la fonction.
-    :param typ: selon le step qui a ete sette, on va mettre a jour les objets typ prj fld et sft
-    :param prj: objet prj
-    :param fld: objet fld
-    :param sft: objet sft
-    :return: new_step
-    """
-
-    new_step = ""
-
-    if saisie_step == "":
-        new_step = determine_step(typ, prj, fld, sft)
-
-    elif saisie_step == "-t" or lower(saisie_step) == "type":
-        new_step = "type"
-        typ.setcurrent(new_step)
-
-    elif saisie_step == "-p" or lower(saisie_step) == "proj":
-        if typ.current() != "":
-            new_step = "proj"
-            prj.setcurrent(new_step)
-
-    elif saisie_step == "-f" or lower(saisie_step) == "fold":
-        if prj.current() != "":
-            new_step = "fold"
-            fld.setcurrent(new_step)
-
-    elif saisie_step == "-s" or lower(saisie_step) == "soft":
-        if fld.current() != "":
-            new_step = "soft"
-            sft.setcurrent(new_step)
-
-    if new_step == "":
-        new_step = "erreur"
-
-    return new_step
-
-
-def determine_root_step_by_step(STEP, typ, prj, fld, sft):
-    """
-    On fourni la step et la fonction retourne le ROOT_STEP
-    :param STEP:
-    :param typ: objet typ
-    :param prj: objet prj
-    :param fld: objet fld
-    :param sft: objet sft
-    :return: ROOT_STEP
-    """
-    ret = ""
-    if STEP == "type":
-        ret = typ.root()
-    elif STEP == "proj":
-        ret = prj.root()
-    elif STEP == "fold":
-        ret = fld.root()
-    elif STEP == "proj":
-        ret = sft.root()
-
-    return ret
-
-def determine_path_step_by_step(STEP, typ, prj, fld, sft):
-    """
-    On fourni la step et la fonction retourne le ROOT_STEP
-    :param STEP:
-    :param typ: objet typ
-    :param prj: objet prj
-    :param fld: objet fld
-    :param sft: objet sft
-    :return: ROOT_STEP
-    """
-    ret = ""
-    if STEP == "type":
-        ret = typ.path()
-    elif STEP == "proj":
-        ret = prj.path()
-    elif STEP == "fold":
-        ret = fld.path()
-    elif STEP == "proj":
-        ret = sft.path()
-
-    return ret
-
-
-def next_step(STEP):
-    ret = ""
-
-    if STEP == "type":
-        ret = "proj"
-    elif STEP == "proj":
-        ret = "fold"
-    elif STEP == "fold":
-        ret = "soft"
-    elif STEP == "soft":
-        ret = ""
-
-    return ret
-
-
-def next_root(step, name, typ, prj, fld, sft):
-    # Permet de renvoyer l'adresse selon la step (TYPE, PROJ ...)
-
-    r = ""
-    if lower(step) == "type":
-        # r = os.environ['ROOT_TYPE']
-        r = typ.path()
-
-    elif lower(step) == "proj":
-        # r = os.environ['ROOT_PROJ']
-        r = prj.path()
-
-    elif lower(step) == "fold":
-        # r = os.environ['ROOT_FOLD']
-        r = fld.path()
-
-    elif lower(step) == "soft":
-        # r = os.environ['ROOT_FOLD'] + "/02_work/"
-        r = sft.path()
-
-    return r
-
-
-def maj_var(step, name, typ, prj, fld, sft):
+def maj_var_env(step, name, typ, prj, fld, sft):
     if step == "type":
-        typ.setcurrent(name)
+        typ.set_current_name(name)
+        prj.set_current_name("")
+        fld.set_current_name("")
+        sft.set_current_name("")
     elif step == "proj":
-        prj.setcurrent(name)
+        prj.set_current_name(name)
+        fld.set_current_name("")
+        sft.set_current_name("")
     elif step == "fold":
-        fld.setcurrent(name)
+        fld.set_current_name(name)
+        sft.set_current_name("")
     elif step == "soft":
-        sft.setcurrent(name)
+        sft.set_current_name(name)
 
 
-def run(arg1="", arg2=""):
+def creation_var_env_si_existe_pas():
+    # Creation des variables d'environnement si elles n'existent pas
+    if "PATH_CHANTIER" not in os.environ:
+        os.environ["PATH_CHANTIER"] = ""
+    if "TYPE" not in os.environ:
+        os.environ["TYPE"] = ""
+    if "ROOT_TYPE" not in os.environ:
+        os.environ["ROOT_TYPE"] = ""
+    if "PATH_TYPE" not in os.environ:
+        os.environ["PATH_TYPE"] = ""
+    if "PROJ" not in os.environ:
+        os.environ["PROJ"] = ""
+    if "ROOT_PROJ" not in os.environ:
+        os.environ["ROOT_PROJ"] = ""
+    if "PATH_PROJ" not in os.environ:
+        os.environ["PATH_PROJ"] = ""
+    if "FOLD" not in os.environ:
+        os.environ["FOLD"] = ""
+    if "ROOT_FOLD" not in os.environ:
+        os.environ["ROOT_FOLD"] = ""
+    if "PATH_FOLD" not in os.environ:
+        os.environ["PATH_FOLD"] = ""
+    if "SOFT" not in os.environ:
+        os.environ["SOFT"] = ""
+    if "ROOT_SOFT" not in os.environ:
+        os.environ["ROOT_SOFT"] = ""
+    if "PATH_SOFT" not in os.environ:
+        os.environ["PATH_SOFT"] = ""
+
+
+def create_list_steps(step_depart: str, nb_name: int):
+    steps = ["type", "proj", "fold", "soft"]
+    liste = []
+
+    if nb_name == 0:
+        nb_name = 1
+
+    # On determine le numero de l'etape de depart, ex: si la saisie est fold, gap = 2
+    n = 0
+    gap = 0
+    for i in steps:
+        if i == step_depart:
+            gap = n
+        n = n + 1
+
+    n = 0
+    for i in range(nb_name):
+        liste.append(steps[n + gap])
+        n = n + 1
+
+    return liste
+
+
+def format_names(saisie: list) -> list:
     """
-    Permet de setter la prochaine step. Exemple, si 'type' est deja sette, run settera 'proj'...
-    Les arguments sont interchangeables
-    :param arg1: saisieName, cad 3d pour le type, hotrod pour projet, etc...
-    :param arg2: saisieStep, cad une de ces valeurs : (-t,-p,-f,-s,type,proj,fold,soft)
-    :return: STEP et ROOT_STEP
+    Formate les saisies names pour qu'elles soient compatibles avec le programme.
+    :param saisie: saisie des names
+    :return: liste des names correctement formatées.
     """
-    STEP = ""
-    NAME = ""
-    ROOT_STEP = ""
-    PATH_STEP = ""
+    liste = []
 
-    # On charge les differentes classes
-    cl = color()
+    for s in saisie:
+        items = s.split("/")
+        for item in items:
+            if item != "":
+                liste.append(item)
+
+    return liste
+
+
+def format_step(saisie: str) -> str:
+    """
+    Formate la saisie step pour qu'elle soit compatible avec le programme.
+    :param saisie: saisie de la step : -t, -type, -p ...
+    :return: str de la step correctement formatée.
+    """
+    step = ""
+
+    if saisie == "-t" or saisie == "-type" or saisie == "t" or saisie == "type":
+        step = "type"
+    if saisie == "-p" or saisie == "-proj" or saisie == "p" or saisie == "proj":
+        step = "proj"
+    if saisie == "-f" or saisie == "-fold" or saisie == "f" or saisie == "fold":
+        step = "fold"
+    if saisie == "-s" or saisie == "-soft" or saisie == "s" or saisie == "soft":
+        step = "soft"
+
+    return step
+
+
+def format_export(txt):
+    buffer = ""
+    for t in txt:
+        buffer = buffer + " " + t
+
+    return buffer
+
+
+def env():
+    print("Type= " + os.environ["TYPE"])
+    print("Proj= " + os.environ["PROJ"])
+    print("Fold= " + os.environ["FOLD"])
+    print("Soft= " + os.environ["SOFT"])
+
+
+def analyse_step_depart(step_depart):
+    step = ""
+
+    if step_depart == "":
+        if os.environ["TYPE"] == "":
+            step = "type"
+        elif os.environ["PROJ"] == "":
+            step = "proj"
+        elif os.environ["FOLD"] == "":
+            step = "fold"
+        elif os.environ["SOFT"] == "":
+            step = "soft"
+    else:
+        step = step_depart
+
+    return step
+
+
+def determine_path_by_var_env():
+    path = ""
+
+    if os.environ["TYPE"] == "":
+        path = os.environ["PATH_CHANTIER"]
+    elif os.environ["PROJ"] == "":
+        path = os.environ["PATH_TYPE"]
+    elif os.environ["FOLD"] == "":
+        path = os.environ["PATH_PROJ"]
+    elif os.environ["SOFT"] == "":
+        path = os.environ["PATH_FOLD"]
+
+    if os.environ["SOFT"] != "":
+        path = os.environ["PATH_SOFT"]
+
+    return path
+
+
+def run(step_saisie: str, liste_names: list):
+    """
+
+    :param liste_names:
+    :param step_saisie:
+
+    :return:
+    """
+
+    NAMES = []
+    ROOTS = []
+    PATHS = []
 
     typ = Step("type")
     prj = Step("proj")
     fld = Step("fold")
     sft = Step("soft")
 
-    # On charge les variables d'environnement si elles existent.
-    typ.setcurrent(os.environ["TYPE"])
-    prj.setcurrent(os.environ["PROJ"])
-    fld.setcurrent(os.environ["FOLD"])
-    sft.setcurrent(os.environ["SOFT"])
+    creation_var_env_si_existe_pas()
 
+    step_depart = analyse_step_depart(step_saisie)
 
+    names = liste_names
+    steps = create_list_steps(step_depart, len(names))
 
+    name = ""
+    step = ""
+    path = ""
 
+    nb_boucles = len(liste_names)
 
+    if not names:
+        step = steps[0]
 
-    # aa(typ=os.environ["TYPE"],prj=os.environ["PROJ"],fld=os.environ["FOLD"],sft=os.environ["SOFT"])
-    # var(typ, prj, fld, sft)
+        # Mise a jour des variables d'environnement
+        maj_var_env(step, name, typ, prj, fld, sft)
 
-    # On analyse les arguments et les step pour extraire
-    retourAnalyseArgs = analyse_arguments(arg1, arg2)  # Remet les arguments dans l'ordre.
-    retourAnalyseSteps = analyse_saisie_step(retourAnalyseArgs[0], typ, prj, fld, sft)  # Formate le texte de step
+        path = determine_path_by_var_env()
 
-    # Resultats des differentes analyses
-    saisie_name = retourAnalyseArgs[1]
-    saisie_step = retourAnalyseSteps
-
-    # On repertorie les variables qui vont nous servir pour la suite
-    step = saisie_step
-    name = saisie_name
-
-    # var(typ, prj, fld, sft)
-
-    # Mise a jour des variables d'environnement
-    maj_var(step, name, typ, prj, fld, sft)
-
-    # var(typ, prj, fld, sft)
-
-    path = determine_path_repertoires(step, typ, prj, fld, sft)  # On recupere le path de l'endroit ou se positionner
-
-    # aa(step=step, name=name, path=path)
-    # aa(step=step, name=name)
-    # var(typ, prj, fld, sft)
-    # aa(typ=typ.current(),prj=prj.current(), fld=fld.current(), sft=sft.current(), typrrot=typ.root(),
-    # prjroot=prj.root(), fldroot=fld.root(), sftroot=sft.root())
-
-    # SI LE NOM DE LA RECHERCHE N'EST PAS RENSEIGNE :
-    # ======================================================================
-
-    if name == "":
-
-        # On cree la liste des repertoires
+        # On génère la liste des repertoires
         liste_repertoires = os.listdir(path)
-
-        # On affiche la liste des repertoires pour la step
-        affiche_liste("Liste de " + step, liste_repertoires, 10, "", 0, 1)
-        print(cl.JAUNE())
-        print("Vous pouvez setter un " + step + ": run " + str(lower(step)) + " name." + cl.NEUTRE())
-
-        NAME = ""
-        STEP = step
-        ROOT_STEP = os.environ["ROOT_CHANTIER"]
-        PATH_STEP = ""
 
         # var(typ, prj, fld, sft)
 
-    # SI LE NOM DE LA RECHERCHE EST RENSEIGNE :
-    # ======================================================================
+        # On affiche la liste des repertoires pour la step
+        affiche_liste("Liste de " + step, liste_repertoires, 10, "", 0, 1)
+        print(f"\n{jau1}Vous pouvez setter un {step}: run {str(lower(step))} name.{neu}")
 
-    elif name != "":
-        # On verifie l'existence du nom dans le path
+    for n in range(nb_boucles):
+        name = names[n]
+        step = steps[n]
 
-        verif = verif_existence(path, name)
+        # Mise a jour des variables d'environnement
+        maj_var_env(step, name, typ, prj, fld, sft)
 
-        if verif:
-            NAME = name
-            STEP = step
-            ROOT_STEP = determine_root_step_by_step(STEP, typ, prj, fld, sft)
-            PATH_STEP = determine_path_step_by_step(STEP, typ, prj, fld, sft)
+        # On récupère le path de l'endroit ou se positionner
+        # path = determine_path_repertoires(step, typ, prj, fld, sft)
+        path = determine_path_by_var_env()
 
-            # var(typ, prj, fld, sft)
-            # aa(name=name, STEP=STEP, ROOT_STEP=ROOT_STEP)
+        # AFFICHAGE ====================================================================================================
 
-            nextStep = next_step(step)
-            nextRoot = next_root(step, name, typ, prj, fld, sft)
+        # if name == "" and step == "":
 
-            # aa(nextStep=nextStep, nextRoot=nextRoot)
+        # On génère la liste des repertoires
+        liste_repertoires = os.listdir(path)
 
-            # On cree la liste des repertoires
-            liste_repertoires = os.listdir(nextRoot)
+        # var(typ, prj, fld, sft)
 
-            if next != "":
-                affiche_liste(f"Liste des {nextStep}", liste_repertoires, clear=1, largeur=15)
+        # On affiche la liste des repertoires pour la step
+        affiche_liste("Liste de " + step, liste_repertoires, 10, "", 0, 1)
+        print(f"\n{jau1}Vous pouvez setter un {step}: run {str(lower(step))} name.{neu}")
 
-    # Pour le terminal :
-    # aa(typ=os.environ["TYPE"], prj=os.environ["PROJ"], fld=os.environ["FOLD"], sft=os.environ["SOFT"])
-    fill_return1(NAME)
-    fill_return2(STEP)
-    fill_return3(ROOT_STEP)
-    fill_return4(PATH_STEP)
+        # elif name != "":
+        #     # On verifie l'existence du nom dans le path
+        #     verif = verif_existence(path, name)
+        #
+        #     if verif:
+        #         nextStep = next_step(step)
+        #         nextRoot = next_root(step, name, typ, prj, fld, sft)
+        #
+        #         # On cree la liste des repertoires
+        #         liste_repertoires = os.listdir(nextRoot)
+        #
+        #         if next != "":
+        #             affiche_liste(f"Liste des {nextStep}", liste_repertoires, clear=1, largeur=15)
+
+        # STEPS.append(step)
+        NAMES.append(name)
+        ROOTS.append(path)
+        PATHS.append(path + "/" + name)
+
+    # EXPORT ===========================================================================================================
+
+    NAMES = (typ.current_name(), prj.current_name(), fld.current_name(), sft.current_name())
+    ROOTS = (typ.root(), prj.root(), fld.root(), sft.root())
+    PATHS = (typ.path(), prj.path(), fld.path(), sft.path())
+
+    fill_return1(format_export(NAMES))
+    fill_return2(format_export(ROOTS))
+    fill_return3(format_export(PATHS))
 
 
-# SCRIPT :
+# MAIN SCRIPT :
 # ======================================================
 
 # On recupere les arguments
 args = sys.argv[1]
 
-# On splite (,) les arguments, et on cree une liste 'argument'
+# On analyse et on format les saisies:
 args = args.split(',')
-arguments = []
 
-# On splitte (/) a nouveau et on supprime les arguments vides
+liste_steps = (
+    "-t", "-p", "-f", "-s", "t", "p", "f", "s", "-type", "-proj", "-fold", "-soft", "type", "proj", "fold", "soft")
+saisie_names = []
+saisie_step = ""
+
 for arg in args:
-    arg = arg.split('/')
-    for a in arg:
-        if a != "":
-            arguments.append(a)
+    if arg != "" and arg not in liste_steps:
+        saisie_names.append(arg)
+    if arg in liste_steps:
+        saisie_step = arg
 
-n = len(arguments)
-if n == 0:
-    run()
-elif n == 1:
-    run(arguments[0])
-elif n == 2:
-    run(arguments[0], arguments[1])
+saisie_names = format_names(saisie_names)
+saisie_step = format_step(saisie_step)
+
+run(saisie_step, saisie_names)

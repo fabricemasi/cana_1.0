@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="cana" pattern="!file[cana_1.0]:.idea//*&amp;&amp;!file:.gitignore&amp;&amp;!ext:*/" />
+</component>

@@ -138,23 +138,30 @@ def verif_existence(path, saisie):
         return 0
 
 
-def determine_step(typ, prj, fld, sft):
+def determine_step(saisie_step):
 
-    STEP = ""
+    curentTyp = os.environ["TYPE"]
+    curentPrj = os.environ["PROJ"]
+    curentFol = os.environ["FOLD"]
+    curentSft = os.environ["SOFT"]
 
-    if typ.current() == "":
-        STEP = "type"
+    if saisie_step == "":
 
-    elif prj.current() == "":
-        STEP = "proj"
+        step = ""
 
-    elif fld.current() == "":
-        STEP = "fold"
+        if curentTyp == "":
+            step = "type"
+        elif curentPrj == "":
+            step = "proj"
+        elif curentFol == "":
+            step = "fold"
+        elif curentSft == "":
+            step = "soft"
+    else:
 
-    elif sft.current() == "":
-        STEP = "soft"
+        step = saisie_step
 
-    return STEP
+    return step
 
 
 def create_folder(path, folder):
@@ -192,22 +199,52 @@ def var(typ, prj, fld, sft):
     nb = 13
 
     print(f"{gri}=========================================================================={neu}")
-    print(f"{gra}{gri}{'typ.current()':<{nb}}{gri} = {neu}{ble}{str(typ.current())}{neu}")
+    print(f"{gra}{gri}{'typ.current()':<{nb}}{gri} = {neu}{ble}{str(typ.current_name())}{neu}")
     print(f"{gra}{gri}{'typ.root()':<{nb}}{gri} = {neu}{ble}{str(typ.root())}")
     print(f"{gra}{gri}{'typ.path()':<{nb}}{gri} = {neu}{ble}{str(typ.path())}")
     print(f"{gri}--------------------------------------------------------------------------{neu}")
-    print(f"{gra}{gri}{'prj.current()':<{nb}}{gri} = {neu}{ble}{str(prj.current())}{neu}")
+    print(f"{gra}{gri}{'prj.current()':<{nb}}{gri} = {neu}{ble}{str(prj.current_name())}{neu}")
     print(f"{gra}{gri}{'prj.root()':<{nb}}{gri} = {neu}{ble}{str(prj.root())}{neu}")
     print(f"{gra}{gri}{'prj.path()':<{nb}}{gri} = {neu}{ble}{str(prj.path())}{neu}")
     print(f"{gri}--------------------------------------------------------------------------{neu}")
-    print(f"{gra}{gri}{'fld.current()':<{nb}}{gri} = {neu}{ble}{str(fld.current())}{neu}")
+    print(f"{gra}{gri}{'fld.current()':<{nb}}{gri} = {neu}{ble}{str(fld.current_name())}{neu}")
     print(f"{gra}{gri}{'fld.root()':<{nb}}{gri} = {neu}{ble}{str(fld.root())}{neu}")
     print(f"{gra}{gri}{'fld.path()':<{nb}}{gri} = {neu}{ble}{str(fld.path())}{neu}")
     print(f"{gri}--------------------------------------------------------------------------{neu}")
-    print(f"{gra}{gri}{'sft.current()':<{nb}}{gri} = {neu}{ble}{str(sft.current())}{neu}")
+    print(f"{gra}{gri}{'sft.current()':<{nb}}{gri} = {neu}{ble}{str(sft.current_name())}{neu}")
     print(f"{gra}{gri}{'sft.root()':<{nb}}{gri} = {neu}{ble}{str(sft.root())}{neu}")
     print(f"{gra}{gri}{'sft.path()':<{nb}}{gri} = {neu}{ble}{str(sft.path())}{neu}")
     print(f"{gri}=========================================================================={neu}")
     pause()
+
+
+def create_var_env_if_not_exist():
+    # Creation des variables d'environnement si elles n'existent pas
+    if "PATH_CHANTIER" not in os.environ:
+        os.environ["PATH_CHANTIER"] = ""
+    if "TYPE" not in os.environ:
+        os.environ["TYPE"] = ""
+    if "ROOT_TYPE" not in os.environ:
+        os.environ["ROOT_TYPE"] = ""
+    if "PATH_TYPE" not in os.environ:
+        os.environ["PATH_TYPE"] = ""
+    if "PROJ" not in os.environ:
+        os.environ["PROJ"] = ""
+    if "ROOT_PROJ" not in os.environ:
+        os.environ["ROOT_PROJ"] = ""
+    if "PATH_PROJ" not in os.environ:
+        os.environ["PATH_PROJ"] = ""
+    if "FOLD" not in os.environ:
+        os.environ["FOLD"] = ""
+    if "ROOT_FOLD" not in os.environ:
+        os.environ["ROOT_FOLD"] = ""
+    if "PATH_FOLD" not in os.environ:
+        os.environ["PATH_FOLD"] = ""
+    if "SOFT" not in os.environ:
+        os.environ["SOFT"] = ""
+    if "ROOT_SOFT" not in os.environ:
+        os.environ["ROOT_SOFT"] = ""
+    if "PATH_SOFT" not in os.environ:
+        os.environ["PATH_SOFT"] = ""
 
 # print(f"{gra}{gri}{cle:<{tabulation}} : {neu}{ble}{valeur}{neu}")

@@ -132,10 +132,10 @@ class MainWindow(QWidget, Form):
     def clic_list_TYPE(self):  # Clique sur la liste des types
         selected_type = self.treeWidget_TYPE.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        TYPE.setcurrent(selected_type)
-        PROJ.setcurrent("")
-        FOLD.setcurrent("")
-        SOFT.setcurrent("")
+        TYPE.set_current_name(selected_type)
+        PROJ.set_current_name("")
+        FOLD.set_current_name("")
+        SOFT.set_current_name("")
 
         # os.system("settype")
 
@@ -144,24 +144,24 @@ class MainWindow(QWidget, Form):
     def clic_list_PROJ(self):  # Clique sur la liste des types
         selected_proj = self.treeWidget_PROJ.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        PROJ.setcurrent(selected_proj)
-        FOLD.setcurrent("")
-        SOFT.setcurrent("")
+        PROJ.set_current_name(selected_proj)
+        FOLD.set_current_name("")
+        SOFT.set_current_name("")
 
         reinit()
 
     def clic_list_FOLD(self):  # Clique sur la liste des types
         selected_fold = self.treeWidget_FOLD.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        FOLD.setcurrent(selected_fold)
-        SOFT.setcurrent("")
+        FOLD.set_current_name(selected_fold)
+        SOFT.set_current_name("")
 
         reinit()
 
     def clic_list_SOFT(self):  # Clique sur la liste des types
         selected_soft = self.treeWidget_SOFT.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        SOFT.setcurrent(selected_soft)
+        SOFT.set_current_name(selected_soft)
 
         reinit()
 

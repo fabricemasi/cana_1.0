@@ -27,6 +27,8 @@ alias s="run soft"
 
 alias r="run"
 
+alias kp="killpipe"
+
 
 
 

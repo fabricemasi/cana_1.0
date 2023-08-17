@@ -16,10 +16,12 @@ alias rt="type_remove"
 alias z="python $BIN/python/test.py"
 
 
+# CANA
+# ----------------------------------------------------------------
 
+alias bin="cd $BIN; clear; ls -lah"
 
-
-
+alias binenv=". $BIN/venv/bin/activate"
 
 
 
@@ -125,7 +127,7 @@ alias brc="$EDITOR ~/.bashrc"
 
 
 
-alias bin="cd $BIN; clear; echo 'BIN :';echo '====='; ls -lah"
+
 
 alias smb="$EDITOR /etc/samba/smb.conf"
 alias fst="$EDITOR /etc/fstab"

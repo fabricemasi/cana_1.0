@@ -15,7 +15,13 @@ killpipe ()
         unset ROOT_FOLD
         unset ROOT_SOFT
 
+        unset PATH_TYPE
+        unset PATH_PROJ
+        unset PATH_FOLD
+        unset PATH_SOFT
+
         cd ~
+        clear
 	    ps1
 	else
 	    input="$1"

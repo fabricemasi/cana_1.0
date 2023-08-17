@@ -1,8 +1,8 @@
 # coding: utf-8
 # !/usr/bin/python
 
-from api.var import Step
+from api.apiTest import *
 
-typ = Step("type")
+exemple = ttest()
 
-print(typ.current())
+print(exemple)
