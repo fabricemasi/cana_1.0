@@ -4,7 +4,7 @@ debug "${BASH_SOURCE[0]}" in
 
 jh ()
 {
-	python "$BIN/python/pipe_set_history_filtre.py"
+	python "$BIN/python/jh.py"
 }
 
 jhh ()

@@ -5,7 +5,7 @@ import time
 import pdb
 import inspect
 
-from .color import color
+from .main_color import color
 
 
 def aa(stop=1, tabulation=0, cadre=1, **kwargs):

@@ -57,13 +57,25 @@ pyt () {
 }
 
 
-remove_returns (){
+remove_returns () {
+
+    vide=""
+    echo "$vide" > "$BIN"/data/return1.txt
+    echo "$vide" > "$BIN"/data/return2.txt
+    echo "$vide" > "$BIN"/data/return3.txt
+    echo "$vide" > "$BIN"/data/return4.txt
+    echo "$vide" > "$BIN"/data/return5.txt
+    echo "$vide" > "$BIN"/data/return_nb.txt
+
+
+
     unset RETURN_NB
     unset RETURN1
     unset RETURN2
     unset RETURN3
     unset RETURN4
     unset RETURN5
+
 }
 
 

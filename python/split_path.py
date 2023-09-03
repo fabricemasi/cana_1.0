@@ -5,7 +5,7 @@
 
 
 import sys
-from python.api.api import *
+from python.api.main_api import *
 
 BIN = os.environ["BIN"]
 

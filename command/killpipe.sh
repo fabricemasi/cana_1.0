@@ -27,7 +27,6 @@ killpipe ()
 	    input="$1"
         arg=$(echo "$input" | tr '[:upper:]' '[:lower:]')
 
-
 	    if [[ $arg == "type" ]]; then
             unset PROJ
             unset FOLD

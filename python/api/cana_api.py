@@ -3,8 +3,8 @@
 
 import shutil
 
-from .color import *
-from .tools import *
+from .main_tools import *
+from .cana_constants import *
 # from .var import Step
 
 import os
@@ -165,27 +165,24 @@ def determine_step(saisie_step):
 
 
 def create_folder(path, folder):
-    cl = color.color()
-    exist = verif_existence(path, folder)
 
-    if exist == 1:
-        STEP = tp
-        ROOT_STEP = path + "/" + tp
+    print(f"\n{jau1}Le repertoire {bli}{folder}{neu}{jau1} n'existe pas, voulez-vous le creer?{neu}\n")
+    reponse = input()
 
-    elif exist == 0:
-        print(cl.JAUNE() + "\nLe repertoire " + cl.BLINK() + folder + cl.NEUTRE() +
-              cl.JAUNE() + " n'existe pas, voulez-vous le creer?\n" + cl.NEUTRE())
-        reponse = raw_input()
-
-        if reponse == "o" or reponse == "y":
+    if reponse == "o" or reponse == "y":
+        try:
             os.mkdir(path + "/" + folder, mode=0o755)
-            STEP = folder
-            ROOT_STEP = path + "/" + folder
+        except:
+            print(f"\n{rou1}Erreur.{neu} Le repertoire {folder} n'a pas ete cree.{rou1} exit_pipe{neu}")
+            return 0
         else:
-            STEP = ""
-            ROOT_STEP = ""
+            print(f"\n{jau1}Le repertoire {folder} a bien ete creer")
+            return 1
 
-    return STEP, ROOT_STEP
+    else:
+        print(f"\n{jau1}Le repertoire {folder} n'a pas ete cree.{rou1} exit_pipe{neu}")
+        return 0
+
 
 
 def var(typ, prj, fld, sft):

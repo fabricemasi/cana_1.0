@@ -3,11 +3,11 @@
 import os
 import sys
 
-from api.fonctions import *
+from api.cana_api import *
 from api.AFAC import couleur
-from api.color import color
+from api.main_color import color
 
-from api.api import *
+from api.main_api import *
 
 ROUGE = os.environ["ROUGE"]
 

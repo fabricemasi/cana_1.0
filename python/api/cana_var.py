@@ -2,8 +2,9 @@
 # !/usr/bin/python
 
 import os
-from .tools import *
-
+from .main_tools import *
+from .cana_constants import *
+from .main_api import supprime_last_slash
 
 
 class Step:
@@ -32,19 +33,19 @@ class Step:
             PATH_CHANTIER = os.environ["PATH_CHANTIER"]
             if name:
                 os.environ["TYPE"] = name
-                os.environ["ROOT_TYPE"] = PATH_CHANTIER
-                os.environ["PATH_TYPE"] = PATH_CHANTIER + "/" + name
+                os.environ["ROOT_TYPE"] = supprime_last_slash(PATH_CHANTIER)
+                os.environ["PATH_TYPE"] = supprime_last_slash(PATH_CHANTIER + "/" + name + schem_type)
             else :
                 os.environ["TYPE"] = ""
-                os.environ["ROOT_TYPE"] = PATH_CHANTIER
-                os.environ["PATH_TYPE"] = PATH_CHANTIER
+                os.environ["ROOT_TYPE"] = supprime_last_slash(PATH_CHANTIER)
+                os.environ["PATH_TYPE"] = supprime_last_slash(PATH_CHANTIER)
 
         elif self.step.upper() == "PROJ":
             if name:
                 PATH_TYPE = os.environ["PATH_TYPE"]
                 os.environ["PROJ"] = name
-                os.environ["ROOT_PROJ"] = PATH_TYPE
-                os.environ["PATH_PROJ"] = PATH_TYPE + "/" + name
+                os.environ["ROOT_PROJ"] = supprime_last_slash(PATH_TYPE)
+                os.environ["PATH_PROJ"] = supprime_last_slash(PATH_TYPE + "/" + name + schem_proj)
             else:
                 PATH_TYPE = os.environ["PATH_TYPE"]
                 os.environ["PROJ"] = ""
@@ -55,8 +56,8 @@ class Step:
             if name:
                 PATH_PROJ = os.environ["PATH_PROJ"]
                 os.environ["FOLD"] = name
-                os.environ["ROOT_FOLD"] = PATH_PROJ
-                os.environ["PATH_FOLD"] = PATH_PROJ + "/" + name + "/02_work/"
+                os.environ["ROOT_FOLD"] = supprime_last_slash(PATH_PROJ)
+                os.environ["PATH_FOLD"] = supprime_last_slash(PATH_PROJ + "/" + name + schem_fold)
             else:
                 PATH_PROJ = os.environ["PATH_PROJ"]
                 os.environ["FOLD"] = ""
@@ -67,8 +68,8 @@ class Step:
             if name:
                 PATH_FOLD = os.environ["PATH_FOLD"]
                 os.environ["SOFT"] = name
-                os.environ["ROOT_SOFT"] = PATH_FOLD
-                os.environ["PATH_SOFT"] = PATH_FOLD + "/" + name
+                os.environ["ROOT_SOFT"] = supprime_last_slash(PATH_FOLD)
+                os.environ["PATH_SOFT"] = supprime_last_slash(PATH_FOLD + "/" + name + schem_soft)
             else:
                 PATH_FOLD = os.environ["PATH_FOLD"]
                 os.environ["SOFT"] = ""
@@ -83,13 +84,13 @@ class Step:
         ROOT_SOFT = os.environ["ROOT_SOFT"]
 
         if self.step.upper() == "TYPE":
-            ret = ROOT_TYPE
+            ret = supprime_last_slash(ROOT_TYPE)
         if self.step.upper() == "PROJ":
-            ret = ROOT_PROJ
+            ret = supprime_last_slash(ROOT_PROJ)
         if self.step.upper() == "FOLD":
-            ret = ROOT_FOLD
+            ret = supprime_last_slash(ROOT_FOLD)
         if self.step.upper() == "SOFT":
-            ret = ROOT_SOFT
+            ret = supprime_last_slash(ROOT_SOFT)
 
         return ret
 
@@ -101,13 +102,13 @@ class Step:
         PATH_SOFT = os.environ["PATH_SOFT"]
 
         if self.step.upper() == "TYPE":
-            ret = PATH_TYPE
+            ret = supprime_last_slash(PATH_TYPE)
         if self.step.upper() == "PROJ":
-            ret = PATH_PROJ
+            ret = supprime_last_slash(PATH_PROJ)
         if self.step.upper() == "FOLD":
-            ret = PATH_FOLD
+            ret = supprime_last_slash(PATH_FOLD)
         if self.step.upper() == "SOFT":
-            ret = PATH_SOFT
+            ret = supprime_last_slash(PATH_SOFT)
 
         return ret
 

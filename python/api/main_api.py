@@ -2,8 +2,11 @@
 # !/usr/bin/python
 
 import os
+from .cana_constants import *
 
 BIN = os.environ["BIN"]
+
+# RETURN ================================================
 
 
 def fill_return_nb(buffer):
@@ -60,5 +63,10 @@ def fill_return5(buffer):
     file.close()
 
 
-def essai():
-    print("Ca marche!!")
+def supprime_last_slash(path):
+    chaine = path
+    if chaine != "":
+        while chaine[-1] == "/":
+            chaine = chaine[:-1]
+    return chaine
+

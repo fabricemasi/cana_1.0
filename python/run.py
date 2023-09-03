@@ -3,15 +3,20 @@
 import os
 import sys
 import pdb
+import time
+from datetime import date, time, datetime
+from numpy.core.defchararray import lower, upper
 
-from api.constants import *
-from api.color import color
-from api.fonctions import *
-from api.var import *
-from api.api import *
-from api.tools import *
+from api.cana_constants import *
+from api.main_color import color
+from api.cana_api import *
+from api.cana_var import *
+from api.main_api import *
+from api.main_tools import *
 
-from numpy.core.defchararray import lower
+
+
+
 
 
 def maj_var_env(step, name, typ, prj, fld, sft):
@@ -72,6 +77,7 @@ def create_list_steps(step_depart: str, nb_name: int):
     n = 0
     gap = 0
     for i in steps:
+
         if i == step_depart:
             gap = n
         n = n + 1
@@ -126,6 +132,9 @@ def format_export(txt):
     for t in txt:
         buffer = buffer + " " + t
 
+    if buffer[0] == " ":
+        buffer=buffer[1:]
+
     return buffer
 
 
@@ -165,22 +174,141 @@ def determine_path_by_var_env():
         path = os.environ["PATH_PROJ"]
     elif os.environ["SOFT"] == "":
         path = os.environ["PATH_FOLD"]
-
     if os.environ["SOFT"] != "":
         path = os.environ["PATH_SOFT"]
 
     return path
 
 
+def determine_root_by_var_env():
+    root = ""
+
+    tp = os.environ["TYPE"]
+    pr = os.environ["PROJ"]
+    fl = os.environ["FOLD"]
+    sf = os.environ["SOFT"]
+
+    if tp != "" and pr == "" and fl == "" and sf == "":
+        root = os.environ["ROOT_TYPE"]
+    if tp != "" and pr != "" and fl == "" and sf == "":
+        root = os.environ["ROOT_PROJ"]
+    if tp != "" and pr != "" and fl != "" and sf == "":
+        root = os.environ["ROOT_FOLD"]
+    if tp != "" and pr != "" and fl != "" and sf != "":
+        root = os.environ["ROOT_SOFT"]
+
+    root = supprime_last_slash(root)
+
+    return root
+
+
+def determine_next_step_by_step(step):
+    next_step = ""
+    libele: str = ""
+
+    if step == "":
+        next_step = "type"
+        libele = "type"
+    if step == "type":
+        next_step = "proj"
+        libele = "projet"
+    if step == "proj":
+        next_step = "fold"
+        libele = "sous-repertoire"
+    if step == "fold":
+        next_step = "soft"
+        libele = "soft"
+    if step == "soft":
+        next_step = "soft"
+        libele = "Fichier"
+
+    return next_step, libele
+
+
+def add_libelle_for_step(step):
+    stp = ""
+    libele = ""
+
+    if step == "type":
+        stp = "type"
+        libele = "type"
+    if step == "proj":
+        stp = "proj"
+        libele = "projet"
+    if step == "fold":
+        stp = "fold"
+        libele = "sous-repertoire"
+    if step == "soft":
+        stp = "soft"
+        libele = "soft"
+
+    return stp, libele
+
+
+def schema(step):
+    schem = ""
+
+    if step.lower() == "type":
+        schem = schem_type
+    if step.lower() == "proj":
+        schem = schem_proj
+    if step.lower() == "fold":
+        schem = schem_fold
+    if step.lower() == "soft":
+        schem = schem_soft
+
+    return schem
+
+
+def killpipe(typ, prj, fld, sft):
+    typ.set_current_name("")
+    prj.set_current_name("")
+    fld.set_current_name("")
+    sft.set_current_name("")
+
+
+def analyse_nb_arguments(step_depart, nb_names, typ, prj, fld, sft):
+    verif = 0
+    if nb_names == 4 and sft.current_name() != "":
+        killpipe(typ, prj, fld, sft)
+        verif = 1
+    else:
+        if step_depart == "type":
+            if nb_names <= 4:
+                verif = 1
+        elif step_depart == "proj":
+            if nb_names <= 3:
+                verif = 1
+        elif step_depart == "fold":
+            if nb_names <= 2:
+                verif = 1
+        elif step_depart == "soft":
+            if nb_names <= 1:
+                verif = 1
+
+
+    return verif
+
+
+def possibly_make_history(typ, prj, fld, sft):
+    command = ""
+    if typ != "" and prj != "" and fld != "" and sft != "":
+        BIN = os.environ["BIN"]
+
+        now = datetime.now()
+        dt = now.strftime("%Y-%m-%d")
+        tm = now.strftime("%H:%M:%S")
+
+        file = f"{BIN}/data/pipe_set_history.txt"
+
+        command = f"\n{dt}--{tm}-----run {typ} {prj} {fld} {sft}"
+
+        file = open(file, 'a')
+        file.write(command)
+        file.close()
+
+
 def run(step_saisie: str, liste_names: list):
-    """
-
-    :param liste_names:
-    :param step_saisie:
-
-    :return:
-    """
-
     NAMES = []
     ROOTS = []
     PATHS = []
@@ -192,7 +320,15 @@ def run(step_saisie: str, liste_names: list):
 
     creation_var_env_si_existe_pas()
 
+    # On format le step depart
     step_depart = analyse_step_depart(step_saisie)
+
+    # Verification du nombre d'arguments. S'il est incoherent, on sort du programme.
+    verif = analyse_nb_arguments(step_depart, len(liste_names), typ, prj, fld, sft)
+
+    if verif == 0:
+        print(f"\n{jau1}Le nombre d'argument est incoherent. {rou1}exit_pipe{neu}")
+        return
 
     names = liste_names
     steps = create_list_steps(step_depart, len(names))
@@ -204,66 +340,63 @@ def run(step_saisie: str, liste_names: list):
     nb_boucles = len(liste_names)
 
     if not names:
+        # Step
         step = steps[0]
+        affiche_step = add_libelle_for_step(step)
 
         # Mise a jour des variables d'environnement
         maj_var_env(step, name, typ, prj, fld, sft)
 
+        # Path
         path = determine_path_by_var_env()
 
         # On génère la liste des repertoires
         liste_repertoires = os.listdir(path)
 
-        # var(typ, prj, fld, sft)
-
         # On affiche la liste des repertoires pour la step
-        affiche_liste("Liste de " + step, liste_repertoires, 10, "", 0, 1)
-        print(f"\n{jau1}Vous pouvez setter un {step}: run {str(lower(step))} name.{neu}")
+        affiche_liste("LISTE DES " + affiche_step[1].upper() + "S", liste_repertoires, 10, "", 0, 1)
 
-    for n in range(nb_boucles):
-        name = names[n]
-        step = steps[n]
-
-        # Mise a jour des variables d'environnement
-        maj_var_env(step, name, typ, prj, fld, sft)
-
-        # On récupère le path de l'endroit ou se positionner
-        # path = determine_path_repertoires(step, typ, prj, fld, sft)
-        path = determine_path_by_var_env()
-
-        # AFFICHAGE ====================================================================================================
-
-        # if name == "" and step == "":
-
-        # On génère la liste des repertoires
-        liste_repertoires = os.listdir(path)
-
-        # var(typ, prj, fld, sft)
-
-        # On affiche la liste des repertoires pour la step
-        affiche_liste("Liste de " + step, liste_repertoires, 10, "", 0, 1)
-        print(f"\n{jau1}Vous pouvez setter un {step}: run {str(lower(step))} name.{neu}")
-
-        # elif name != "":
-        #     # On verifie l'existence du nom dans le path
-        #     verif = verif_existence(path, name)
-        #
-        #     if verif:
-        #         nextStep = next_step(step)
-        #         nextRoot = next_root(step, name, typ, prj, fld, sft)
-        #
-        #         # On cree la liste des repertoires
-        #         liste_repertoires = os.listdir(nextRoot)
-        #
-        #         if next != "":
-        #             affiche_liste(f"Liste des {nextStep}", liste_repertoires, clear=1, largeur=15)
-
-        # STEPS.append(step)
         NAMES.append(name)
         ROOTS.append(path)
         PATHS.append(path + "/" + name)
 
-    # EXPORT ===========================================================================================================
+    for n in range(nb_boucles):
+        # Name
+        name = names[n]
+
+        # Step
+        step = steps[n]
+        next = determine_next_step_by_step(step)
+
+        # Mise a jour des variables d'environnement
+        maj_var_env(step, name, typ, prj, fld, sft)
+
+        # Root
+        root = supprime_last_slash(determine_root_by_var_env())
+
+        # Path
+        path = supprime_last_slash(root + "/" + name + schema(step))
+
+        verif = os.path.isdir(path)
+
+        if not verif:
+            create = create_folder(root, name)
+            if create == 0:
+                return
+
+        # On génère la liste des repertoires
+        liste_repertoires = os.listdir(path)
+
+        # On affiche la liste des repertoires pour la step
+        affiche_liste("LISTE DES " + next[1].upper() + "S", liste_repertoires, 10, "", 0, 1)
+
+        NAMES.append(name)
+        ROOTS.append(path)
+        PATHS.append(path + name)
+
+    # EXPORT TERMINAL===================================================================================================
+
+    possibly_make_history(typ.current_name(), prj.current_name(), fld.current_name(), sft.current_name())
 
     NAMES = (typ.current_name(), prj.current_name(), fld.current_name(), sft.current_name())
     ROOTS = (typ.root(), prj.root(), fld.root(), sft.root())
@@ -276,25 +409,25 @@ def run(step_saisie: str, liste_names: list):
 
 # MAIN SCRIPT :
 # ======================================================
+if __name__ == "__main__":
+    # On recupere les arguments
+    args = sys.argv[1]
 
-# On recupere les arguments
-args = sys.argv[1]
+    # On analyse et on format les saisies:
+    args = args.split(',')
 
-# On analyse et on format les saisies:
-args = args.split(',')
+    liste_steps = (
+        "-t", "-p", "-f", "-s", "t", "p", "f", "s", "-type", "-proj", "-fold", "-soft", "type", "proj", "fold", "soft")
+    saisie_names = []
+    saisie_step = ""
 
-liste_steps = (
-    "-t", "-p", "-f", "-s", "t", "p", "f", "s", "-type", "-proj", "-fold", "-soft", "type", "proj", "fold", "soft")
-saisie_names = []
-saisie_step = ""
+    for arg in args:
+        if arg != "" and arg not in liste_steps:
+            saisie_names.append(arg)
+        if arg in liste_steps:
+            saisie_step = arg
 
-for arg in args:
-    if arg != "" and arg not in liste_steps:
-        saisie_names.append(arg)
-    if arg in liste_steps:
-        saisie_step = arg
+    saisie_names = format_names(saisie_names)
+    saisie_step = format_step(saisie_step)
 
-saisie_names = format_names(saisie_names)
-saisie_step = format_step(saisie_step)
-
-run(saisie_step, saisie_names)
+    run(saisie_step, saisie_names)

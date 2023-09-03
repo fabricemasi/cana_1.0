@@ -13,10 +13,10 @@ from PySide6.QtGui import QIcon
 from pathlib import Path
 
 # from form_main_window import MainWindowForm as Form
-from ui.main_window import Ui_Form as Form
+from gui.ui.main_window import Ui_Form as Form
 
-from api.var import Type, Proj, Fold, Soft
-from api.tools import pause
+from api.cana_var import Step
+from api.main_tools import pause
 
 from PySide6.QtUiTools import QUiLoader
 
@@ -37,7 +37,7 @@ class MainWindow(QWidget, Form):
 
         qss_file = 'dark.css'
 
-        self.setStyleSheet(Path(BIN + "/gui/styles/" + qss_file).read_text())
+        self.setStyleSheet(Path(BIN + "/python/gui/styles/" + qss_file).read_text())
 
         # REGLAGE INTERFACE :
         # ==============================================================================================================
@@ -132,10 +132,10 @@ class MainWindow(QWidget, Form):
     def clic_list_TYPE(self):  # Clique sur la liste des types
         selected_type = self.treeWidget_TYPE.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        TYPE.set_current_name(selected_type)
-        PROJ.set_current_name("")
-        FOLD.set_current_name("")
-        SOFT.set_current_name("")
+        typ.set_current_name(selected_type)
+        prj.set_current_name("")
+        fld.set_current_name("")
+        sft.set_current_name("")
 
         # os.system("settype")
 
@@ -144,34 +144,34 @@ class MainWindow(QWidget, Form):
     def clic_list_PROJ(self):  # Clique sur la liste des types
         selected_proj = self.treeWidget_PROJ.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        PROJ.set_current_name(selected_proj)
-        FOLD.set_current_name("")
-        SOFT.set_current_name("")
+        prj.set_current_name(selected_proj)
+        fld.set_current_name("")
+        sft.set_current_name("")
 
         reinit()
 
     def clic_list_FOLD(self):  # Clique sur la liste des types
         selected_fold = self.treeWidget_FOLD.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        FOLD.set_current_name(selected_fold)
-        SOFT.set_current_name("")
+        fld.set_current_name(selected_fold)
+        sft.set_current_name("")
 
         reinit()
 
     def clic_list_SOFT(self):  # Clique sur la liste des types
         selected_soft = self.treeWidget_SOFT.selectedItems()[0].text(0)  # Le 0 du text(0) est la colonne de liste
 
-        SOFT.set_current_name(selected_soft)
+        sft.set_current_name(selected_soft)
 
         reinit()
 
     def job_terminal(self):
         # if TYPE.current() != "" and PROJ.current() != "" and FOLD.current():
         buffer = "#!/bin/bash\n"
-        buffer += "export TYPE='" + TYPE.current() + "'\n"
-        buffer += "export PROJ='" + PROJ.current() + "'\n"
-        buffer += "export FOLD='" + FOLD.current() + "'\n"
-        buffer += "export SOFT='" + SOFT.current() + "'\n"
+        buffer += "export TYPE='" + typ.current() + "'\n"
+        buffer += "export PROJ='" + prj.current() + "'\n"
+        buffer += "export FOLD='" + fld.current() + "'\n"
+        buffer += "export SOFT='" + sft.current() + "'\n"
 
         BIN_ROOT = os.environ["BIN"]
         file = BIN_ROOT + "/data/autorun.sh"
@@ -197,7 +197,7 @@ class MainWindow(QWidget, Form):
     def explorer_TYPE(self):
         selected_type = self.treeWidget_TYPE.selectedItems()[0].text(0)
 
-        os.system("nautilus " + TYPE.root() + "&")
+        os.system("nautilus " + typ.root() + "&")
 
     def test(self):
         print('ca marche!')
@@ -209,28 +209,28 @@ class MainWindow(QWidget, Form):
 def reinit():
     doing_type = doing_proj = doing_fold = doing_soft = 0
 
-    if TYPE.current() != "" and PROJ.current() == "" and FOLD.current() == "" and SOFT.current() == "":
+    if typ.current() != "" and prj.current() == "" and fld.current() == "" and sft.current() == "":
         doing_type = 1
 
         window.treeWidget_PROJ.clear()
         window.treeWidget_FOLD.clear()
         window.treeWidget_SOFT.clear()
 
-    elif TYPE.current() != "" and PROJ.current() != "" and FOLD.current() == "" and SOFT.current() == "":
+    elif typ.current() != "" and prj.current() != "" and fld.current() == "" and sft.current() == "":
         doing_type = 1
         doing_proj = 1
 
         window.treeWidget_FOLD.clear()
         window.treeWidget_SOFT.clear()
 
-    elif TYPE.current() != "" and PROJ.current() != "" and FOLD.current() != "" and SOFT.current() == "":
+    elif typ.current() != "" and prj.current() != "" and fld.current() != "" and sft.current() == "":
         doing_type = 1
         doing_proj = 1
         doing_fold = 1
 
         window.treeWidget_SOFT.clear()
 
-    elif TYPE.current() != "" and PROJ.current() != "" and FOLD.current() != "" and SOFT.current() != "":
+    elif typ.current() != "" and prj.current() != "" and fld.current() != "" and sft.current() != "":
         doing_type = 1
         doing_proj = 1
         doing_fold = 1
@@ -240,51 +240,51 @@ def reinit():
 
     # Type :
     if doing_type == 1:
-        os.environ["ROOT_TYPE"] = os.environ["ROOT_CHANTIER"] + "/" + TYPE.current()
+        os.environ["ROOT_TYPE"] = os.environ["ROOT_CHANTIER"] + "/" + typ.current()
 
         window.treeWidget_TYPE.setHeaderLabels(['Type'])
 
         # On positionne le focus :
-        item_type = window.treeWidget_TYPE.findItems(TYPE.current(), Qt.MatchFixedString)[0]
+        item_type = window.treeWidget_TYPE.findItems(typ.current(), Qt.MatchFixedString)[0]
         window.treeWidget_TYPE.setCurrentItem(item_type)
 
         # On rempli la liste suivante :
-        fill_list(window.treeWidget_PROJ, PROJ.liste())
+        fill_list(window.treeWidget_PROJ, prj.liste())
 
     # Proj :
     if doing_proj == 1:
-        os.environ["ROOT_PROJ"] = os.environ["ROOT_TYPE"] + "/" + PROJ.current()
+        os.environ["ROOT_PROJ"] = os.environ["ROOT_TYPE"] + "/" + prj.current()
 
         window.treeWidget_PROJ.setHeaderLabels(['Proj'])
 
         # On positionne le focus :
-        item_proj = window.treeWidget_PROJ.findItems(PROJ.current(), Qt.MatchFixedString)[0]
+        item_proj = window.treeWidget_PROJ.findItems(prj.current(), Qt.MatchFixedString)[0]
         window.treeWidget_PROJ.setCurrentItem(item_proj)
 
         # On rempli la liste suivante :
-        fill_list(window.treeWidget_FOLD, FOLD.liste())
+        fill_list(window.treeWidget_FOLD, fld.liste())
 
     # Fold :
     if doing_fold == 1:
-        os.environ["ROOT_FOLD"] = os.environ["ROOT_PROJ"] + "/" + FOLD.current()
+        os.environ["ROOT_FOLD"] = os.environ["ROOT_PROJ"] + "/" + fld.current()
 
         window.treeWidget_FOLD.setHeaderLabels(['Fold'])
 
         # On positionne le focus :
-        item_fold = window.treeWidget_FOLD.findItems(FOLD.current(), Qt.MatchFixedString)[0]
+        item_fold = window.treeWidget_FOLD.findItems(fld.current(), Qt.MatchFixedString)[0]
         window.treeWidget_FOLD.setCurrentItem(item_fold)
 
         # On rempli la liste suivante :
-        fill_list(window.treeWidget_SOFT, SOFT.liste())
+        fill_list(window.treeWidget_SOFT, sft.liste())
 
     # Fold :
     if doing_soft == 1:
-        os.environ["ROOT_SOFT"] = os.environ["ROOT_FOLD"] + "/" + SOFT.current()
+        os.environ["ROOT_SOFT"] = os.environ["ROOT_FOLD"] + "/" + sft.current()
 
         window.treeWidget_SOFT.setHeaderLabels(['Soft'])
 
         # On positionne le focus :
-        item_soft = window.treeWidget_SOFT.findItems(SOFT.current(), Qt.MatchFixedString)[0]
+        item_soft = window.treeWidget_SOFT.findItems(sft.current(), Qt.MatchFixedString)[0]
         window.treeWidget_SOFT.setCurrentItem(item_soft)
 
 
@@ -313,15 +313,17 @@ if __name__ == "__main__":
 
     window = MainWindow()
 
-    TYPE = Type()
-    PROJ = Proj()
-    FOLD = Fold()
-    SOFT = Soft()
+    typ = Step("type")
+    prj = Step("proj")
+    fld = Step("fold")
+    sft = Step("soft")
+
+
 
     # CORPS DU PRG
     # ==================================================================================================================
 
-    fill_list(window.treeWidget_TYPE, TYPE.liste())
+    fill_list(window.treeWidget_TYPE, typ.liste_item())
 
     reinit()
 

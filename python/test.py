@@ -1,8 +1,5 @@
-# coding: utf-8
-# !/usr/bin/python
+from test2 import fonction_test
 
-from api.apiTest import *
-
-exemple = ttest()
-
-print(exemple)
+print(__name__)
+fonction_test()
+print("Nous venons d'executer fichier.py")

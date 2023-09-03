@@ -15,14 +15,18 @@ debug "${BASH_SOURCE[0]}" in
 
 
 run () {
+
     pyt "run.py" $1,$2,$3,$4,$5
 
     fill_var_env
     determine_path_to_go
     cd $path_to_go
     remove_returns
+
     ps1
 }
+
+
 
 
 fill_var_env ()
@@ -46,6 +50,7 @@ fill_var_env ()
     export SOFT=${names[3]}
     export ROOT_SOFT=${roots[3]}
     export PATH_SOFT=${paths[3]}
+
 }
 
 

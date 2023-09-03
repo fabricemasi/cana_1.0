@@ -16,6 +16,8 @@
 
 
 
+
+
 # root_pipe :
 # fold_pipe :
 # path_pipe :
@@ -55,6 +57,13 @@ fold_archives="archives"
 path_archives=${root_archives}${fold_archives}
 
 
+# path_icons :
+# path_fonts :
+
+path_icones="${BIN}/../icones/"
+path_fonts="${BIN}/../fonts/"
+
+
 if [[ -e "${path_pipe}" ]]; then
     if [[ $AUTORUN == 0 ]]; then
 
@@ -68,11 +77,15 @@ if [[ -e "${path_pipe}" ]]; then
         export FOLD_ARCHIVES=${fold_archives}
         export PATH_ARCHIVES=${path_archives}
 
+        export PATH_ICONES=${path_icones}
+        export PATH_FONTS=${path_fonts}
+
     elif [[ $AUTORUN == 1 ]]; then
         pass
     fi
 else
     echo " Le chemin vers le dossier $path_chantier ne peut pas être atteint. Aucune variable générée."
+
 fi
 
 

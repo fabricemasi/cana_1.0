@@ -1,25 +1,26 @@
-#coding: utf-8
-#!/usr/bin/python
+# coding: utf-8
+# !/usr/bin/python
 
 # -------------------------------------------------
 # IMPORT
 # -------------------------------------------------
 
-import os, sys
+import os
+import sys
 
-bin = os.environ['BIN']
-fm_library=bin+"/library"
-sys.path.append(fm_library)
+from api.cana_constants import *
 
-from python.api.AFAC import couleur
-from file import *
+
+BIN = os.environ['BIN']
+# fm_library = BIN + "/library"
+# sys.path.append(fm_library)
 
 
 # -------------------------------------------------
 # FONCTIONS
 # -------------------------------------------------
 
-def tab(chaine, separateur = "", val_tab = 5):
+def tab(chaine, separateur="", val_tab=5):
     """
     :param chaine:
     :param separateur: Si on veut un separateur du type "-"
@@ -41,19 +42,17 @@ def tab(chaine, separateur = "", val_tab = 5):
 # SCRIPT
 # -------------------------------------------------
 
-path = os.environ['BIN']+'/data'
-file_sh = 'pipe_set_history.txt'
+path = BIN + '/data'
+file = path + '/' + 'pipe_set_history.txt'
 
-os.chdir(path)
-
+# os.chdir(path)
 
 # Chargement du fichier ds le buffer :
-file = open(file_sh)
+file = open(file)
 buffer = file.read()
 file.close()
 
 buffer = buffer.split('\n')
-
 
 # On suprime les champs vides s'il y en a :
 buffer2 = []
@@ -63,7 +62,6 @@ for l in buffer:
 
 buffer = []
 buffer = buffer2
-
 
 # On inverse la liste :
 buffer.reverse()
@@ -78,13 +76,14 @@ for l in buffer:
         x += 1
         liste.append(l)
 
-
 # et on reinverse la liste
 liste.reverse()
 
-
 # On affiche la liste
 for l in liste:
-    couleur('JAUNE')
-    print(l)
-    couleur('NEUTRE')
+    if l[:3]=="run":
+        print(f"{jau1}{l}{neu}")
+    else:
+        print(f"{gri2}{l}{neu}")
+
+

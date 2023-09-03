@@ -1,7 +1,12 @@
 # coding: utf-8
 # !/usr/bin/python
 
-from .color import *
+from .main_color import *
+
+
+# Couleurs :
+# ========================================================
+
 
 cl = color()
 
@@ -51,3 +56,11 @@ mag2b = cl.MAGENTA2_BCK()
 cya2b = cl.CYAN2_BCK()
 bla2b = cl.BLANC2_BCK()
 
+
+# Schemas de creation des steps :
+# ========================================================
+
+schem_type = "/"
+schem_proj = "/"
+schem_fold = "/02_work/"
+schem_soft = "/"
