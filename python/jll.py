@@ -2,10 +2,8 @@
 # !/usr/bin/python
 
 import os
-from run import run, format_export
-from api.main_tools import *
-from api.cana_api import *
-from api.main_api import *
+
+from api.cana_import import *
 
 BIN = os.environ['BIN']
 

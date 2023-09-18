@@ -5,7 +5,6 @@ import shutil
 
 from .main_tools import *
 from .cana_constants import *
-# from .var import Step
 
 import os
 
@@ -184,7 +183,6 @@ def create_folder(path, folder):
         return 0
 
 
-
 def var(typ, prj, fld, sft):
 
     cl = color()
@@ -215,7 +213,7 @@ def var(typ, prj, fld, sft):
     pause()
 
 
-def create_var_env_if_not_exist():
+def creation_var_env_si_existe_pas():
     # Creation des variables d'environnement si elles n'existent pas
     if "PATH_CHANTIER" not in os.environ:
         os.environ["PATH_CHANTIER"] = ""
@@ -244,4 +242,28 @@ def create_var_env_if_not_exist():
     if "PATH_SOFT" not in os.environ:
         os.environ["PATH_SOFT"] = ""
 
-# print(f"{gra}{gri}{cle:<{tabulation}} : {neu}{ble}{valeur}{neu}")
+
+def determine_current_step(step_depart=""):
+    """
+    Determine l'etape courante (seulement si step_depart n'est pas renseigne)
+    :param step_depart: bypass la fonction si renseigne
+    :return: step
+    """
+
+    step = ""
+
+    if step_depart == "":
+        if os.environ["TYPE"] == "":
+            step = "type"
+        elif os.environ["PROJ"] == "":
+            step = "proj"
+        elif os.environ["FOLD"] == "":
+            step = "fold"
+        elif os.environ["SOFT"] == "":
+            step = "soft"
+        else:
+            step = "soft"
+    else:
+        step = step_depart
+
+    return step

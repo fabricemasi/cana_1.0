@@ -1,22 +1,15 @@
 # coding: utf-8
 # !/usr/bin/python
+
 import os
 import sys
-import pdb
-import time
-from datetime import date, time, datetime
-from numpy.core.defchararray import lower, upper
+from datetime import datetime
 
-from api.cana_constants import *
-from api.main_color import color
+from api.cana_Step import Step
 from api.cana_api import *
-from api.cana_var import *
-from api.main_api import *
+from api.cana_constants import *
 from api.main_tools import *
-
-
-
-
+from api.main_api import *
 
 
 def maj_var_env(step, name, typ, prj, fld, sft):
@@ -36,43 +29,14 @@ def maj_var_env(step, name, typ, prj, fld, sft):
         sft.set_current_name(name)
 
 
-def creation_var_env_si_existe_pas():
-    # Creation des variables d'environnement si elles n'existent pas
-    if "PATH_CHANTIER" not in os.environ:
-        os.environ["PATH_CHANTIER"] = ""
-    if "TYPE" not in os.environ:
-        os.environ["TYPE"] = ""
-    if "ROOT_TYPE" not in os.environ:
-        os.environ["ROOT_TYPE"] = ""
-    if "PATH_TYPE" not in os.environ:
-        os.environ["PATH_TYPE"] = ""
-    if "PROJ" not in os.environ:
-        os.environ["PROJ"] = ""
-    if "ROOT_PROJ" not in os.environ:
-        os.environ["ROOT_PROJ"] = ""
-    if "PATH_PROJ" not in os.environ:
-        os.environ["PATH_PROJ"] = ""
-    if "FOLD" not in os.environ:
-        os.environ["FOLD"] = ""
-    if "ROOT_FOLD" not in os.environ:
-        os.environ["ROOT_FOLD"] = ""
-    if "PATH_FOLD" not in os.environ:
-        os.environ["PATH_FOLD"] = ""
-    if "SOFT" not in os.environ:
-        os.environ["SOFT"] = ""
-    if "ROOT_SOFT" not in os.environ:
-        os.environ["ROOT_SOFT"] = ""
-    if "PATH_SOFT" not in os.environ:
-        os.environ["PATH_SOFT"] = ""
-
-
 def create_list_steps(step_depart: str, nb_name: int):
     steps = ["type", "proj", "fold", "soft"]
     liste = []
 
     if nb_name == 0:
         nb_name = 1
-
+    if nb_name == 4 and step_depart == "soft":
+        step_depart = "type"
     # On determine le numero de l'etape de depart, ex: si la saisie est fold, gap = 2
     n = 0
     gap = 0
@@ -86,7 +50,6 @@ def create_list_steps(step_depart: str, nb_name: int):
     for i in range(nb_name):
         liste.append(steps[n + gap])
         n = n + 1
-
     return liste
 
 
@@ -133,7 +96,7 @@ def format_export(txt):
         buffer = buffer + " " + t
 
     if buffer[0] == " ":
-        buffer=buffer[1:]
+        buffer = buffer[1:]
 
     return buffer
 
@@ -143,24 +106,6 @@ def env():
     print("Proj= " + os.environ["PROJ"])
     print("Fold= " + os.environ["FOLD"])
     print("Soft= " + os.environ["SOFT"])
-
-
-def analyse_step_depart(step_depart):
-    step = ""
-
-    if step_depart == "":
-        if os.environ["TYPE"] == "":
-            step = "type"
-        elif os.environ["PROJ"] == "":
-            step = "proj"
-        elif os.environ["FOLD"] == "":
-            step = "fold"
-        elif os.environ["SOFT"] == "":
-            step = "soft"
-    else:
-        step = step_depart
-
-    return step
 
 
 def determine_path_by_var_env():
@@ -272,6 +217,10 @@ def analyse_nb_arguments(step_depart, nb_names, typ, prj, fld, sft):
     if nb_names == 4 and sft.current_name() != "":
         killpipe(typ, prj, fld, sft)
         verif = 1
+    if nb_names == 4 and sft.current_name() != "soft":
+        killpipe(typ, prj, fld, sft)
+        verif = 1
+
     else:
         if step_depart == "type":
             if nb_names <= 4:
@@ -285,7 +234,6 @@ def analyse_nb_arguments(step_depart, nb_names, typ, prj, fld, sft):
         elif step_depart == "soft":
             if nb_names <= 1:
                 verif = 1
-
 
     return verif
 
@@ -308,20 +256,32 @@ def possibly_make_history(typ, prj, fld, sft):
         file.close()
 
 
-def run(step_saisie: str, liste_names: list):
-    NAMES = []
-    ROOTS = []
-    PATHS = []
+def check_liste_names(liste_names):
+    liste = []
 
-    typ = Step("type")
-    prj = Step("proj")
-    fld = Step("fold")
-    sft = Step("soft")
+    # Si liste_names n'est pas une liste on le transforme en liste
+    if type(liste_names) is not list:
+        liste_names = [liste_names]
 
-    creation_var_env_si_existe_pas()
+    for i in liste_names:
+        if i != "":
+            liste.append(i)
+
+    return liste
+
+
+def run_old(step_saisie: str, liste_names: list, typ=Step("type"), prj=Step("proj"), fld=Step("fold"), sft=Step("soft"),
+            console: bool = 0):
+    if console:
+        NAMES = []
+        ROOTS = []
+        PATHS = []
 
     # On format le step depart
-    step_depart = analyse_step_depart(step_saisie)
+    step_depart = determine_current_step(step_saisie)
+
+    # On verifie la liste_names (on supprime les champs vides)
+    liste_names = check_liste_names(liste_names)
 
     # Verification du nombre d'arguments. S'il est incoherent, on sort du programme.
     verif = analyse_nb_arguments(step_depart, len(liste_names), typ, prj, fld, sft)
@@ -331,6 +291,7 @@ def run(step_saisie: str, liste_names: list):
         return
 
     names = liste_names
+
     steps = create_list_steps(step_depart, len(names))
 
     name = ""
@@ -393,7 +354,6 @@ def run(step_saisie: str, liste_names: list):
         NAMES.append(name)
         ROOTS.append(path)
         PATHS.append(path + name)
-
     # EXPORT TERMINAL===================================================================================================
 
     possibly_make_history(typ.current_name(), prj.current_name(), fld.current_name(), sft.current_name())
@@ -407,8 +367,122 @@ def run(step_saisie: str, liste_names: list):
     fill_return3(format_export(PATHS))
 
 
-# MAIN SCRIPT :
+def determine_step_from_nothing():
+    step = ""
+
+    if os.environ["TYPE"] == "":
+        step = "type"
+    elif os.environ["PROJ"] == "":
+        step = "proj"
+    elif os.environ["FOLD"] == "":
+        step = "fold"
+    elif os.environ["SOFT"] == "":
+        step = "soft"
+    else:
+        step = "soft"
+
+    return step
+
+
+def run(step: str, names: list, typ=Step("type"), prj=Step("proj"), fld=Step("fold"), sft=Step("soft"),
+        console: bool = False):
+
+    # On supprime les chants vides de la liste names
+    names = check_liste_names(names)
+
+    # Verification du nombre d'arguments. S'il est incoherent, on sort du programme
+    verif = analyse_nb_arguments(step, len(names), typ, prj, fld, sft)
+    if verif == 0:
+        print(f"\n{jau1}Le nombre d'argument est incoherent. {rou1}exit_pipe{neu}")
+        return
+
+    # Creation de la liste des steps qui correspondront au names
+    steps = create_list_steps(step, len(names))
+
+    # Nombre de boucles necessaires
+    nb_boucles = len(names)
+
+    NAMES = []
+    ROOTS = []
+    PATHS = []
+
+    libelle_step = []
+
+    liste_repertoires = []
+
+    path = ""
+
+    if not names:
+        # Name
+        name = ""
+
+        # step
+        step = steps[0]
+        libelle_step = add_libelle_for_step(step)
+
+        # Mise a jour des variables d'environnement
+        maj_var_env(step, name, typ, prj, fld, sft)
+
+        # RESULTATS :
+        path = determine_path_by_var_env()
+
+        NAMES.append(name)
+        ROOTS.append(path)
+        PATHS.append(path + "/" + name)
+
+    for n in range(nb_boucles):
+        # Name
+        name = names[n]
+        libelle_step = add_libelle_for_step(step)
+
+        # Step
+        step = steps[n]
+        next = determine_next_step_by_step(step)
+        libelle_step = add_libelle_for_step(next)
+
+        # Mise a jour des variables d'environnement
+        maj_var_env(step, name, typ, prj, fld, sft)
+
+        # Root
+        root = supprime_last_slash(determine_root_by_var_env())
+
+        # Path
+        path = supprime_last_slash(root + "/" + name + schema(step))
+        verif = os.path.isdir(path)
+        if not verif:
+            create = create_folder(root, name)
+            if create == 0:
+                return
+
+        NAMES.append(name)
+        ROOTS.append(path)
+        PATHS.append(path + "/" + name)
+
+    # On génère la liste des repertoires
+    liste_repertoires = os.listdir(path)
+
+    # On complete l'historique si le set est complet
+    possibly_make_history(typ.current_name(), prj.current_name(), fld.current_name(), sft.current_name())
+
+    NAMES = (typ.current_name(), prj.current_name(), fld.current_name(), sft.current_name())
+    ROOTS = (typ.root(), prj.root(), fld.root(), sft.root())
+    PATHS = (typ.path(), prj.path(), fld.path(), sft.path())
+
+    if console:
+        # On affiche la liste des repertoires pour la step
+        affiche_liste("LISTE DES " + libelle_step[1].upper() + "S", liste_repertoires, 10, "", 0, 1)
+
+        fill_return1(format_export(NAMES))
+        fill_return2(format_export(ROOTS))
+        fill_return3(format_export(PATHS))
+
+    return step
+
+
+# FONCTIONS POUR TERMINAL :
 # ======================================================
+
+
 if __name__ == "__main__":
     # On recupere les arguments
     args = sys.argv[1]
@@ -416,18 +490,24 @@ if __name__ == "__main__":
     # On analyse et on format les saisies:
     args = args.split(',')
 
+    # On reformatte les saisies et on cree les saisie_names et saisie_step
     liste_steps = (
-        "-t", "-p", "-f", "-s", "t", "p", "f", "s", "-type", "-proj", "-fold", "-soft", "type", "proj", "fold", "soft")
-    saisie_names = []
-    saisie_step = ""
+        "-t", "-p", "-f", "-s", "t", "p", "f", "s",
+        "-type", "-proj", "-fold", "-soft", "type", "proj", "fold", "soft")
+    step = ""
+    names = []
 
     for arg in args:
         if arg != "" and arg not in liste_steps:
-            saisie_names.append(arg)
+            names.append(arg)
         if arg in liste_steps:
-            saisie_step = arg
+            step = arg
 
-    saisie_names = format_names(saisie_names)
-    saisie_step = format_step(saisie_step)
+    step = format_step(step)
+    names = format_names(names)
 
-    run(saisie_step, saisie_names)
+    if step == "":
+        step = determine_step_from_nothing()
+
+    test = run(step, names, console=True)
+

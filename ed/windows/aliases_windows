@@ -5,7 +5,7 @@ alias edi="/mnt/c/'Program Files'/'Sublime Text'/sublime_text.exe"
 export EDITOR='gedit'
 
 
-alias gui="python $BIN/gui/main.py"
+alias interface="python $BIN/gui/main.py"
 
 
 alias i="init"

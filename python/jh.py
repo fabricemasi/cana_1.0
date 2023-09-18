@@ -6,9 +6,8 @@
 # -------------------------------------------------
 
 import os
-import sys
 
-from api.cana_constants import *
+from api.cana_import import *
 
 
 BIN = os.environ['BIN']

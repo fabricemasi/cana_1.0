@@ -5,12 +5,20 @@ import os
 from .main_tools import *
 from .cana_constants import *
 from .main_api import supprime_last_slash
-
+from .cana_api import creation_var_env_si_existe_pas
 
 class Step:
     def __init__(self, step):
-
         self.step = step
+
+        creation_var_env_si_existe_pas()
+
+        if os.environ["TYPE"] == "":
+            PATH_CHANTIER = os.environ["PATH_CHANTIER"]
+            os.environ["TYPE"] = ""
+            os.environ["ROOT_TYPE"] = supprime_last_slash(PATH_CHANTIER)
+            os.environ["PATH_TYPE"] = supprime_last_slash(PATH_CHANTIER)
+
 
 
     def current_name(self):
@@ -115,18 +123,30 @@ class Step:
 
     def liste_item(self):
 
-        ROOT_TYPE = os.environ["ROOT_TYPE"]
-        ROOT_PROJ = os.environ["ROOT_PROJ"]
-        ROOT_FOLD = os.environ["ROOT_FOLD"]
-        ROOT_SOFT = os.environ["ROOT_SOFT"]
+        PATH_TYPE = os.environ["PATH_TYPE"]
+        PATH_PROJ = os.environ["PATH_PROJ"]
+        PATH_FOLD = os.environ["PATH_FOLD"]
+        PATH_SOFT = os.environ["PATH_SOFT"]
 
         if self.step.upper() == "TYPE":
-            liste = os.listdir(ROOT_TYPE)
+            try:
+                liste = os.listdir(PATH_TYPE)
+            except:
+                liste = []
         if self.step.upper() == "PROJ":
-            liste = os.listdir(ROOT_PROJ)
+            try:
+                liste = os.listdir(PATH_PROJ)
+            except:
+                liste = []
         if self.step.upper() == "FOLD":
-            liste = os.listdir(ROOT_FOLD)
+            try:
+                liste = os.listdir(PATH_FOLD)
+            except:
+                liste = []
         if self.step.upper() == "SOFT":
-            liste = os.listdir(ROOT_SOFT)
+            try:
+                liste = os.listdir(PATH_SOFT)
+            except:
+                liste = []
 
         return liste

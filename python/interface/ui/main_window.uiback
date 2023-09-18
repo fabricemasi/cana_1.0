@@ -184,7 +184,7 @@ QPushButton{
               </property>
               <property name="icon">
                <iconset theme="user-desktop">
-                <normaloff>.</normaloff>.</iconset>
+                <normaloff>../../gui/ui</normaloff>../../gui/ui</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -253,21 +253,6 @@ QPushButton{
               </property>
              </widget>
             </item>
-            <item>
-             <widget class="QTreeWidget" name="treeWidget_TYPE">
-              <property name="columnCount">
-               <number>1</number>
-              </property>
-              <attribute name="headerVisible">
-               <bool>true</bool>
-              </attribute>
-              <column>
-               <property name="text">
-                <string notr="true">1</string>
-               </property>
-              </column>
-             </widget>
-            </item>
            </layout>
           </widget>
          </item>
@@ -331,6 +316,21 @@ QPushButton{
             <property name="bottomMargin">
              <number>10</number>
             </property>
+            <item>
+             <widget class="QTreeWidget" name="treeWidget_TYPE">
+              <property name="columnCount">
+               <number>1</number>
+              </property>
+              <attribute name="headerVisible">
+               <bool>true</bool>
+              </attribute>
+              <column>
+               <property name="text">
+                <string notr="true">1</string>
+               </property>
+              </column>
+             </widget>
+            </item>
             <item>
              <widget class="QLabel" name="label_PROJ_liste">
               <property name="minimumSize">
@@ -432,7 +432,7 @@ QPushButton{
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../icones/fold2.png</normaloff>../icones/fold2.png</iconset>
+                <normaloff>../../gui/icones/fold2.png</normaloff>../../gui/icones/fold2.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -610,7 +610,7 @@ QPushButton{
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>../icones/fold2.png</normaloff>../icones/fold2.png</iconset>
+                <normaloff>../../gui/icones/fold2.png</normaloff>../../gui/icones/fold2.png</iconset>
               </property>
               <property name="iconSize">
                <size>
@@ -692,7 +692,7 @@ QPushButton{
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../icones/terminal.png</normaloff>../icones/terminal.png</iconset>
+          <normaloff>../../gui/icones/terminal.png</normaloff>../../gui/icones/terminal.png</iconset>
         </property>
        </widget>
       </item>
@@ -715,7 +715,7 @@ QPushButton{
         </property>
         <property name="icon">
          <iconset theme="exit">
-          <normaloff>.</normaloff>.</iconset>
+          <normaloff>../../gui/ui</normaloff>../../gui/ui</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -931,7 +931,7 @@ QPushButton{
                  </property>
                  <property name="icon">
                   <iconset>
-                   <normaloff>../icones/fold2.png</normaloff>../icones/fold2.png</iconset>
+                   <normaloff>../../gui/icones/fold2.png</normaloff>../../gui/icones/fold2.png</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -1005,7 +1005,7 @@ QPushButton{
           </size>
          </property>
          <property name="text">
-          <string>Arrete de mentir, c'est moi !!!!!!!!!!!!</string>
+          <string>test</string>
          </property>
         </widget>
        </widget>

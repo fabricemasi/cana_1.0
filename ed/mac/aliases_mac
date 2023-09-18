@@ -78,7 +78,7 @@ alias kp="killpipe"
 
 
 alias test="python $BIN/gui/main.py"
-alias gui="python $BIN/gui/main.py"
+alias interface="python $BIN/gui/main.py"
 
 
 # ======================================================================================================================

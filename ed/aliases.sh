@@ -17,7 +17,7 @@ alias rt="type_remove"
 alias z="python $BIN/python/test.py"
 alias z2="python $BIN/python/test2.py"
 
-alias g="python $BIN/python/gui_main.py"
+alias g="pyside6-uic $BIN/python/interface/ui/main_window.ui -o $BIN/python/interface/ui/main_window.py; python $BIN/python/gui.py"
 
 
 # CANA
