@@ -8,7 +8,7 @@ import inspect
 from .main_color import color
 
 
-def aa(stop=1, tabulation=0, cadre=1, **kwargs):
+def aa(stop=0, tabulation=0, cadre=1, **kwargs):
     """
     Permet de visualiser une variable rapidement. Accepte les tableaux.
     Fonctionne comme la fonction "a" mais la syntaxe change un peu.\n

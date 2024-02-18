@@ -137,7 +137,7 @@ def verif_existence(path, saisie):
         return 0
 
 
-def determine_step(saisie_step):
+def determine_step(saisie_step=""):
 
     curentTyp = os.environ["TYPE"]
     curentPrj = os.environ["PROJ"]
@@ -182,6 +182,8 @@ def create_folder(path, folder):
         print(f"\n{jau1}Le repertoire {folder} n'a pas ete cree.{rou1} exit_pipe{neu}")
         return 0
 
+# def determine_step():
+
 
 def var(typ, prj, fld, sft):
 
@@ -210,7 +212,7 @@ def var(typ, prj, fld, sft):
     print(f"{gra}{gri}{'sft.root()':<{nb}}{gri} = {neu}{ble}{str(sft.root())}{neu}")
     print(f"{gra}{gri}{'sft.path()':<{nb}}{gri} = {neu}{ble}{str(sft.path())}{neu}")
     print(f"{gri}=========================================================================={neu}")
-    pause()
+    #pause()
 
 
 def creation_var_env_si_existe_pas():

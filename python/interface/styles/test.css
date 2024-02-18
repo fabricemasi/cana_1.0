@@ -1,0 +1,210 @@
+/*font-family: "JetBrains Mono";*/
+/*font-family: "Inter";*/
+
+QWidget{
+    background-color: rgb(30,32,33);
+    
+    font-family: "Inter";
+    font-size: 18px;
+    color: rgb(200,200,200);
+    
+    border-width: 0px;
+    border-style: none;
+}
+
+
+
+QListWidget{ 
+/*    background-color: rgb(30,32,33); */
+    
+    border-width: 0px;
+    border-style: none;
+    
+    
+}
+QListWidget::item { 
+    background-color: rgb(30,32,33);
+}
+
+
+Qlabel{
+    background-color: rgb(30,32,33);
+
+    margin: 0px;
+    padding: 0px;
+ 
+}
+
+/* === === === === === === === === === === === === */
+
+/* BARRE DES MENUS */
+
+/* === === === === === === === === === === === === */
+
+/*#widget_toolbox{*/
+/*    background-color: rgb(10,12,13);*/
+/*}*/
+
+#bdm_label_01{
+    margin-left: 5px;
+    margin-bottom: 1px;
+    color: rgb(125,125,125);
+}
+
+#frame_toolbox{
+    border-width: 1px;
+    border-style: solid;
+    border-bottom-color: rgb(45, 47, 48);
+}
+#bdm_comboBox_type{
+    background-color: rgb(10,12,13);
+/*    color: rgb(45, 255, 48);*/
+    border: 1px solid rgb(45, 47, 48);
+    selection-background-color: rgba(0,100,200,1);
+    selection-color: rgba(0,0,0,1);
+
+    border-radius: 4px;
+
+    margin-left: 5px;
+    padding-left: 10px;
+/*    font-family: Arial, sans-serif;*/
+/*    font-size: 12px;*/
+/*    font-weight: bold;*/
+}
+QComboBox::drop-down {
+/*    image: url(down_arrow.png); */
+    subcontrol-origin: padding;
+    subcontrol-position: right;
+    width: 20px; /* Largeur du bouton */
+    height: 20px; /* Hauteur du bouton */
+    border: none;
+    background-color: transparent; /* Arrière-plan transparent */
+}
+
+
+
+
+
+/* === === === === === === === === === === === === */
+
+/* FRAME PROJ */
+
+/* === === === === === === === === === === === === */
+
+#frame_proj{
+
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+
+    border-width: 0px;
+    border-style: none;
+    border-color: rgb(255, 0, 0);
+
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(45, 47, 48);
+
+}
+
+#listWidget_proj_image{
+    margin-left: 4px;
+}
+
+#listWidget_proj_text{
+    margin-left: 10px;
+}
+
+
+
+
+
+
+
+
+/* === === === === === === === === === === === === */
+
+/* FRAME FOLD */
+
+/* === === === === === === === === === === === === */
+
+#image_proj{
+    border-width: 0px;
+    border-style: none;
+    border-color: rgb(255, 0, 0);
+    padding: 0px;
+    margin: 4px;
+}
+
+#fold_label_01{
+    font-size: 30px;
+    margin-left: 0.5px;
+    color: rgb(200,200,200);
+}
+
+
+
+
+
+
+#frame_fold{
+
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+
+    border-width: 0px;
+    border-style: none;
+    border-color: rgb(255, 0, 0);
+
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: rgb(45, 47, 48);
+
+}
+
+#listWidget_fold_image{
+    margin-left: 4px;
+}
+
+#listWidget_fold_text{
+    margin-left: 10px;
+}
+
+
+
+
+
+
+
+/* === === === === === === === === === === === === */
+
+/* SCROLL BAR */
+
+/* === === === === === === === === === === === === */
+
+QScrollBar:vertical {
+    background: rgba(40, 42, 43, 1); /* Couleur de fond de la barre de défilement */
+    width: 17px; /* Largeur de la barre de défilement */
+    border-radius: 6px;
+    margin-left: 5px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+QScrollBar::handle:vertical {
+    background: rgba(0,100,200,1); /* Couleur du bouton de la barre de défilement */
+    margin: 0px;
+    min-height: 30px; /* Hauteur minimale du bouton de la barre de défilement */
+    border-radius: 6px;
+}
+
+QScrollBar::add-line:vertical {
+    background: none; /* Couleur du bouton de défilement inférieur */
+    height: 0px; /* Hauteur du bouton de défilement inférieur */
+}
+
+QScrollBar::sub-line:vertical {
+    background: none; /* Couleur du bouton de défilement supérieur */
+    height: 0px; /* Hauteur du bouton de défilement supérieur */
+}

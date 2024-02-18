@@ -3,6 +3,40 @@
 
 export EDITOR='gedit'
 
+
+# NOEL
+# ----------------------------------------------------------------
+
+alias secret="python $BIN/python/noel_01_secret.py"
+alias pirate="python $BIN/python/noel_02_pirate.py"
+alias bateau="python $BIN/python/noel_03_bateau.py"
+
+alias cine="python $BIN/python/cineteque.py"
+
+
+# CINE
+# ----------------------------------------------------------------
+
+alias acti="cd /Volumes/CINEMA_01/01_ACTION;cl;l"
+alias aven="cd /Volumes/CINEMA_01/02_AVENTURE;cl;l"
+alias poli="cd /Volumes/CINEMA_01/03_POLICIER;cl;l"
+alias thri="cd /Volumes/CINEMA_01/04_THRILLER;cl;l"
+alias espi="cd /Volumes/CINEMA_01/05_ESPIONNAGE;cl;l"
+alias come="cd /Volumes/CINEMA_01/06_COMEDIE;cl;l"
+alias dram="cd /Volumes/CINEMA_01/07_DRAME;cl;l"
+alias cata="cd /Volumes/CINEMA_01/08_CATASTROPHE;cl;l"
+alias fant="cd /Volumes/CINEMA_01/09_FANTASTIQUE;cl;l"
+alias scie="cd /Volumes/CINEMA_01/10_SCIENCE_FICTION;cl;l"
+alias comi="cd /Volumes/CINEMA_01/11_COMICS;cl;l"
+alias west="cd /Volumes/CINEMA_01/12_WESTERN;cl;l"
+alias guer="cd /Volumes/CINEMA_01/13_GUERRE;cl;l"
+alias hist="cd /Volumes/CINEMA_01/14_HISTORIQUE;cl;l"
+alias pepl="cd /Volumes/CINEMA_01/15_PEPLUM;cl;l"
+alias horr="cd /Volumes/CINEMA_01/16_HORREUR;cl;l"
+
+alias an2d="cd /Volumes/CINEMA_02/18_ANIMATION_2D;cl;l"
+alias an3d="cd /Volumes/CINEMA_02/18_ANIMATION_3D;cl;l"
+
 # SET
 # ----------------------------------------------------------------
 
@@ -42,6 +76,9 @@ if [[ $SYSTEM == "linux" ]]; then
 
     alias rv="/mnt/c/'Program Files'/DJV2/bin/djv.com"
 fi
+
+alias style="sublime /home/fabrice/Dropbox/PIPELINE/bin/cana_1.0/python/interface/styles/test.css &"
+alias des="pyside6-designer &"
 
 
 # SYSTEME
@@ -120,6 +157,7 @@ alias ...........="cd ../../../../../../../../../.."
 # ----------------------------------------------------------------
 
 alias note="$EDITOR ~/notes/notes.txt"
+alias lnk="$EDITOR ~/Desktop/'A garder'/.link"
 
 
 # SSH

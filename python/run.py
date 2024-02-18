@@ -386,6 +386,17 @@ def determine_step_from_nothing():
 
 def run(step: str, names: list, typ=Step("type"), prj=Step("proj"), fld=Step("fold"), sft=Step("soft"),
         console: bool = False):
+    """
+    :Syntaxe : run("type",['3d','hotrod'])
+    :param step:
+    :param names:
+    :param typ:
+    :param prj:
+    :param fld:
+    :param sft:
+    :param console:
+    :return:
+    """
 
     # On supprime les chants vides de la liste names
     names = check_liste_names(names)
@@ -510,4 +521,3 @@ if __name__ == "__main__":
         step = determine_step_from_nothing()
 
     test = run(step, names, console=True)
-
